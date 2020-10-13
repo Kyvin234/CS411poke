@@ -1,0 +1,12 @@
+{% extends "pokewiki/base.html" %}
+
+{% block title %}
+    <title>pokedex</title>
+{% endblock title %}
+
+{% block content %}
+    <h1>Pokedex</h1>
+    {% for row in poke_entry %}
+        <h3>{{row.name}}</h3>
+    {% endfor %}
+{% endblock content %}

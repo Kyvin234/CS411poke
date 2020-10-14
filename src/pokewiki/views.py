@@ -4,7 +4,9 @@ poke_entry = [{
     'p_id' : 1,
     'name' : "bulbsaur",
     'gen'  : 1,
-    'img'  : "xxx"
+    'img'  : "xxx",
+    'type1': "grass",
+    'type2': "poison"
 },
 {
     'p_id' : 2,

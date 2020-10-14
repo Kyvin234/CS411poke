@@ -1,3 +1,4 @@
-mysqlclient==2.0.1
-Django version = 3.1.1
-Pokepy version = 0.6.1
+mysqlclient version==2.0.1
+Django version==3.1.1
+Pokepy version==0.6.1
+django-crispy-forms version==1.9.2

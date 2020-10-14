@@ -22,5 +22,5 @@ def pokedex(request):
     }
     return render(request, 'pokewiki/pokedex.html', data)
 # movedex part of our pokewiki
-def move(request):
-    return render(request, 'pokewiki/move.html')
+def movedex(request):
+    return render(request, 'pokewiki/movedex.html')

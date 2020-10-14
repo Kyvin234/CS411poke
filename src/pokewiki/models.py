@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import User
+# from django.contrib.auth.models import User
 
 # table for pokemon information
 class p_table(models.Model):
@@ -18,12 +18,14 @@ class p_table(models.Model):
     def __str__(self):
         return self.name
 
+# class i_table(models.Model):
+# class a_table(models.Model):
+# class n_table(models.Model):
+
 # class type_map(models.Model):
 # class ability_map(models.Model):
 # class move_map(models.Model):
 
-class team_table(models.Model):
-    team_name = models.CharField(max_length=50)
-    team_code = models.CharField(max_length=200)
-    creator = models.ForeignKey(User, on_delete=models.CASCADE)
+
+
 

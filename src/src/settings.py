@@ -33,6 +33,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'users.apps.UsersConfig',
     'pokewiki.apps.PokewikiConfig',
+    'crispy_forms',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -128,3 +129,11 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# we use bootstrap4 for our register and login forms
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+# after login, direct to home page
+LOGIN_REDIRECT_URL = 'home'
+# after trying to access profile without loggin in, redirect to our login page
+LOGIN_URL = 'login'

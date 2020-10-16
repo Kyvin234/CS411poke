@@ -29,7 +29,7 @@ class p_table(models.Model):
     type2 = models.ForeignKey(t_table, on_delete=models.CASCADE, related_name="type2", default="")
     def __str__(self):
         return self.name
-
+    
 # class i_table(models.Model):
 # class a_table(models.Model):
 # class n_table(models.Model):

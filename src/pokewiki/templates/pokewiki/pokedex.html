@@ -6,11 +6,9 @@
 
 {% block content %}
     <h1>Pokedex</h1>
-   
     <div class = "searchbar mt-sm-2 mr-2">
             <input type = "text" class = "form-control" onkeyup = filter() id="myInput" placeholder = "Search for a Pokémon..."/>
     </div>
-
     <table class="table table-hover" id="myTable">
         <thead>
             <tr class = "header">
@@ -24,11 +22,10 @@
         <tbody>
             {% for entry in poke_entry%}
             <tr>
-                {% comment %} <th scope="row">1</th> {% endcomment %}
                 <td>{{entry.p_id}}</td>
                 <td>{{entry.img}}</td>
-                <td>{{entry.name}}</td>
-                <td>{{entry.type1}},{{entry.type2}}</td>
+                <td><a href="{% url 'pokemon-detail' entry.p_id %}">{{entry.name}}</a></td>
+                <td>{{entry.type1}} {{entry.type2}}</td>
                 <td>{{entry.gen}}</td>
             </tr>
             {% endfor %}

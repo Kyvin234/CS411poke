@@ -1,0 +1,28 @@
+{% extends "pokewiki/base.html" %}
+
+{% block title %}
+    <title>pokemon</title>
+{% endblock title %}
+
+{% block content %}
+    <table class="table table-hover" id="myTable">
+        <thead>
+            <tr class = "header">
+                <th scope="col">#</th>
+                <th scope="col">Icon</th>
+                <th scope="col">Name</th>
+                <th scope="col">Types</th>
+                <th scope="col">Generation</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{object.p_id}}</td>
+                <td>{{object.img}}</td>
+                <td>{{object.name}}</td>
+                <td>{{object.type1}} {{object.type2}}</td>
+                <td>{{object.gen}}</td>
+            </tr>
+        </tbody>
+</table>
+{% endblock content %}

@@ -5,3 +5,14 @@
 # in setting.py changes the database configuration
 # run      "mysql.server start"
 # then run "mysql --user root --host=localhost --port=8888" 
+
+TO-DO List
+
+1. Filtering check on pokedex.html
+2. Specific page for each pokemon
+3. Adding icons for each pokemon
+4. team building form 
+5. team list
+6. item, move database setup 
+7. profile UI
+8. Homepage UI

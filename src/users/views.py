@@ -3,6 +3,7 @@ from django.contrib import messages
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.db import connection
+from django.views.generic import ListView
 from .forms import TeamForm
 
 def register(request):
@@ -36,3 +37,5 @@ def team(request):
     else:
         form = TeamForm()
     return render(request, 'users/team.html', {'form': form})
+
+# def teamListView()

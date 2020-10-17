@@ -1,26 +1,25 @@
 {% extends "pokewiki/base.html" %}
-{% load crispy_forms_tags %}
+{% comment %} {% load crispy_forms_tags %} {% endcomment %}
 {% block content %}
     <h1> {{ user.username }}'s team </h1>
     {% comment %} <p> soyhu, karthus, pjin, jbao</p>
     <button type="button" class="btn btn-outline-primary">Edit</button> {% endcomment %}
-    <div class="content-section">
+    <button onclick="toggle_team()"> SHOW </button>
+    <div class="content-section" id="team_form">
         <form method="POST">
-            {% csrf_token %}
-            <fieldset class="form-group">
-                <legend class="border-bottom mb-4">Join Today</legend>
-                {{ form|crispy }}
-            </fieldset>
-            <div class="form-group">
-                <button class="btn btn-outline-info" type="submit">Sign Up</button>
-            </div>
+            
         </form>
-        <div class="border-top pt-3">
-            <small class="text-muted">
-                Already Have An Account? <a class="ml-2" href="{% url 'login' %}">Sign In</a>
-            </small>
-        </div>
     </div>
-
-    {% comment %} a {% endcomment %}
 {% endblock content %}
+{% block extra_js %}
+    <script> 
+        function toggle_team()
+        {
+            var e = document.getElementById("team_form")
+            if(e.style.display == "block")
+                e.style.display = "none"; 
+            else 
+                e.style.display = "block";
+        }
+    </script> 
+{% endblock extra_js %}

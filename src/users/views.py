@@ -3,7 +3,7 @@ from django.contrib import messages
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.db import connection
-
+from .forms import TeamForm
 
 def register(request):
     if request.method == 'POST':
@@ -23,4 +23,16 @@ def profile(request):
     
 @login_required
 def team(request):
-    return render(request, 'users/team.html')
+    # HTML contains a cascading dropdown selecting list
+    # If a form is submitted, reload page and hide the form
+    if request.method == 'POST':
+        form = TeamForm(request.POST)
+        # if form.is_valid():
+        #     # form.save()
+        #     username = form.cleaned_data.get('username')
+        t_name = form.cleaned_data.get('teamname')
+        messages.success(request, f'team created {t_name}!')
+        return redirect('team')
+    else:
+        form = TeamForm()
+    return render(request, 'users/team.html', {'form': form})

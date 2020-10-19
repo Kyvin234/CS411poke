@@ -7,7 +7,7 @@ class t_table(models.Model):
     t_id = models.IntegerField(default=0)
 
 class t_relation(models.Model):
-    t = models.CharField(max_length=10, default="")
+    t = models.OneToOneField(t_table, on_delete=models.CASCADE)
     Normal = models.FloatField(default=0)
     Fire = models.FloatField(default=0)
     Water = models.FloatField(default=0)
@@ -48,15 +48,15 @@ class p_table(models.Model):
         return self.name
     
 # class i_table(models.Model):
-# class a_table(models.Model):
+class a_table(models.Model):
+    a_id = models.IntegerField(primary_key=True)
+    name = models.CharField(max_length=50)
+    description = models.CharField(max_length=2000)
 # class n_table(models.Model):
 
-
-
-
-# class type_map(models.Model):
-# class ability_map(models.Model):
-# class move_map(models.Model):
+# class a_relation(models.Model):
+# class m_relation(models.Model):
+    # m_id = 
 
 
 

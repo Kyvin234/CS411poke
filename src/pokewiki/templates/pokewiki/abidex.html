@@ -1,0 +1,49 @@
+{% extends "pokewiki/base.html" %}
+
+{% block title %}
+    <title>Ability Dex</title>
+{% endblock title %}
+
+{% block content %}
+    <h1>Pokedex</h1>
+    <div class = "searchbar mt-sm-2 mr-2">
+            <input type = "text" class = "form-control" onkeyup = filter() id="myInput" placeholder = "Search for an Ability..."/>
+    </div>
+    <table class="table table-hover" id="myTable">
+        <thead>
+            <tr class = "header">
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for entry in ability_entry%}
+            <tr>
+                <td >{{entry.a_id}}</td>
+                <td><a href="{% url 'ability-detail' entry.a_id %}">{{entry.name}}</a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+</table>
+
+<script>
+    function filter() {
+      var input, filter, table, tr, td, i, txtValue;
+      input = document.getElementById("myInput");
+      filter = input.value.toUpperCase(); 
+      table = document.getElementById("myTable");
+      tr = table.getElementsByTagName("tr");
+      for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[2];
+        if (td) {
+          txtValue = td.textContent || td.innerText;
+          if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            tr[i].style.display = "";
+          } else {
+            tr[i].style.display = "none";
+          }
+        }       
+      }
+    }
+    </script>
+{% endblock content %}

@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import p_table
+from .models import p_table, a_table 
 from django.views.generic import ListView, DetailView
 # from django.db import connection
 
@@ -38,14 +38,21 @@ def home(request):
     # }
     # return render(request, 'pokewiki/pokedex.html', data)
     
-class pokelistview(ListView):
+class p_lview(ListView):
     model = p_table
     template_name = 'pokewiki/pokedex.html'
     context_object_name = 'poke_entry'
 
-class pokedetailview(DetailView):
+class p_dview(DetailView):
     model = p_table
 
+class a_lview(ListView):
+    model = a_table
+    template_name = 'pokewiki/abidex.html'
+    context_object_name = 'ability_entry'
+
+class a_dview(DetailView):
+    model = a_table
 # movedex part of our pokewiki
 def movedex(request):
     return render(request, 'pokewiki/movedex.html')

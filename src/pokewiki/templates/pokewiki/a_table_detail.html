@@ -1,0 +1,10 @@
+{% extends "pokewiki/base.html" %}
+
+{% block title %}
+    <title>{{object.name}}</title>
+{% endblock title %}
+
+{% block content %}
+    <h1> {{object.name}} </h1>
+    <p> {{object.description}} </h1>
+{% endblock content %}

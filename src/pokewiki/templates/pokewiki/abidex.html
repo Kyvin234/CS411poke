@@ -5,7 +5,7 @@
 {% endblock title %}
 
 {% block content %}
-    <h1>Pokedex</h1>
+    <h1>Ability Dex</h1>
     <div class = "searchbar mt-sm-2 mr-2">
             <input type = "text" class = "form-control" onkeyup = filter() id="myInput" placeholder = "Search for an Ability..."/>
     </div>
@@ -20,7 +20,7 @@
             {% for entry in ability_entry%}
             <tr>
                 <td >{{entry.a_id}}</td>
-                <td><a href="{% url 'ability-detail' entry.a_id %}">{{entry.name}}</a></td>
+                <td><a href="{% url 'ability-detail' entry.a_id %}">{{entry.a_name}}</a></td>
             </tr>
             {% endfor %}
         </tbody>
@@ -34,7 +34,7 @@
       table = document.getElementById("myTable");
       tr = table.getElementsByTagName("tr");
       for (i = 0; i < tr.length; i++) {
-        td = tr[i].getElementsByTagName("td")[2];
+        td = tr[i].getElementsByTagName("td")[1];
         if (td) {
           txtValue = td.textContent || td.innerText;
           if (txtValue.toUpperCase().indexOf(filter) > -1) {

@@ -4,7 +4,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.db import connection
 from django.views.generic import ListView
-from .forms import TeamForm
+# from .forms import TeamForm
 
 def register(request):
     if request.method == 'POST':
@@ -26,16 +26,16 @@ def profile(request):
 def team(request):
     # HTML contains a cascading dropdown selecting list
     # If a form is submitted, reload page and hide the form
-    if request.method == 'POST':
-        form = TeamForm(request.POST)
-        # if form.is_valid():
-        #     # form.save()
-        #     username = form.cleaned_data.get('username')
-        t_name = form.cleaned_data.get('teamname')
-        messages.success(request, f'team created {t_name}!')
-        return redirect('team')
-    else:
-        form = TeamForm()
-    return render(request, 'users/team.html', {'form': form})
+    # if request.method == 'POST':
+    #     form = TeamForm(request.POST)
+    #     # if form.is_valid():
+    #     #     # form.save()
+    #     #     username = form.cleaned_data.get('username')
+    #     t_name = form.cleaned_data.get('teamname')
+    #     messages.success(request, f'team created {t_name}!')
+    #     return redirect('team')
+    # else:
+    #     form = TeamForm()
+    return render(request, 'users/team.html')
 
 # def teamListView()

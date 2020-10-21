@@ -22,10 +22,11 @@
         <tbody>
             {% for entry in poke_entry%}
             <tr>
-                <td>{{entry.p_id}}</td>
+                <td>{{entry.dex_id}}</td>
                 <td>{{entry.img}}</td>
-                <td><a href="{% url 'pokemon-detail' entry.p_id %}">{{entry.name}}</a></td>
-                <td>{{entry.type1}} {{entry.type2}}</td>
+                <td><a href="{% url 'pokemon-detail' entry.s_name %}">{{entry.s_name}}</a></td>
+                {% comment %} <td>{{entry.type1}} {{entry.type2}}</td> {% endcomment %}
+                <td>types</td>
                 <td>{{entry.gen}}</td>
             </tr>
             {% endfor %}

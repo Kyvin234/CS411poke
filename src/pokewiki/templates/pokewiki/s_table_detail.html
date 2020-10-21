@@ -1,0 +1,57 @@
+{% extends "pokewiki/base.html" %}
+
+{% block title %}
+    <title>{{object.s_name}}</title>
+{% endblock title %}
+
+{% block content %}
+    {% comment %} {% for row in pokemon_ability%}
+        <a href="{% url 'ability-detail' row.a_id %}">{{row.a_name}}</a>
+    {% endfor %} {% endcomment %}
+    {% for row in pokemon_detail|slice:":1" %}
+        <h1>{{row.f_name}}</h1>
+        {% for a in pokemon_ability %}
+            {% if a.f_name == row.f_name %}
+                {% if a.is_hidden == 1 %}
+                    <a href="{% url 'ability-detail' a.a_id %}">{{a.a_name}}(hidden)</a>
+                {% else %}
+                    <a href="{% url 'ability-detail' a.a_id %}">{{a.a_name}}</a>
+                {% endif %}
+            {% endif %}
+        {% endfor %}
+        <p> dex_id : {{row.dex_id}} </p>
+        <p> {{row.type1}} {{row.type2}}</p>
+        <p> generation : {{row.gen}} </p>
+        <p>height : {{row.height}}</p>
+        <p>weight : {{row.weight}}</p>
+        <p>HP : {{row.hp}}</p>
+        <p>ATK : {{row.atk}}</p>
+        <p>DEF : {{row.df}}</p>
+        <p>SP.ATK : {{row.spatk}}</p>
+        <p>SP.DEF : {{row.spdf}}</p>
+        <p>SPD : {{row.spd}}</p>
+        <p> capture rate: {{row.capture_rate }}</p>
+        <p> gender rate: {{row.gender_rate }}</p>
+    {% endfor %}
+    {% for row in pokemon_detail|slice:"1:" %}
+        <h1>{{row.f_name}}</h1>
+        {% for a in pokemon_ability %}
+            {% if a.f_name == row.f_name%}
+                {% if a.is_hidden == 1 %}
+                    <a href="{% url 'ability-detail' a.a_id %}">{{a.a_name}}(hidden)</a>
+                {% else %}
+                    <a href="{% url 'ability-detail' a.a_id %}">{{a.a_name}}</a>
+                {% endif %}
+            {% endif %}
+        {% endfor %}
+        <p> {{row.type1}} {{row.type2}}</p>
+        <p>height : {{row.height}}</p>
+        <p>weight : {{row.weight}}</p>
+        <p>HP : {{row.hp}}</p>
+        <p>ATK : {{row.atk}}</p>
+        <p>DEF : {{row.df}}</p>
+        <p>SP.ATK : {{row.spatk}}</p>
+        <p>SP.DEF : {{row.spdf}}</p>
+        <p>SPD : {{row.spd}}</p>
+    {% endfor %}
+{% endblock content %}

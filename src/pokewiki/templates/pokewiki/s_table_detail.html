@@ -51,4 +51,20 @@
         <p>SP.DEF : {{row.spdf}}</p>
         <p>SPD : {{row.spd}}</p>
     {% endfor %}
+    <h1> moves </h1>
+    <table class="table table-hover" id="myTable">
+        <thead>
+            <tr class = "header">
+                <th scope="col">move</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in pokemon_move%}
+                <tr>
+                    <td><a href="{% url 'move-detail' row.m_name_id %}">{{row.m_name_id}}</a></td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
 {% endblock content %}

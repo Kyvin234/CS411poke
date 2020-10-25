@@ -77,10 +77,10 @@ class m_table(models.Model):
     gen = models.IntegerField(default=0, null=True)
 # class i_table(models.Model):
 class m_relation(models.Model):
-    m_name = models.ForeignKey(m_table, on_delete=models.CASCADE)
-    s_name = models.ForeignKey(s_table, on_delete=models.CASCADE)
-    learn_method = models.CharField(default="", max_length=10)
-    level_learned = models.IntegerField(default=0)
+    m_name = models.ForeignKey(m_table, on_delete=models.CASCADE, default='')
+    f_name = models.ForeignKey(f_table, on_delete=models.CASCADE, default='')
+    # learn_method = models.CharField(default="", max_length=10)
+    # level_learned = models.IntegerField(default=0)
 
 # class n_table(models.Model):
 

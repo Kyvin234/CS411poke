@@ -45,9 +45,9 @@ class s_lview(ListView):
     ordering = ['dex_id']
     def get_queryset(self):
         qs = super().get_queryset() 
-        return qs.raw("""   SELECT s_name, dex_id, type1, type2, gen 
-                            FROM pokewiki_s_table natural join pokewiki_f_table
-                            WHERE s_name = f_name
+        return qs.raw("""   SELECT distinct s_name, dex_id, type1, type2, gen 
+                            FROM pokewiki_s_table AS st join pokewiki_f_table AS ft on st.s_name = ft.s_name_id
+                            WHERE f_name = s_name OR s_name = 'deoxys'
                             ORDER BY dex_id
                       """)
 
@@ -73,15 +73,13 @@ class s_dview(DetailView):
                 WHERE s_name = %s
                     ''' , (self.kwargs['pk'],))
         context['pokemon_ability'] = dictfetchall(cursor)
-        # cursor.execute('''
-        #         SELECT f_name, a_id, a_name, is_hidden
-        #         FROM pokewiki_f_table AS pf 
-        #                 JOIN pokewiki_s_table AS ps ON pf.s_name_id = ps.s_name
-        #                 JOIN pokewiki_a_relation AS ar ON ar.f_name_id = pf.f_name
-        #                 NATURAL JOIN pokewiki_a_table
-        #         WHERE s_name = %s
-        #             ''' , (self.kwargs['pk'],))
-        # context['pokemon_move'] = dictfetchall(cursor)
+        cursor.execute('''
+                SELECT distinct m_name_id
+                FROM pokewiki_m_relation
+                WHERE f_name_id LIKE %s
+                order by m_name_id
+                    ''' , ('%'+self.kwargs['pk']+'%',))
+        context['pokemon_move'] = dictfetchall(cursor)
         return context
 
 class a_lview(ListView):

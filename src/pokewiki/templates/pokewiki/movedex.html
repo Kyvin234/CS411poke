@@ -6,6 +6,51 @@
 
 {% block content %}
     <h1>movedex</h1>
-    {% for row in poke_entry %}
-    {% endfor %}
+    <div class = "searchbar mt-sm-2 mr-2">
+            <input type = "text" class = "form-control" onkeyup = filter() id="myInput" placeholder = "Search for a move..."/>
+    </div>
+    <table class="table table-hover" id="myTable">
+        <thead>
+            <tr class = "header">
+                <th scope="col">id</th>
+                <th scope="col">Name</th>
+                <th scope="col">Types</th>
+                <th scope="col">damage class</th>
+                <th scope="col">Generation</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for entry in move_entry%}
+            <tr>
+                <td>{{entry.m_id}}</td>
+                <td><a href="{% url 'move-detail' entry.m_name %}">{{entry.m_name}}</a></td>
+                <td>{{entry.types}}</td>
+                <td>{{entry.dmg_class}}</td>
+                <td>{{entry.gen}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+</table>
 {% endblock content %}
+{% block extra_js %}
+<script>
+    function filter() {
+      var input, filter, table, tr, td, i, txtValue;
+      input = document.getElementById("myInput");
+      filter = input.value.toUpperCase(); 
+      table = document.getElementById("myTable");
+      tr = table.getElementsByTagName("tr");
+      for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[1];
+        if (td) {
+          txtValue = td.textContent || td.innerText;
+          if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            tr[i].style.display = "";
+          } else {
+            tr[i].style.display = "none";
+          }
+        }       
+      }
+    }
+    </script>
+{% endblock extra_js %}

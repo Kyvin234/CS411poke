@@ -5,9 +5,6 @@
 {% endblock title %}
 
 {% block content %}
-    {% comment %} {% for row in pokemon_ability%}
-        <a href="{% url 'ability-detail' row.a_id %}">{{row.a_name}}</a>
-    {% endfor %} {% endcomment %}
     {% for row in pokemon_detail|slice:":1" %}
         <h1>{{row.f_name}}</h1>
         {% for a in pokemon_ability %}

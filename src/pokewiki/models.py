@@ -65,15 +65,16 @@ class a_relation(models.Model):
 
 # moves
 class m_table(models.Model):
-    m_name = models.CharField(primary_key=True, max_length=20)
+    m_name = models.CharField(primary_key=True, max_length=50)
     m_id = models.IntegerField(default=0)
-    pp = models.IntegerField(default=0)
+    pp = models.IntegerField(default=0, null=True)
     power = models.IntegerField(default=0, null=True)
-    accuaracy = models.IntegerField(default=0)
+    accuaracy = models.IntegerField(default=0, null=True)
     priority = models.IntegerField(default=0, null=True)
-    types = models.CharField(default='', max_length=10)
-    dmg_class = models.CharField(default='', max_length=10)
-
+    types = models.CharField(default='', max_length=10, null=True)
+    dmg_class = models.CharField(default='', max_length=10, null=True)
+    effect = models.CharField(default='', max_length=3500, null=True)
+    gen = models.IntegerField(default=0, null=True)
 # class i_table(models.Model):
 class m_relation(models.Model):
     m_name = models.ForeignKey(m_table, on_delete=models.CASCADE)

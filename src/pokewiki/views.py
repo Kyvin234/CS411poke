@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import s_table, f_table, a_table, a_relation
+from .models import s_table, f_table, a_table, a_relation, m_table, m_relation
 from django.views.generic import ListView, DetailView
 from django.db import connection
 
@@ -43,6 +43,13 @@ class s_lview(ListView):
     template_name = 'pokewiki/pokedex.html'
     context_object_name = 'poke_entry'
     ordering = ['dex_id']
+    def get_queryset(self):
+        qs = super().get_queryset() 
+        return qs.raw("""   SELECT s_name, dex_id, type1, type2, gen 
+                            FROM pokewiki_s_table natural join pokewiki_f_table
+                            WHERE s_name = f_name
+                            ORDER BY dex_id
+                      """)
 
 class s_dview(DetailView):
     model = s_table
@@ -66,11 +73,21 @@ class s_dview(DetailView):
                 WHERE s_name = %s
                     ''' , (self.kwargs['pk'],))
         context['pokemon_ability'] = dictfetchall(cursor)
+        # cursor.execute('''
+        #         SELECT f_name, a_id, a_name, is_hidden
+        #         FROM pokewiki_f_table AS pf 
+        #                 JOIN pokewiki_s_table AS ps ON pf.s_name_id = ps.s_name
+        #                 JOIN pokewiki_a_relation AS ar ON ar.f_name_id = pf.f_name
+        #                 NATURAL JOIN pokewiki_a_table
+        #         WHERE s_name = %s
+        #             ''' , (self.kwargs['pk'],))
+        # context['pokemon_move'] = dictfetchall(cursor)
         return context
 
 class a_lview(ListView):
     model = a_table
     template_name = 'pokewiki/abidex.html'
+
     context_object_name = 'ability_entry'
 
 class a_dview(DetailView):
@@ -92,11 +109,16 @@ class a_dview(DetailView):
         return context
 
 # movedex part of our pokewiki
-def movedex(request):
-    return render(request, 'pokewiki/movedex.html')
+class m_lview(ListView):
+    model = m_table
+    template_name = 'pokewiki/movedex.html'
+    context_object_name = 'move_entry'
+    ordering = ['m_id']
 
-# def pokeinfo(request):
-#     return render(request, 'pokewiki/pokeinfo.html')
+class m_dview(DetailView):
+    model = m_table
+    # template_name = 'pokewiki/movedex.html'
+    # context_object_name = 'move_entry'
 
 def dictfetchall(cursor):
     "Returns all rows from a cursor as a dict"

@@ -25,14 +25,16 @@
                 <td>{{entry.dex_id}}</td>
                 <td>{{entry.img}}</td>
                 <td><a href="{% url 'pokemon-detail' entry.s_name %}">{{entry.s_name}}</a></td>
-                {% comment %} <td>{{entry.type1}} {{entry.type2}}</td> {% endcomment %}
-                <td>types</td>
+                <td>{{entry.type1}} {{entry.type2}}</td>
+                {% comment %} <td>types</td> {% endcomment %}
                 <td>{{entry.gen}}</td>
             </tr>
             {% endfor %}
         </tbody>
 </table>
+{% endblock content %}
 
+{% block extra_js %}
 <script>
     function filter() {
       var input, filter, table, tr, td, i, txtValue;
@@ -53,4 +55,4 @@
       }
     }
     </script>
-{% endblock content %}
+{% endblock extra_js %}

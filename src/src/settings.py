@@ -84,10 +84,10 @@ DATABASES = {
     'default': {
     'ENGINE': 'django.db.backends.mysql',
     'NAME': 'cs411',
-    'HOST': 'localhost',
-    'PORT': '8888',
-    'USER': 'root',
-    'PASSWORD': '',
+    'HOST': 'database-1.cfb2j4bs6qia.us-east-2.rds.amazonaws.com',
+    'PORT': '3306',
+    'USER': 'admin',
+    'PASSWORD': 'cs411yhy',
     }
 }
 

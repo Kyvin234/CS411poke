@@ -7,16 +7,29 @@
 {% block content %}
     <h1> {{object.m_name}} </h1>
     <p> {{object.effect}} </p>
-    {% comment %} {% for count in p_with_a|slice:":1" %}
-        <h2>  There are {{count.count}} Pokemon with this ability: </h2>
+    {% for count in p_with_m|slice:":1" %}
+        <h2>  There are {{count.count}} Pokemon that can learn this move </h2>
     {% endfor %}
-    {% for row in p_with_a %}
-        <h1> {{row.f_name_id}}  </h1>
-        <a href="{% url 'pokemon-detail' row.s_name_id %}">{{row.s_name_id}}</a>
-        {% if row.is_hidden == 1 %}
-            <p> hidden </p>
-        {% else %}
-            <p> normal </p>
-        {% endif %}
-    {% endfor %} {% endcomment %}
+    <table class="table table-hover" id="myTable">
+        <thead>
+            <tr class = "header">
+                <th scope="col">#</th>
+                <th scope="col">Icon</th>
+                <th scope="col">Name</th>
+                <th scope="col">Types</th>
+                <th scope="col">Generation</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for entry in p_with_m%}
+                <tr>
+                    <td>{{entry.dex_id}}</td>
+                    <td>{{entry.img}}</td>
+                    <td><a href="{% url 'pokemon-detail' entry.s_name %}">{{entry.f_name}}</a></td>
+                    <td>{{entry.type1}} {{entry.type2}}</td>
+                    <td>{{entry.gen}}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 {% endblock content %}

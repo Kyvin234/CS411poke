@@ -39,8 +39,11 @@
             </div>
         </nav>
         </header>
-        <div class="container">
-            <body id="bg" style="background-image: url('{% static "pokewiki/megazard.jpg"%}')" ;>
+        
+        <div class="container" >
+            {% comment %} <body id="bg" style="background-image: url('{% static "pokewiki/megazard.jpg"%}')" ;> {% endcomment %}
+            {% comment %} <div class="view" id="bg" style="background-image: background-image: url('{% static "pokewiki/megazard.jpg"%}'); background-repeat: no-repeat; background-size: cover; background-position: center center;"> {% endcomment %}
+            
             {% if messages %}
                 {% for message in messages %}
                     <div class="alert alert-{{ message.tags }}">
@@ -48,7 +51,8 @@
                     </div>
                 {% endfor %}
             {% endif %}
-            {% block content %}{% endblock content %}
+                {% block content %}{% endblock content %}
+            {% comment %} </div> {% endcomment %}
         </div>
         {% block extra_js %}{% endblock extra_js %}
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>

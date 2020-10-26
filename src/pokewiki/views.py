@@ -115,8 +115,24 @@ class m_lview(ListView):
 
 class m_dview(DetailView):
     model = m_table
-    # template_name = 'pokewiki/movedex.html'
-    # context_object_name = 'move_entry'
+    def get_context_data(self, **kwargs):
+    # get context from the class this very function belongs to
+        context = super().get_context_data(**kwargs)
+        cursor = connection.cursor()
+        cursor.execute('''
+                          SELECT distinct s_name, f_name, dex_id, type1, type2, count, mr.gen
+                          FROM pokewiki_m_table AS mt JOIN (SELECT distinct s_name, m_name_id, dex_id, type1, type2, f_name, st.gen
+                                                            FROM pokewiki_m_relation AS mr2 JOIN 
+                                                                 pokewiki_f_table AS ft ON mr2.f_name_id = ft.f_name JOIN
+                                                                 pokewiki_s_table AS st ON ft.s_name_id = st.s_name
+                                                            WHERE m_name_id = %s) AS mr ON mt.m_name = mr.m_name_id 
+                                                      JOIN  (SELECT count(*) as count, m_name_id
+                                                             FROM pokewiki_m_relation
+                                                             WHERE m_name_id = %s
+                                                             GROUP BY m_name_id) AS ct                   
+                           ''' , (self.kwargs['pk'],self.kwargs['pk'])) 
+        context['p_with_m'] = dictfetchall(cursor)
+        return context
 
 def dictfetchall(cursor):
     "Returns all rows from a cursor as a dict"

@@ -1,11 +1,11 @@
 {% extends "pokewiki/base.html" %}
 
 {% block title %}
-    <title>movedex</title>
+    <title>MoveDex</title>
 {% endblock title %}
 
 {% block content %}
-    <h1>movedex</h1>
+    <h1>MoveDex</h1>
     <div class = "searchbar mt-sm-2 mr-2">
             <input type = "text" class = "form-control" onkeyup = filter() id="myInput" placeholder = "Search for a move..."/>
     </div>
@@ -24,7 +24,7 @@
             <tr>
                 <td>{{entry.m_id}}</td>
                 <td><a href="{% url 'move-detail' entry.m_name %}">{{entry.m_name}}</a></td>
-                <td>{{entry.types}}</td>
+                <td><button type = 'button'; class = 'button'>{{entry.types}}</button></td>
                 <td>{{entry.dmg_class}}</td>
                 <td>{{entry.gen}}</td>
             </tr>
@@ -37,7 +37,7 @@
     function filter() {
       var input, filter, table, tr, td, i, txtValue;
       input = document.getElementById("myInput");
-      filter = input.value.toUpperCase(); 
+      filter = input.value.toUpperCase();
       table = document.getElementById("myTable");
       tr = table.getElementsByTagName("tr");
       for (i = 0; i < tr.length; i++) {
@@ -49,7 +49,7 @@
           } else {
             tr[i].style.display = "none";
           }
-        }       
+        }
       }
     }
     </script>

@@ -1,11 +1,11 @@
 {% extends "pokewiki/base.html" %}
 
 {% block title %}
-    <title>pokedex</title>
+    <title>PokeDex</title>
 {% endblock title %}
 
 {% block content %}
-    <h1>Pokedex</h1>
+    <h1>PokeDex</h1>
     <div class = "searchbar mt-sm-2 mr-2">
             <input type = "text" class = "form-control" onkeyup = filter() id="myInput" placeholder = "Search for a Pokémon..."/>
     </div>
@@ -25,7 +25,7 @@
                 <td>{{entry.dex_id}}</td>
                 <td><img src="../static/pokewiki/pokemon-icon/{{entry.dex_id}}.png"></td>
                 <td><a href="{% url 'pokemon-detail' entry.s_name %}">{{entry.s_name}}</a></td>
-                <td>{{entry.type1}} {{entry.type2}}</td>
+                <td id = 'type1'><button type= 'button'; class = 'button'; onclick ="type1Filter()"; id = 'type1button'>{{entry.type1}}</button> <button type = 'button'; class = 'button'>{{entry.type2}}</button></td>
                 {% comment %} <td>types</td> {% endcomment %}
                 <td>{{entry.gen}}</td>
             </tr>
@@ -39,7 +39,7 @@
     function filter() {
       var input, filter, table, tr, td, i, txtValue;
       input = document.getElementById("myInput");
-      filter = input.value.toUpperCase(); 
+      filter = input.value.toUpperCase();
       table = document.getElementById("myTable");
       tr = table.getElementsByTagName("tr");
       for (i = 0; i < tr.length; i++) {
@@ -51,8 +51,34 @@
           } else {
             tr[i].style.display = "none";
           }
-        }       
+        }
       }
     }
+
+    type1.getElementById("type1button").addEventListener("click", type1Filter());
+
+    function type1Filter(){
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById('myTable').getElementsByTagName('tr')[1].getElementsByTagName('td')[3].getElementsByTagName('button')[0].textContent;
+        console.log(input);
+        //works fine up to here
+        // filter = input.value.toUpperCase();
+        // console.log(filter);
+        table = document.getElementById("myTable");
+        tr = table.getElementsByTagName("tr")[0];
+        for (i = 0; i < tr.length; i++) {
+          td = tr[i].getElementsByTagName("td")[3];
+          // console.log(td);
+          if (td) {
+            txtValue = td.textContent;
+             if (txtValue.toUpperCase().indexOf(input) > -1) {
+                 tr[i].style.display = "";
+               }
+               else {
+                 tr[i].style.display = "none";
+               }
+             }
+         }
+     }
     </script>
 {% endblock extra_js %}

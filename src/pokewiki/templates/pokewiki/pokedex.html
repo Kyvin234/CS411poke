@@ -23,7 +23,7 @@
             {% for entry in poke_entry%}
             <tr>
                 <td>{{entry.dex_id}}</td>
-                <td>{{entry.img}}</td>
+                <td><img src="../static/pokewiki/pokemon-icon/{{entry.dex_id}}.png"></td>
                 <td><a href="{% url 'pokemon-detail' entry.s_name %}">{{entry.s_name}}</a></td>
                 <td>{{entry.type1}} {{entry.type2}}</td>
                 {% comment %} <td>types</td> {% endcomment %}

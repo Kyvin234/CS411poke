@@ -74,11 +74,11 @@ class s_dview(DetailView):
                     ''' , (self.kwargs['pk'],))
         context['pokemon_ability'] = dictfetchall(cursor)
         cursor.execute('''
-                SELECT distinct m_name_id
+                SELECT f_name_id, m_name_id
                 FROM pokewiki_m_relation
                 WHERE f_name_id LIKE %s
-                order by m_name_id
-                    ''' , ('%'+self.kwargs['pk']+'%',))
+                order by f_name_id
+                    ''' , (''+self.kwargs['pk']+'%',))
         context['pokemon_move'] = dictfetchall(cursor)
         return context
 

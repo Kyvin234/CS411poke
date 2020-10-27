@@ -5,7 +5,7 @@
 {% endblock title %}
 
 {% block content %}
-    {% for row in pokemon_detail|slice:":1" %}
+    {% for row in pokemon_detail %}
         <h1>{{row.f_name}}</h1>
         {% for a in pokemon_ability %}
             {% if a.f_name == row.f_name %}
@@ -29,8 +29,25 @@
         <p>SPD : {{row.spd}}</p>
         <p> capture rate: {{row.capture_rate }}</p>
         <p> gender rate: {{row.gender_rate }}</p>
+        <h2> move </h2>
+        <table class="table table-hover" id="myTable">
+        <thead>
+            <tr class = "header">
+                <th scope="col">move</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for m in pokemon_move%}
+                {% if m.f_name_id == row.f_name%}
+                    <tr>
+                        <td><a href="{% url 'move-detail' m.m_name_id %}">{{m.m_name_id}}</a></td>
+                    </tr>
+                {% endif %}
+            {% endfor %}
+        </tbody>
+        </table>
     {% endfor %}
-    {% for row in pokemon_detail|slice:"1:" %}
+    {% comment %} {% for row in pokemon_detail|slice:"1:" %}
         <h1>{{row.f_name}}</h1>
         {% for a in pokemon_ability %}
             {% if a.f_name == row.f_name%}
@@ -50,8 +67,8 @@
         <p>SP.ATK : {{row.spatk}}</p>
         <p>SP.DEF : {{row.spdf}}</p>
         <p>SPD : {{row.spd}}</p>
-    {% endfor %}
-    <h1> moves </h1>
+    {% endfor %} {% endcomment %}
+    {% comment %} <h1> moves </h1>
     <table class="table table-hover" id="myTable">
         <thead>
             <tr class = "header">
@@ -59,12 +76,8 @@
             </tr>
         </thead>
         <tbody>
-            {% for row in pokemon_move%}
-                <tr>
-                    <td><a href="{% url 'move-detail' row.m_name_id %}">{{row.m_name_id}}</a></td>
-                </tr>
-            {% endfor %}
+           
         </tbody>
-    </table>
+    </table> {% endcomment %}
 
 {% endblock content %}

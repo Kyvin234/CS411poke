@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 from pathlib import Path
-
+import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -132,7 +132,8 @@ STATIC_URL = '/static/'
 
 # we use bootstrap4 for our register and login forms
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
-
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_PROFILE = '/media/'
 # after login, direct to home page
 LOGIN_REDIRECT_URL = 'home'
 # after trying to access profile without loggin in, redirect to our login page

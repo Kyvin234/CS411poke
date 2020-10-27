@@ -1,5 +1,11 @@
 {% extends "pokewiki/base.html" %}
 {% block content %}
-    <h1> {{ user.username }} </h1>
-    <h1> favorite pokemon is what </h1>
+    <div class="content-section">
+      <div class="media">
+        <img class="rounded-circle account-img" src="{{ user.profile_table.image.url }}">
+        <div class="media-body">
+          <h2 class="account-heading">{{ user.username }}</h2>
+        </div>
+      </div>
+    </div>
 {% endblock content %}

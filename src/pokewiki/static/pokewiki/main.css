@@ -1,7 +1,13 @@
 body {
-    background: #fafafa;
-    color: #333333;
-    margin-top: 5rem;
+    background-image: url("icons/kantoquad1.png");
+    background-repeat: no-repeat;
+    background-position: top center;
+    margin-left:auto;
+    margin-right:auto;
+    background-position: 0px 66px;
+    background-size: cover;
+    /* color: #333333; */
+    /* margin-top: 5rem; */
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -9,7 +15,6 @@ body {
   }
 
   button {
-
       background: transparent;
       border: none !important;
   }​
@@ -17,9 +22,42 @@ body {
   ul {
     margin: 0;
   }
-
+  nav ul{overflow:hidden; overflow-y:scroll;}
+  #poke_font{
+      font-family: "Comic Sans MS", cursive, sans-serif;
+  }
+  #homepg_txt{
+      margin-top: 0px;
+  }
+  #title_txt{
+      margin-top: 90px;
+  }
+  #pokedex{
+      margin-top: 80px;
+  }
+  #abidex{
+      margin-top:80px;
+  }
+  #movedex{
+      margin-top:80px;
+  }
+  #pokedex_pg{
+    background-attachment:fixed;
+  }
+  #abidex_pg{
+    background-attachment:fixed;
+  }
+  #movedex_pg{
+    background-attachment:fixed;
+  }
   .bg-steel {
-    background-color: #5f788a;
+    /* background-color: #9fdfc0; */
+    background-image: url("icons/pokemonbanner.png");
+    margin-left:auto;
+    margin-right:auto;
+    opacity: 1;
+    background-size:cover;
+    background-repeat: no-repeat;
   }
 
   .site-header .navbar-nav .nav-link {

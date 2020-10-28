@@ -10,19 +10,27 @@
         <link rel="stylesheet" type="text/css" href="{% static 'pokewiki/main.css' %}">
         {% block title %}{% endblock title %}
     </head>
-    <body>
+    <!-- <body> -->
     <header class="site-header">
         <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
             <div class="container">
-            <a class="navbar-brand mr-4" href="/">Home</a>
+            <a class="navbar-brand" href="#">
+                <img src="../static/pokewiki/icons/PokeWiki-logo.png" width="200" height="40">
+            </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarToggle">
                 <div class="navbar-nav mr-auto">
-                    <a class="nav-item nav-link" href="/pokedex">Pokedex</a>
-                    <a class="nav-item nav-link" href="/movedex">Movedex</a>
-                    <a class="nav-item nav-link" href="/ability-dex">Abilitydex</a>
+                    <a class="nav-item nav-link" href="/pokedex">
+                        <img src="../static/pokewiki/icons/pokedex-logo.png" width="80" height="30">
+                    </a>
+                    <a class="nav-item nav-link" href="/movedex">
+                        <img src="../static/pokewiki/icons/movedex-logo.png" width="80" height"30">
+                    </a>
+                    <a class="nav-item nav-link" href="/ability-dex">
+                        <img src="../static/pokewiki/icons/abilitydex-logo.png" width="80" height"30">
+                    </a>
                 </div>
                 <!-- Navbar Right Side -->
                 <div class="navbar-nav">
@@ -31,19 +39,23 @@
                         <a class="nav-item nav-link" href="{% url 'profile' %}">Profile</a>
                         <a class="nav-item nav-link" href="{% url 'logout' %}">Logout</a>
                     {% else %}
-                        <a class="nav-item nav-link" href="{% url 'login' %}">Login</a>
-                        <a class="nav-item nav-link" href="{% url 'register' %}">Register</a>
+                        <a class="nav-item nav-link" href="{% url 'login' %}">
+                            <img src="../static/pokewiki/icons/login-logo.png" width="60" height"25">
+                        </a>
+                        <a class="nav-item nav-link" href="{% url 'register' %}">
+                            <img src="../static/pokewiki/icons/register-logo.png" width="85" height"33">
+                        </a>
                     {% endif %}
                 </div>
             </div>
             </div>
         </nav>
         </header>
-        
+
         <div class="container" >
             {% comment %} <body id="bg" style="background-image: url('{% static "pokewiki/megazard.jpg"%}')" ;> {% endcomment %}
             {% comment %} <div class="view" id="bg" style="background-image: background-image: url('{% static "pokewiki/megazard.jpg"%}'); background-repeat: no-repeat; background-size: cover; background-position: center center;"> {% endcomment %}
-            
+
             {% if messages %}
                 {% for message in messages %}
                     <div class="alert alert-{{ message.tags }}">
@@ -58,5 +70,5 @@
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-    </body>
+    <!-- </body> -->
 </html>

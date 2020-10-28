@@ -5,10 +5,12 @@
 {% endblock title %}
 
 {% block content %}
-    <h1>PokeDex</h1>
+<body id = 'pokedex_pg'>
+    <h1 id = "pokedex"><img src="../static/pokewiki/icons/pokedex-nonshadow-logo.png"></h1>
     <div class = "searchbar mt-sm-2 mr-2">
             <input type = "text" class = "form-control" onkeyup = filter() id="myInput" placeholder = "Search for a Pokémon..."/>
     </div>
+    <div style="overflow:scroll; height:500px;">
     <table class="table table-hover" id="myTable">
         <thead>
             <tr class = "header">
@@ -22,16 +24,18 @@
         <tbody>
             {% for entry in poke_entry%}
             <tr>
-                <td>{{entry.dex_id}}</td>
+                <td id = 'poke_font'>{{entry.dex_id}}</td>
                 <td><img src="../static/pokewiki/pokemon-icon/{{entry.dex_id}}.png"></td>
-                <td><a href="{% url 'pokemon-detail' entry.s_name %}">{{entry.s_name}}</a></td>
-                <td id = 'type1'><button type= 'button'; class = 'button'; onclick ="type1Filter()"; id = 'type1button'>{{entry.type1}}</button> <button type = 'button'; class = 'button'>{{entry.type2}}</button></td>
+                <td id = 'poke_font'><a href="{% url 'pokemon-detail' entry.s_name %}">{{entry.s_name}}</a></td>
+                <td id = 'poke_font'><button type= 'button'; class = 'button'; onclick ="type1Filter()"; id = 'type1button'>{{entry.type1}}</button> <button type = 'button'; class = 'button'>{{entry.type2}}</button></td>
                 {% comment %} <td>types</td> {% endcomment %}
-                <td>{{entry.gen}}</td>
+                <td id = "poke_font">{{entry.gen}}</td>
             </tr>
             {% endfor %}
         </tbody>
 </table>
+<div style="overflow:scroll; height:500px;">
+</body>
 {% endblock content %}
 
 {% block extra_js %}

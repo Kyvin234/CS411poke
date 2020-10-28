@@ -5,10 +5,12 @@
 {% endblock title %}
 
 {% block content %}
-    <h1>MoveDex</h1>
+<body id = "movedex_pg">
+    <h1 id = "movedex"><img src="../static/pokewiki/icons/movedex-nonshadow-logo.png"></h1>
     <div class = "searchbar mt-sm-2 mr-2">
             <input type = "text" class = "form-control" onkeyup = filter() id="myInput" placeholder = "Search for a move..."/>
     </div>
+    <div style="overflow:scroll; height:500px;">
     <table class="table table-hover" id="myTable">
         <thead>
             <tr class = "header">
@@ -22,15 +24,17 @@
         <tbody>
             {% for entry in move_entry%}
             <tr>
-                <td>{{entry.m_id}}</td>
-                <td><a href="{% url 'move-detail' entry.m_name %}">{{entry.m_name}}</a></td>
-                <td><button type = 'button'; class = 'button'>{{entry.types}}</button></td>
-                <td>{{entry.dmg_class}}</td>
-                <td>{{entry.gen}}</td>
+                <td id = 'poke_font'>{{entry.m_id}}</td>
+                <td id='poke_font'><a href="{% url 'move-detail' entry.m_name %}">{{entry.m_name}}</a></td>
+                <td id='poke_font'><button type = 'button'; class = 'button'>{{entry.types}}</button></td>
+                <td id = 'poke_font'>{{entry.dmg_class}}</td>
+                <td id = 'poke_font'>{{entry.gen}}</td>
             </tr>
             {% endfor %}
         </tbody>
 </table>
+</div>
+</body>
 {% endblock content %}
 {% block extra_js %}
 <script>

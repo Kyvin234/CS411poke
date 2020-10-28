@@ -33,9 +33,9 @@ def home(request):
 #         FROM pokewiki_p_table
 #     '''
 #     )
-#     data = {
-#         'poke_entry' : p_table.objects.all()
-#     }
+    # data = {
+    #     'poke_entry' : p_table.objects.all()
+    # }
 #     return render(request, 'pokewiki/pokedex.html', data)
     
 class s_lview(ListView):

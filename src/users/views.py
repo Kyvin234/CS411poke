@@ -4,6 +4,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.db import connection
 from django.views.generic import ListView
+from .models import team_table
 # from .forms import TeamForm
 
 def register(request):
@@ -36,6 +37,10 @@ def team(request):
     #     return redirect('team')
     # else:
     #     form = TeamForm()
-    return render(request, 'users/team.html')
+    # print(team_table.objects.all())
+    data = {
+        'team_entry' : team_table.objects.all()
+    }
+    return render(request, 'users/team.html', data)
 
 # def teamListView()

@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from pokewiki.models import s_table
+# from django_mysql.models import jsonfiel
 
 # Create your models here.
 class profile_table(models.Model):
@@ -12,7 +13,7 @@ class profile_table(models.Model):
 
 class team_table(models.Model):
     team_name = models.CharField(max_length=50)
-    team_code = models.CharField(max_length=200)
+    team_comp = models.JSONField(null=True)
     creator = models.ForeignKey(User, on_delete=models.CASCADE)
     description = models.CharField(default='',max_length=5000)
     def __str__(self):

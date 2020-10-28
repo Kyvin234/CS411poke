@@ -4,15 +4,25 @@
     <h1> {{ user.username }}'s team </h1>
     {% comment %} <p> soyhu, karthus, pjin, jbao</p>
     <button type="button" class="btn btn-outline-primary">Edit</button> {% endcomment %}
-    <button onclick="toggle_team()"> SHOW </button>
+    {% comment %} <button onclick="toggle_team()"> SHOW </button>
     <div class="content-section" id="team_form">
         <form method="POST">
             
         </form>
-    </div>
+    </div> {% endcomment %}
+    {% for row in team_entry %}
+        <table>
+            {% for key,value in row.team_comp.items %}
+                <tr>
+                    <td>{{value}}</td>
+                    {% comment %} <td><img src="../static/pokewiki/pokemon-icon/{{value}}.png"></td> {% endcomment %}
+                </tr>
+            {% endfor %}
+        </table>
+    {% endfor %}
 {% endblock content %}
 {% block extra_js %}
-    <script> 
+    {% comment %} <script> 
         function toggle_team()
         {
             var e = document.getElementById("team_form")
@@ -21,5 +31,5 @@
             else 
                 e.style.display = "block";
         }
-    </script> 
+    </script>  {% endcomment %}
 {% endblock extra_js %}

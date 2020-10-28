@@ -5,79 +5,49 @@
 {% endblock title %}
 
 {% block content %}
-    {% for row in pokemon_detail %}
-        <h1>{{row.f_name}}</h1>
-        {% for a in pokemon_ability %}
-            {% if a.f_name == row.f_name %}
-                {% if a.is_hidden == 1 %}
-                    <a href="{% url 'ability-detail' a.a_id %}">{{a.a_name}}(hidden)</a>
-                {% else %}
-                    <a href="{% url 'ability-detail' a.a_id %}">{{a.a_name}}</a>
-                {% endif %}
-            {% endif %}
-        {% endfor %}
-        <p> dex_id : {{row.dex_id}} </p>
-        <p> {{row.type1}} {{row.type2}}</p>
-        <p> generation : {{row.gen}} </p>
-        <p>height : {{row.height}}</p>
-        <p>weight : {{row.weight}}</p>
-        <p>HP : {{row.hp}}</p>
-        <p>ATK : {{row.atk}}</p>
-        <p>DEF : {{row.df}}</p>
-        <p>SP.ATK : {{row.spatk}}</p>
-        <p>SP.DEF : {{row.spdf}}</p>
-        <p>SPD : {{row.spd}}</p>
-        <p> capture rate: {{row.capture_rate }}</p>
-        <p> gender rate: {{row.gender_rate }}</p>
-        <h2> move </h2>
-        <table class="table table-hover" id="myTable">
-        <thead>
-            <tr class = "header">
-                <th scope="col">move</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for m in pokemon_move%}
-                {% if m.f_name_id == row.f_name%}
-                    <tr>
-                        <td><a href="{% url 'move-detail' m.m_name_id %}">{{m.m_name_id}}</a></td>
-                    </tr>
+    <body id="pokedex_pg">
+        {% for row in pokemon_detail %}
+            <h1>{{row.f_name}}</h1>
+            {% for a in pokemon_ability %}
+                {% if a.f_name == row.f_name %}
+                    {% if a.is_hidden == 1 %}
+                        <a href="{% url 'ability-detail' a.a_id %}">{{a.a_name}}(hidden)</a>
+                    {% else %}
+                        <a href="{% url 'ability-detail' a.a_id %}">{{a.a_name}}</a>
+                    {% endif %}
                 {% endif %}
             {% endfor %}
-        </tbody>
-        </table>
-    {% endfor %}
-    {% comment %} {% for row in pokemon_detail|slice:"1:" %}
-        <h1>{{row.f_name}}</h1>
-        {% for a in pokemon_ability %}
-            {% if a.f_name == row.f_name%}
-                {% if a.is_hidden == 1 %}
-                    <a href="{% url 'ability-detail' a.a_id %}">{{a.a_name}}(hidden)</a>
-                {% else %}
-                    <a href="{% url 'ability-detail' a.a_id %}">{{a.a_name}}</a>
-                {% endif %}
-            {% endif %}
+            <p> dex_id : {{row.dex_id}} </p>
+            <p> {{row.type1}} {{row.type2}}</p>
+            <p> generation : {{row.gen}} </p>
+            <p>height : {{row.height}}</p>
+            <p>weight : {{row.weight}}</p>
+            <p>HP : {{row.hp}}</p>
+            <p>ATK : {{row.atk}}</p>
+            <p>DEF : {{row.df}}</p>
+            <p>SP.ATK : {{row.spatk}}</p>
+            <p>SP.DEF : {{row.spdf}}</p>
+            <p>SPD : {{row.spd}}</p>
+            <p> capture rate: {{row.capture_rate }}</p>
+            <p> gender rate: {{row.gender_rate }}</p>
+            <h2> move </h2>
+            <table class="table table-hover" id="myTable">
+            <thead>
+                <tr class = "header">
+                    <th scope="col">move</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for m in pokemon_move%}
+                    {% if m.f_name_id == row.f_name%}
+                        <tr>
+                            <td><a href="{% url 'move-detail' m.m_name_id %}">{{m.m_name_id}}</a></td>
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+            </tbody>
+            </table>
+    </body>
+    
         {% endfor %}
-        <p> {{row.type1}} {{row.type2}}</p>
-        <p>height : {{row.height}}</p>
-        <p>weight : {{row.weight}}</p>
-        <p>HP : {{row.hp}}</p>
-        <p>ATK : {{row.atk}}</p>
-        <p>DEF : {{row.df}}</p>
-        <p>SP.ATK : {{row.spatk}}</p>
-        <p>SP.DEF : {{row.spdf}}</p>
-        <p>SPD : {{row.spd}}</p>
-    {% endfor %} {% endcomment %}
-    {% comment %} <h1> moves </h1>
-    <table class="table table-hover" id="myTable">
-        <thead>
-            <tr class = "header">
-                <th scope="col">move</th>
-            </tr>
-        </thead>
-        <tbody>
-           
-        </tbody>
-    </table> {% endcomment %}
-
 {% endblock content %}

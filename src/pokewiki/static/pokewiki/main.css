@@ -1,3 +1,11 @@
+html {
+  overflow: scroll;
+}
+::-webkit-scrollbar {
+  width: 0px;  /* Remove scrollbar space */
+  background: transparent;  /* Optional: just make scrollbar invisible */
+}
+
 body {
     background-image: url("icons/kantoquad1.png");
     background-repeat: no-repeat;
@@ -13,24 +21,49 @@ body {
   h1, h2, h3, h4, h5, h6 {
     color: #444444;
   }
-
+  th {
+    color : dimgray;
+  }
+  a:link {
+      color : dimgray;
+    text-decoration: none;
+  }
+  
+  a:visited {
+    color : dimgray;
+    text-decoration: none;
+  }
+  
+  a:hover {
+    color : navy;
+    text-decoration: underline;
+  }
+  
+  a:active {
+    color : navy;
+    text-decoration: underline;
+  }
   button {
       background: transparent;
       border: none !important;
+      background-size: auto;
   }​
-
+  
   ul {
     margin: 0;
   }
   nav ul{overflow:hidden; overflow-y:scroll;}
   #poke_font{
       font-family: "Comic Sans MS", cursive, sans-serif;
+      color : dimgray;
   }
   #homepg_txt{
       margin-top: 0px;
+      color : dimgray;
   }
   #title_txt{
       margin-top: 90px;
+      color : dimgray;
   }
   #pokedex{
       margin-top: 80px;
@@ -43,12 +76,17 @@ body {
   }
   #pokedex_pg{
     background-attachment:fixed;
+    margin-top:80px;
+
   }
   #abidex_pg{
     background-attachment:fixed;
+    margin-top:80px;
+
   }
   #movedex_pg{
     background-attachment:fixed;
+    margin-top:80px;
   }
   .bg-steel {
     /* background-color: #9fdfc0; */
@@ -78,6 +116,7 @@ body {
     border: 1px solid #dddddd;
     border-radius: 3px;
     margin-bottom: 20px;
+    margin-top: 80px;
   }
 
   .article-title {

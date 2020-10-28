@@ -10,30 +10,30 @@
     <div class = "searchbar mt-sm-2 mr-2">
             <input type = "text" class = "form-control" onkeyup = filter() id="myInput" placeholder = "Search for a move..."/>
     </div>
-    <div style="overflow:scroll; height:500px;">
-    <table class="table table-hover" id="myTable">
-        <thead>
-            <tr class = "header">
-                <th scope="col">id</th>
-                <th scope="col">Name</th>
-                <th scope="col">Types</th>
-                <th scope="col">damage class</th>
-                <th scope="col">Generation</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for entry in move_entry%}
-            <tr>
-                <td id = 'poke_font'>{{entry.m_id}}</td>
-                <td id='poke_font'><a href="{% url 'move-detail' entry.m_name %}">{{entry.m_name}}</a></td>
-                <td id='poke_font'><button type = 'button'; class = 'button'>{{entry.types}}</button></td>
-                <td id = 'poke_font'>{{entry.dmg_class}}</td>
-                <td id = 'poke_font'>{{entry.gen}}</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-</table>
-</div>
+    <div style="overflow:scroll; height:75ev;">
+      <table class="table table-hover" id="myTable">
+          <thead>
+              <tr class = "header">
+                  <th scope="col">id</th>
+                  <th scope="col">Name</th>
+                  <th scope="col">Types</th>
+                  <th scope="col">damage class</th>
+                  <th scope="col">Generation</th>
+              </tr>
+          </thead>
+          <tbody>
+              {% for entry in move_entry%}
+                <tr>
+                    <td id = 'poke_font'>{{entry.m_id}}</td>
+                    <td id='poke_font'><a href="{% url 'move-detail' entry.m_name %}">{{entry.m_name}}</a></td>
+                    <td id='poke_font'><button type = 'button'; class = 'button'>{{entry.types}}</button></td>
+                    <td id = 'poke_font'>{{entry.dmg_class}}</td>
+                    <td id = 'poke_font'>{{entry.gen}}</td>
+                </tr>
+              {% endfor %}
+          </tbody>
+    </table>
+  </div>
 </body>
 {% endblock content %}
 {% block extra_js %}

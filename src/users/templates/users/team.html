@@ -10,16 +10,18 @@
             
         </form>
     </div> {% endcomment %}
-    {% for row in team_entry %}
-        <table>
-            {% for key,value in row.team_comp.items %}
-                <tr>
-                    <td>{{value}}</td>
-                    {% comment %} <td><img src="../static/pokewiki/pokemon-icon/{{value}}.png"></td> {% endcomment %}
-                </tr>
-            {% endfor %}
-        </table>
-    {% endfor %}
+    <div class="content-section">
+        {% for row in team_entry %}
+            <table>
+                {% for key,value in row.team_comp.items %}
+                    <tr>
+                        <td>{{value}}</td>
+                        <td><img src="../static/pokewiki/pokemon-icon/{{value}}.png"></td>
+                    </tr>
+                {% endfor %}
+            </table>
+        {% endfor %}
+    </div>
 {% endblock content %}
 {% block extra_js %}
     {% comment %} <script> 

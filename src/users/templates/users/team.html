@@ -2,36 +2,64 @@
 {% comment %} {% load crispy_forms_tags %} {% endcomment %}
 {% block content %}
     <h1> {{ user.username }}'s team </h1>
-    {% comment %} <p> soyhu, karthus, pjin, jbao</p>
-    <button type="button" class="btn btn-outline-primary">Edit</button> {% endcomment %}
-    {% comment %} <button onclick="toggle_team()"> SHOW </button>
-    <div class="content-section" id="team_form">
-        <form method="POST">
-            
-        </form>
-    </div> {% endcomment %}
-    <div class="content-section">
-        {% for row in team_entry %}
-            <table>
-                {% for key,value in row.team_comp.items %}
-                    <tr>
-                        <td>{{value}}</td>
-                        <td><img src="../static/pokewiki/pokemon-icon/{{value}}.png"></td>
+    {% for row in team_entry %}
+        <div class="content-section">
+            <table class="table table-hover" id="myTable">
+                <thead>
+                    <tr class = "header">
+                        <td>{{row.team_name}}</td>
+                        {% for key,value in row.team_comp.items %}
+                            <td><img src="../static/pokewiki/pokemon-icon/{{value}}.png"></td>
+                        {% endfor %}
                     </tr>
-                {% endfor %}
+                </thead>
+                <tbody class='team-body'>
+                    <tr>
+                        <td>name</td>
+                        {% for key,value in row.team_comp.items %}
+                            <td>{{value}}</td>
+                        {% endfor %}
+                    </tr>
+                    <tr>
+                        <td>nature</td>
+                    </tr>
+                    <tr>
+                        <td>ability</td>
+                    </tr>
+                    <tr>
+                        <td>item</td>
+                    </tr>
+                    <tr>
+                        <td>move</td>
+                    </tr>
+                    <tr>
+                        <td>EVs</td>
+                    </tr>
+                    <tr>
+                        <td>IVs</td>
+                    </tr>
+                    <tr>
+                        <td>description</td>
+                        <td colspan="5"><p>{{row.description}}</p></td>
+                    </tr>
+                    <tr>
+                        <td colspan="6"></td>
+                        <td><button type="button" class="btn btn-primary">Edit</button></td>
+                    </tr>
+                </tbody>
             </table>
-        {% endfor %}
-    </div>
+        </div>
+    {% endfor %}
 {% endblock content %}
 {% block extra_js %}
-    {% comment %} <script> 
-        function toggle_team()
+    <script> 
+        var main = function() 
         {
-            var e = document.getElementById("team_form")
-            if(e.style.display == "block")
-                e.style.display = "none"; 
-            else 
-                e.style.display = "block";
+            $("thead").on("click", function() 
+            {
+                $(this).parents("table").find("tbody").toggle();
+            });
         }
-    </script>  {% endcomment %}
+        $(document).ready(main);
+    </script>  
 {% endblock extra_js %}

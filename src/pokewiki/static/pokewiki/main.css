@@ -165,3 +165,7 @@ body {
   .account-heading {
     font-size: 2.5rem;
   }
+
+  .team-body{
+    display: none;
+  }

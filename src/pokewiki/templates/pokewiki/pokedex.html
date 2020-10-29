@@ -8,7 +8,7 @@
 <body id = 'pokedex_pg'>
     <h1 id = "pokedex"><img src="../static/pokewiki/icons/pokedex-nonshadow-logo.png"></h1>
     <div class = "searchbar mt-sm-2 mr-2">
-            <input type = "text" class = "form-control" onkeyup = filter() id="myInput" placeholder = "Search for a Pokémon..."/>
+            <input type = "text" class = "form-control" onkeyup = log_filter() id="myInput" placeholder = "Search for a Pokémon..."/>
     </div>
     <div style="overflow-y:scroll; height:75vh;">
       <table class="table table-hover" id="myTable">
@@ -22,15 +22,15 @@
             </tr>
         </thead>
         <tbody>
-            {% for entry in poke_entry%}
+            {% for entry in poke_entry %}
             <tr>
                 <td id = 'poke_font'>{{entry.dex_id}}</td>
                 <td><img src="../static/pokewiki/pokemon-icon/{{entry.s_name}}.png"></td>
                 <td id = 'poke_font'><a href="{% url 'pokemon-detail' entry.s_name %}">{{entry.s_name}}</a></td>
                 <td id = 'poke_font'>
-                  <button type= 'button'; class = 'button'; onclick ="type1Filter()"; id = 'type1button';>{{entry.type1}}</button> 
+                  <button type= 'button' class = 'button' onclick ="button_filter({{forloop.counter}}, 0)">{{entry.type1}}</button>
                   {% if entry.type2 %}
-                    <button type = 'button'; class = 'button'>{{entry.type2}}</button>
+                    <button type = 'button' class = 'button' onclick ="button_filter({{forloop.counter}}, 1)">{{entry.type2}}</button>
                   {% endif %}
                 </td>
                 <td id = "poke_font">{{entry.gen}}</td>
@@ -44,7 +44,7 @@
 
 {% block extra_js %}
 <script>
-    function filter() {
+    function log_filter() {
       var input, filter, table, tr, td, i, txtValue;
       input = document.getElementById("myInput");
       filter = input.value.toUpperCase();
@@ -63,23 +63,17 @@
       }
     }
 
-    type1.getElementById("type1button").addEventListener("click", type1Filter());
-
-    function type1Filter(){
-        var input, filter, table, tr, td, i, txtValue;
-        input = document.getElementById('myTable').getElementsByTagName('tr')[1].getElementsByTagName('td')[3].getElementsByTagName('button')[0].textContent;
-        console.log(input);
-        //works fine up to here
-        // filter = input.value.toUpperCase();
-        // console.log(filter);
+    function button_filter(index, button){
+        var input, table, tr, td, i, txtValue;
         table = document.getElementById("myTable");
-        tr = table.getElementsByTagName("tr")[0];
+        input = table.getElementsByTagName('tr')[index].getElementsByTagName('td')[3].getElementsByTagName('button')[button].textContent;
+        tr = table.getElementsByTagName("tr");
+        console.log(input);
         for (i = 0; i < tr.length; i++) {
           td = tr[i].getElementsByTagName("td")[3];
-          // console.log(td);
           if (td) {
             txtValue = td.textContent;
-             if (txtValue.toUpperCase().indexOf(input) > -1) {
+             if (txtValue.indexOf(input) > -1) {
                  tr[i].style.display = "";
                }
                else {
@@ -88,5 +82,6 @@
              }
          }
      }
+
     </script>
 {% endblock extra_js %}

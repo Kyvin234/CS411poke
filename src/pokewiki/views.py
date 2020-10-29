@@ -42,12 +42,12 @@ class s_lview(ListView):
     model = s_table
     template_name = 'pokewiki/pokedex.html'
     context_object_name = 'poke_entry'
-    ordering = ['dex_id']
+    # ordering = ['dex_id']
     def get_queryset(self):
         qs = super().get_queryset() 
-        return qs.raw("""   SELECT distinct s_name, dex_id, type1, type2, gen 
-                            FROM pokewiki_s_table AS st join pokewiki_f_table AS ft on st.s_name = ft.s_name_id
-                            WHERE f_name = s_name OR s_name = 'deoxys'
+        return qs.raw("""   SELECT distinct s_name, f_name, dex_id, gen, type1, type2
+                            FROM pokewiki_s_table, pokewiki_f_table
+                            WHERE s_name = s_name_id 
                             ORDER BY dex_id
                       """)
 

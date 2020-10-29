@@ -129,7 +129,8 @@ class m_dview(DetailView):
                                                       JOIN  (SELECT count(*) as count, m_name_id
                                                              FROM pokewiki_m_relation
                                                              WHERE m_name_id = %s
-                                                             GROUP BY m_name_id) AS ct                   
+                                                             GROUP BY m_name_id) AS ct    
+                                                      ORDER BY dex_id               
                            ''' , (self.kwargs['pk'],self.kwargs['pk'])) 
         context['p_with_m'] = dictfetchall(cursor)
         return context

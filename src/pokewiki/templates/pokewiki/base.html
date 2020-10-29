@@ -39,12 +39,12 @@
                         <a class="nav-item nav-link" href="{% url 'team' %}">My Team</a>
                         <a class="nav-item nav-link" href="{% url 'profile' %}">Profile</a>
                         <a class="nav-item nav-link" href="{% url 'logout' %}">Logout</a>
-                    {% else %}
+                    {% else %} 
                         <a class="nav-item nav-link" href="{% url 'login' %}">
-                            <img src="../static/pokewiki/icons/login-logo.png" width="60" height"25">
+                            <img src="{% static 'pokewiki/icons/login-logo.png' %}" width="60" height"25">
                         </a>
                         <a class="nav-item nav-link" href="{% url 'register' %}">
-                            <img src="../static/pokewiki/icons/register-logo.png" width="85" height"33">
+                            <img src="{% static 'pokewiki/icons/register-logo.png' %}" width="85" height"33">
                         </a>
                     {% endif %}
                 </div>

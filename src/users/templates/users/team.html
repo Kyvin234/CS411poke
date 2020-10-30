@@ -45,11 +45,15 @@
                     </tr>
                     <tr>
                         <td>description</td>
-                        <td colspan="5"><p>{{row.description}}</p></td>
+                        <td colspan="4"><p>{{row.description}}</p></td>
                     </tr>
                     <tr>
-                        <td colspan="6"></td>
-                        <td><button type="button" class="btn btn-primary">Edit</button></td>
+                        <td colspan="5"></td>
+                        <td>
+                            <form action="{% url 'team-update' pk=row.id %}">
+                                <input type="submit" value="update">
+                            </form>
+                        </td>
                         <td>
                             <form action="{% url 'team-delete' pk=row.id %}">
                                 <input type="submit" value="delete">

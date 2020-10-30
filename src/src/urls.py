@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from users import views as user_views
-from users.views import team_lview, team_cview, team_delview
+from users.views import team_lview, team_cview, team_delview, team_uview
 from django.contrib.auth import views as auth_views
 from django.conf import settings
 from django.conf.urls.static import static
@@ -28,6 +28,7 @@ urlpatterns = [
     path('team/', team_lview.as_view(), name = 'team'),
     path('team/create/', team_cview.as_view(), name = 'team-create'),
     path('team/delete/<int:pk>', team_delview.as_view(), name = 'team-delete'),
+    path('team/update/<int:pk>', team_uview.as_view(), name = 'team-update'),
     path('login/', auth_views.LoginView.as_view(template_name='users/login.html'), name='login'),
     path('logout/', auth_views.LogoutView.as_view(template_name='users/logout.html'), name='logout'),
     path('', include('pokewiki.urls'))

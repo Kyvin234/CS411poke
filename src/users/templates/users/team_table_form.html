@@ -26,8 +26,13 @@
                             <p>pick your Pokemon from below</p>
                         </small>
                     </div>
-                    <ul id="myList">
-                        {% comment %} <li>  <input type="hidden" name="mylist[]" value="myid1"> </li> {% endcomment %}
+                    <ul id="myList" class="list-group">
+                        <li id="1" class="list-group-item" onclick="select_edit(1)"></li>
+                        <li id="2" class="list-group-item" onclick="select_edit(2)"></li>
+                        <li id="3" class="list-group-item" onclick="select_edit(3)"></li>
+                        <li id="4" class="list-group-item" onclick="select_edit(4)"></li>
+                        <li id="5" class="list-group-item" onclick="select_edit(5)"></li>
+                        <li id="6" class="list-group-item" onclick="select_edit(6)"></li>
                     </ul>
             </fieldset>
             <div class="form-group">
@@ -35,7 +40,7 @@
             </div>
             <p>
                 {% for row in pokemon_detail%}
-                    <img src="../../static/pokewiki/pokemon-icon/{{row.f_name}}.png" onclick="pokeSelect('{{row.f_name}}')" >
+                    <img id='{{row.f_name}}' src="../../static/pokewiki/pokemon-icon/{{row.f_name}}.png" onclick="pokeSelect('{{row.f_name}}')" >
                 {% endfor %}
             </p>
             {% comment %} {% for row in pokemon_detail%}
@@ -47,7 +52,9 @@
 
 {% block extra_js %}
     <script>
-        var counter = 1;
+        //pokemon selector
+        var select = 0;
+        {% comment %} var counter = 1; {% endcomment %}
         //a function to initialize team_dict for update 
         //a function to delete the last added pokemon
         var team_dict = {
@@ -60,20 +67,49 @@
         };
         function pokeSelect(pokename)
         {
-            if(counter <= 6)
+            if(select > 0)
             {
-                //create list node
-                var node = document.createElement("LI");
-                node.value = pokename;
-                node.appendChild(document.createTextNode(pokename));
-                document.getElementById("myList").appendChild(node);
+                //append name to the list
+                var node = document.getElementById(select);
+                if(node.innerText != "")
+                    show_poke(node.innerText)
+                node.innerText = pokename;
                 //append the pokemon to dict
-                team_dict["p".concat(counter.toString())] = pokename;
-                counter++;
+                team_dict["p".concat(select.toString())] = pokename;
                 //generate json data for the team
-                var team_json = document.getElementById("id_team_comp")
+                var team_json = document.getElementById("id_team_comp");
                 team_json.innerHTML = JSON.stringify(team_dict);
+                //hide the selected pokemon
+                hide_poke(pokename)
             }
         }
+        function select_edit(select_id)
+        {
+            if(select != select_id)
+            {
+                select = select_id;
+                for(let i = 1; i <= 6; i++)
+                {
+                    let list = document.getElementById(i);
+                    if(i == select_id)
+                        list.className = "list-group-item active";
+                    else
+                        list.className = "list-group-item";
+                }
+            
+            }
+            //alert(select_id); 
+        }
+        function show_poke(pokename)
+        {
+            var p_shown = document.getElementById(pokename);
+            p_shown.style = "display:\"\";";
+        } 
+        function hide_poke(pokename)
+        {
+            var p_hidden = document.getElementById(pokename);
+            p_hidden.style = "display:none;"
+        }
+
     </script>
 {% endblock extra_js %}

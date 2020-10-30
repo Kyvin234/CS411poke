@@ -58,7 +58,7 @@
       table = document.getElementById("myTable");
       tr = table.getElementsByTagName("tr");
       for (i = 0; i < tr.length; i++) {
-        td = tr[i].getElementsByTagName("td")[2];
+        td = tr[i].getElementsByTagName("td")[3];
         if (td) {
           txtValue = td.textContent || td.innerText;
           if (txtValue.toUpperCase().indexOf(filter) > -1) {
@@ -73,11 +73,11 @@
     function button_filter(index, button){
         var input, table, tr, td, i, txtValue;
         table = document.getElementById("myTable");
-        input = table.getElementsByTagName('tr')[index].getElementsByTagName('td')[3].getElementsByTagName('button')[button].textContent;
+        input = table.getElementsByTagName('tr')[index].getElementsByTagName('td')[4].getElementsByTagName('button')[button].textContent;
         tr = table.getElementsByTagName("tr");
         console.log(input);
         for (i = 0; i < tr.length; i++) {
-          td = tr[i].getElementsByTagName("td")[3];
+          td = tr[i].getElementsByTagName("td")[4];
           if (td) {
             txtValue = td.textContent;
              if (txtValue.indexOf(input) > -1) {

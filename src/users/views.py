@@ -10,6 +10,7 @@ from django.contrib.auth.decorators import login_required
 from django.urls import reverse_lazy
 from .forms import teamform
 import json
+# import logging
 # from .forms import TeamForm
 
 def register(request):
@@ -41,11 +42,9 @@ class team_lview(LoginRequiredMixin, ListView):
 
 class team_cview(LoginRequiredMixin, CreateView):
     model = team_table
-    # form_class = teamform
     fields = ['team_name', 'team_comp','description']  
     success_url = reverse_lazy('team')
     def get_context_data(self, **kwargs):
-    # get context from the class this very function belongs to
         context = super().get_context_data(**kwargs)
         cursor = connection.cursor()
         cursor.execute('''
@@ -61,8 +60,8 @@ class team_cview(LoginRequiredMixin, CreateView):
         form.instance.creator_id = self.request.user.id
         cursor = connection.cursor()
         cursor.execute(
-            "INSERT INTO users_team_table(team_name,team_comp,creator_id,description) VALUES(%s , %s, %s)", 
-            [form.instance.team_name, form.instance.creator_id, form.instance.description]
+            "INSERT INTO users_team_table(team_name,team_comp,creator_id,description) VALUES(%s, %s, %s, %s)", 
+            [form.instance.team_name, json.dumps(form.instance.team_comp), form.instance.creator_id, form.instance.description]
         )
         return HttpResponseRedirect(self.success_url) 
 

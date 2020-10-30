@@ -1,4 +1,6 @@
 {% extends "pokewiki/base.html" %}
+{% load static %}
+
 {% load crispy_forms_tags %}
 {% block content %}
     <div class="content-section">
@@ -6,15 +8,72 @@
             {% csrf_token %}
             <fieldset class="form-group">
                 <legend class="border-bottom mb-4">Team</legend>
-                {{ form|crispy }}
-                
+                    <div class="form-row">
+                        <div class="form-group col-md-6 mb-0">
+                            {{ form.team_name|as_crispy_field }}
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-11 mb-0">
+                            {{ form.description|as_crispy_field }}
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-11 mb-0" style="display:none">
+                            {{ form.team_comp|as_crispy_field }}
+                        </div>
+                        <small class="text-muted">
+                            <p>pick your Pokemon from below</p>
+                        </small>
+                    </div>
+                    <ul id="myList">
+                        {% comment %} <li>  <input type="hidden" name="mylist[]" value="myid1"> </li> {% endcomment %}
+                    </ul>
             </fieldset>
-            {% comment %} {% for row in pokemon_detail%}
-               {{row.f_name}}
-            {% endfor %} {% endcomment %}
             <div class="form-group">
                 <button class="btn btn-outline-info" type="submit">Create</button>
             </div>
+            <p>
+                {% for row in pokemon_detail%}
+                    <img src="../../static/pokewiki/pokemon-icon/{{row.f_name}}.png" onclick="pokeSelect('{{row.f_name}}')" >
+                {% endfor %}
+            </p>
+            {% comment %} {% for row in pokemon_detail%}
+               {{row.f_name}}
+            {% endfor %} {% endcomment %}
         </form>
     </div>
 {% endblock content %}
+
+{% block extra_js %}
+    <script>
+        var counter = 1;
+        //a function to initialize team_dict for update 
+        //a function to delete the last added pokemon
+        var team_dict = {
+                "p1": "",
+                "p2": "",
+                "p3": "",
+                "p4": "",
+                "p5": "",
+                "p6": "",
+        };
+        function pokeSelect(pokename)
+        {
+            if(counter <= 6)
+            {
+                //create list node
+                var node = document.createElement("LI");
+                node.value = pokename;
+                node.appendChild(document.createTextNode(pokename));
+                document.getElementById("myList").appendChild(node);
+                //append the pokemon to dict
+                team_dict["p".concat(counter.toString())] = pokename;
+                counter++;
+                //generate json data for the team
+                var team_json = document.getElementById("id_team_comp")
+                team_json.innerHTML = JSON.stringify(team_dict);
+            }
+        }
+    </script>
+{% endblock extra_js %}

@@ -8,8 +8,7 @@ class teamform(forms.ModelForm):
 
     class Meta:
         model = team_table
-        fields = ('team_name', 'description')
-
+        fields = ('team_name', 'description', 'team_comp')
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['p1'].queryset = f_table.objects.all()
@@ -19,6 +18,8 @@ class teamform(forms.ModelForm):
         self.fields['p5'].queryset = f_table.objects.none()
         self.fields['p6'].queryset = f_table.objects.none()
 
+    description = forms.CharField(widget=forms.Textarea(attrs={'rows': 4, 'cols': 40}))
+    team_comp = forms.CharField(widget=forms.Textarea(attrs={'rows': 4, 'cols': 40, 'style':"display:none;"}))
     p1 = forms.CharField()
     p2 = forms.CharField()
     p3 = forms.CharField()

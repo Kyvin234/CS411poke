@@ -17,3 +17,10 @@
 7. profile UI
 8. Homepage UI
 
+default user right now:
+    
+    username : red
+    password : default123
+
+    username : ash
+    password : default123

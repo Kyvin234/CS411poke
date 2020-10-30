@@ -27,12 +27,12 @@
                         </small>
                     </div>
                     <ul id="myList" class="list-group">
-                        <li id="1" class="list-group-item" onclick="select_edit(1)"></li>
-                        <li id="2" class="list-group-item" onclick="select_edit(2)"></li>
-                        <li id="3" class="list-group-item" onclick="select_edit(3)"></li>
-                        <li id="4" class="list-group-item" onclick="select_edit(4)"></li>
-                        <li id="5" class="list-group-item" onclick="select_edit(5)"></li>
-                        <li id="6" class="list-group-item" onclick="select_edit(6)"></li>
+                        <li id="1" class="list-group-item" onclick="select_edit(1)" ondblclick="delete_list(1)"></li>
+                        <li id="2" class="list-group-item" onclick="select_edit(2)" ondblclick="delete_list(2)"></li>
+                        <li id="3" class="list-group-item" onclick="select_edit(3)" ondblclick="delete_list(3)"></li>
+                        <li id="4" class="list-group-item" onclick="select_edit(4)" ondblclick="delete_list(4)"></li>
+                        <li id="5" class="list-group-item" onclick="select_edit(5)" ondblclick="delete_list(5)"></li>
+                        <li id="6" class="list-group-item" onclick="select_edit(6)" ondblclick="delete_list(6)"></li>
                     </ul>
             </fieldset>
             <div class="form-group">
@@ -108,8 +108,19 @@
         function hide_poke(pokename)
         {
             var p_hidden = document.getElementById(pokename);
-            p_hidden.style = "display:none;"
+            p_hidden.style = "display:none;";
         }
+        function delete_list(select_id)
+        {
+            var list = document.getElementById(select_id);
+            if(list.className == "list-group-item active")
+            {
+                list.className = "list-group-item"
+                select = 0;
+                show_poke(list.innerText);
+                list.innerText = "";
+            }
 
+        }
     </script>
 {% endblock extra_js %}

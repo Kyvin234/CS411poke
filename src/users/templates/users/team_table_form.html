@@ -18,8 +18,8 @@
                             {{ form.description|as_crispy_field }}
                         </div>
                     </div>
-                    <div class="form-row">
-                        <div class="form-group col-md-11 mb-0" style="display:none">
+                    <div class="form-row" style="display:none">
+                        <div class="form-group col-md-11 mb-0" >
                             {{ form.team_comp|as_crispy_field }}
                         </div>
                         <small class="text-muted">
@@ -27,6 +27,9 @@
                         </small>
                     </div>
                     <ul id="myList" class="list-group">
+                        {% for key,value in row.team_comp.items%}
+
+                        {% endfor %}
                         <li id="1" class="list-group-item" onclick="select_edit(1)" ondblclick="delete_list(1)"></li>
                         <li id="2" class="list-group-item" onclick="select_edit(2)" ondblclick="delete_list(2)"></li>
                         <li id="3" class="list-group-item" onclick="select_edit(3)" ondblclick="delete_list(3)"></li>
@@ -37,6 +40,9 @@
             </fieldset>
             <div class="form-group">
                 <button class="btn btn-outline-info" type="submit">Create</button>
+            </div>
+            <div class = "searchbar mt-sm-2 mr-2">
+                <input type = "text" class = "form-control" onkeyup = log_filter() id="myInput" placeholder = "Search for a Pokémon..."/>
             </div>
             <p>
                 {% for row in pokemon_detail%}
@@ -54,7 +60,6 @@
     <script>
         //pokemon selector
         var select = 0;
-        {% comment %} var counter = 1; {% endcomment %}
         //a function to initialize team_dict for update 
         //a function to delete the last added pokemon
         var team_dict = {
@@ -64,6 +69,22 @@
                 "p4": "",
                 "p5": "",
                 "p6": "",
+        };
+        //load the contents if updating
+        window.onload = function() 
+        {
+            var update = document.getElementById("id_team_comp");
+
+                //console.log(update.value)
+                var obj = JSON.parse(update.value);
+                for(let i = 1; i <= 6; i++)
+                {
+                    let list = document.getElementById(i.toString());
+                    //console.log("p".concat(i.toString()));
+                    list.innerText = obj["p".concat(i.toString())];
+                    team_dict["p".concat(i.toString())] = list.innerText;
+                }
+            
         };
         function pokeSelect(pokename)
         {
@@ -122,5 +143,6 @@
             }
 
         }
+
     </script>
 {% endblock extra_js %}

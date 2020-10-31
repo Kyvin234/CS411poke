@@ -19,7 +19,7 @@ class teamform(forms.ModelForm):
         self.fields['p6'].queryset = f_table.objects.none()
 
     description = forms.CharField(widget=forms.Textarea(attrs={'rows': 4, 'cols': 40}))
-    team_comp = forms.CharField(widget=forms.Textarea(attrs={'rows': 4, 'cols': 40, 'style':"display:none;"}))
+    team_comp = forms.CharField(widget=forms.Textarea(attrs={'rows': 4, 'cols': 40}))
     p1 = forms.CharField()
     p2 = forms.CharField()
     p3 = forms.CharField()

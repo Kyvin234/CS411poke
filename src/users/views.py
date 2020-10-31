@@ -63,7 +63,7 @@ class team_cview(LoginRequiredMixin, CreateView):
             "INSERT INTO users_team_table(team_name,team_comp,creator_id,description) VALUES(%s, %s, %s, %s)", 
             [form.instance.team_name, json.dumps(form.instance.team_comp), form.instance.creator_id, form.instance.description]
         )
-        return HttpResponseRedirect(self.success_url) 
+        return HttpResponseRedirect(self.success_url)
 
 class team_delview(LoginRequiredMixin, UserPassesTestMixin, CreateView):
     model = team_table

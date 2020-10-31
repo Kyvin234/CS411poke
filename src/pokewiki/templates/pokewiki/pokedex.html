@@ -35,9 +35,9 @@
                   {% endif %}
                 </td>
                 <td id = 'poke_font'>
-                  <button type= 'button' class = 'button' onclick ="button_filter({{forloop.counter}}, 0)">{{entry.type1}}</button>
+                  <img src="../static/pokewiki/type-icon/{{entry.type1}}.png" height=32px width=32px>
                   {% if entry.type2 %}
-                    <button type = 'button' class = 'button' onclick ="button_filter({{forloop.counter}}, 1)">{{entry.type2}}</button>
+                    <img src="../static/pokewiki/type-icon/{{entry.type2}}.png" height=32px width=32px>
                   {% endif %}
                 </td>
                 <td id = "poke_font">{{entry.gen}}</td>

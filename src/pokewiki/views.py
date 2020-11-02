@@ -138,6 +138,7 @@ class i_lview(ListView):
     model = i_table
     template_name = 'pokewiki/itemdex.html'
     context_object_name = 'item_entry'
+    ordering = ['category']
 
 class i_dview(DetailView):
     model = i_table

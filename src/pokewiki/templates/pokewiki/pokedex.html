@@ -54,12 +54,15 @@
                 <td id = 'poke_font'>
                   {% if entry.f_name != entry.s_name %}
                       <a href="{% url 'pokemon-detail' entry.s_name %}">{{entry.f_name}}</a>
+                      {% if 'mega' in entry.f_name %}
+                        <img src="../static/pokewiki/icons/megastone.png" height=24px width=24px>
+                      {% endif %}
                   {% endif %}
                 </td>
                 <td>
-                  <img src="../static/pokewiki/type-icon/{{entry.type1}}.png" alt={{entry.type1}} height=32px width=32px>
+                  <img src="../static/pokewiki/type-icon/{{entry.type1}}.png" alt={{entry.type1}} height=24px width=24px>
                   {% if entry.type2 %}
-                    <img src="../static/pokewiki/type-icon/{{entry.type2}}.png" alt={{entry.type2}} height=32px width=32px>
+                    <img src="../static/pokewiki/type-icon/{{entry.type2}}.png" alt={{entry.type2}} height=24px width=24px>
                   {% endif %}
                 </td>
                 <td id = "poke_font">{{entry.gen}}</td>

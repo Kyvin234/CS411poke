@@ -17,12 +17,12 @@
     color : dimgray;
   }
   a:link {
-      color : dimgray;
+      color : black;
     text-decoration: none;
   }
 
   a:visited {
-    color : dimgray;
+    color : black;
     text-decoration: none;
   }
 
@@ -47,7 +47,7 @@
   nav ul{overflow:hidden; overflow-y:scroll;}
   #poke_font{
       font-family: "Comic Sans MS", cursive, sans-serif;
-      color : dimgray;
+      color : black;
   }
   #homepg_txt{
       margin-top: 0px;
@@ -91,7 +91,7 @@
   #movedex_pg{
     background-attachment:fixed;
     margin-top:80px;
-    background-image: url("icons/kantotrio.png");
+    background-image: url("icons/pikasurfing.png");
     background-repeat: no-repeat;
     background-position: top center;
     margin-left:auto;
@@ -103,7 +103,7 @@
   #itemdex_pg{
     background-attachment:fixed;
     margin-top:80px;
-    background-image: url("icons/kantotrio.png");
+    background-image: url("icons/cubonewallpaper.png");
     background-repeat: no-repeat;
     background-position: top center;
     margin-left:auto;

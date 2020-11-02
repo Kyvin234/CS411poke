@@ -17,6 +17,7 @@
                     <th scope="col">#</th>
                     <th scope="col">Icon</th>
                     <th scope="col">Name</th>
+                    <th scope="col">Form</th>
                     <th scope="col">Types</th>
                     <th scope="col">Generation</th>
                 </tr>
@@ -26,8 +27,20 @@
                     <tr>
                         <td>{{entry.dex_id}}</td>
                         <td><img src="../static/pokewiki/pokemon-icon/{{entry.f_name}}.png"></td>
-                        <td><a href="{% url 'pokemon-detail' entry.s_name %}">{{entry.f_name}}</a></td>
-                        <td>{{entry.type1}} {{entry.type2}}</td>
+                        <td><a href="{% url 'pokemon-detail' entry.s_name %}">{{entry.s_name}}</a></td>
+                        <td>
+                            {% if entry.f_name != entry.s_name %}
+                                <a href="{% url 'pokemon-detail' entry.s_name %}">{{entry.f_name}}</a>
+                                {% if 'mega' in entry.f_name %}
+                                    <img src="../static/pokewiki/icons/megastone.png" height=24px width=24px>
+                                {% endif %}
+                            {% endif %}
+                        </td>
+                        <td><img src="../static/pokewiki/type-icon/{{entry.type1}}.png" alt={{entry.type1}} height=24px width=24px> 
+                            {% if entry.type2 %}
+                                <img src="../static/pokewiki/type-icon/{{entry.type2}}.png" alt={{entry.type2}} height=24px width=24px>
+                            {% endif %}
+                        </td>
                         <td>{{entry.gen}}</td>
                     </tr>
                 {% endfor %}

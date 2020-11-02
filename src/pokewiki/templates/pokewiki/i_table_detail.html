@@ -1,0 +1,14 @@
+{% extends "pokewiki/base.html" %}
+
+{% block title %}
+    <title>{{object.i_name}}</title>
+{% endblock title %}
+
+{% block content %}
+    <body id="abidex_pg">
+        <h1> ID : {{object.i_id}} </h1>
+        <h1> NAME : {{object.i_name}} </h1>
+        <h3> CATEGORY : {{object.category}} </h3>
+        <p>  EFFECT : {{object.effect}}</p>
+    </body>
+{% endblock content %}

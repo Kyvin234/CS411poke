@@ -69,7 +69,7 @@
   #pokedex_pg{
       background-attachment:fixed;
       margin-top:80px;
-      background-image: url("icons/pokedex-background1.jpg");
+      background-image: url("icons/pokedex-background.png");
       background-repeat: no-repeat;
       background-position: top center;
       margin-left:auto;
@@ -91,7 +91,28 @@
   #movedex_pg{
     background-attachment:fixed;
     margin-top:80px;
+    background-image: url("icons/kantotrio.png");
+    background-repeat: no-repeat;
+    background-position: top center;
+    margin-left:auto;
+    margin-right:auto;
+    background-position: 0px 66px;
+    background-size: cover;
+    
   }
+  #itemdex_pg{
+    background-attachment:fixed;
+    margin-top:80px;
+    background-image: url("icons/kantotrio.png");
+    background-repeat: no-repeat;
+    background-position: top center;
+    margin-left:auto;
+    margin-right:auto;
+    background-position: 0px 66px;
+    background-size: cover;
+    
+  }
+
   .bg-steel {
     /* background-color: #9fdfc0; */
     background-image: url("icons/pokemonbanner.png");

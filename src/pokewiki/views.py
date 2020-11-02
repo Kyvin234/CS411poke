@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import s_table, f_table, a_table, a_relation, m_table, m_relation
+from .models import s_table, f_table, a_table, a_relation, m_table, m_relation, i_table
 from django.views.generic import ListView, DetailView
 from django.db import connection
 
@@ -85,7 +85,6 @@ class s_dview(DetailView):
 class a_lview(ListView):
     model = a_table
     template_name = 'pokewiki/abidex.html'
-
     context_object_name = 'ability_entry'
 
 class a_dview(DetailView):
@@ -134,6 +133,14 @@ class m_dview(DetailView):
                            ''' , (self.kwargs['pk'],self.kwargs['pk'])) 
         context['p_with_m'] = dictfetchall(cursor)
         return context
+
+class i_lview(ListView):
+    model = i_table
+    template_name = 'pokewiki/itemdex.html'
+    context_object_name = 'item_entry'
+
+class i_dview(DetailView):
+    model = i_table
 
 def dictfetchall(cursor):
     "Returns all rows from a cursor as a dict"

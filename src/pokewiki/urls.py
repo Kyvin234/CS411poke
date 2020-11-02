@@ -1,6 +1,6 @@
 from django.urls import path
 from . import views
-from .views import s_lview, s_dview, a_lview, a_dview, m_lview, m_dview
+from .views import s_lview, s_dview, a_lview, a_dview, m_lview, m_dview, i_lview, i_dview
 urlpatterns = [
     path('', views.home, name='home'),
     path('pokedex/', s_lview.as_view(), name='pokedex'),
@@ -9,4 +9,7 @@ urlpatterns = [
     path('ability-dex/ability/<int:pk>', a_dview.as_view(), name='ability-detail'),
     path('movedex/', m_lview.as_view(), name='movedex'),
     path('movedex/<str:pk>', m_dview.as_view(), name='move-detail'),
+    path('itemdex/', i_lview.as_view(), name='itemdex'),
+    path('itemdex/<str:pk>', i_dview.as_view(), name='item-detail'),
+
 ]

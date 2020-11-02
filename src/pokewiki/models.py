@@ -75,7 +75,6 @@ class m_table(models.Model):
     dmg_class = models.CharField(default='', max_length=10, null=True)
     effect = models.CharField(default='', max_length=3500, null=True)
     gen = models.IntegerField(default=0, null=True)
-# class i_table(models.Model):
 
 class m_relation(models.Model):
     m_name = models.ForeignKey(m_table, on_delete=models.CASCADE, default='')
@@ -85,6 +84,12 @@ class m_relation(models.Model):
 
 # class n_table(models.Model):
 
+class i_table(models.Model):
+    i_id = models.IntegerField(primary_key=True, default=0)
+    i_name = models.CharField(default="", max_length=50, null=True)
+    cost = models.IntegerField(default=0, null=True)
+    category = models.CharField(default="", max_length=50, null=True)
+    effect = models.CharField(default="", max_length=5000, null=True)
 
 
 

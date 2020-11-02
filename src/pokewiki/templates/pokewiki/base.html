@@ -32,6 +32,10 @@
                     <a class="nav-item nav-link" href="/ability-dex">
                         <img src="{% static 'pokewiki/icons/abilitydex-logo.png' %}" width="80" height"30">
                     </a>
+                    <a class="nav-item nav-link" href="/itemdex">
+                        itemdex
+                        {% comment %} <img src="{% static 'pokewiki/icons/abilitydex-logo.png' %}" width="80" height"30"> {% endcomment %}
+                    </a>
                 </div>
                 <!-- Navbar Right Side -->
                 <div class="navbar-nav">
@@ -61,7 +65,7 @@
                     </div>
                 {% endfor %}
             {% endif %}
-                {% block content %}{% endblock content %}
+            {% block content %}{% endblock content %}
         </div>
         {% block extra_js %}{% endblock extra_js %}
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>

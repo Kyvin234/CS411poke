@@ -3,6 +3,29 @@
 
 {% block title %}
     <title>PokeDex</title>
+    <style>
+    .icon-bar {
+        width: 100%; /* Full-width */
+        background-color: #ffffe8; /* Light yellow background */
+        overflow: auto; /* Overflow due to float */
+    }
+
+    .icon-bar a {
+        float: left; /* Float links side by side */
+        text-align: center; /* Center-align text */
+        width: 5.55555%; /* Equal width */
+        padding: 12px 0;
+        transition: all 0.3s ease; /* Add transition for hover effects */
+    }
+
+    .icon-bar a:hover {
+        background-color: #444444; /* Add a hover color */
+    }
+
+    .active {
+        background-color: #000000; /* Add an active/current color */
+    }
+    </style>
 {% endblock title %}
 
 {% block content %}
@@ -33,8 +56,8 @@
         <a href="#"><img src="../static/pokewiki/type-icon/water.png" height=32px width=32px onclick=button_filter("water")></a>
     </div>
     <!-- Table -->
-    <div style="overflow-y:scroll; height:75vh;">
-      <table class="table table-hover" id="myTable">
+    <div class="table-wrapper-scroll-y my-custom-scrollbar" >
+      <table class="table table-striped mb-0" id="myTable" cellspacing="0" width="100%">
         <thead>
             <tr class = "header">
                 <th scope="col">#</th>
@@ -49,7 +72,7 @@
             {% for entry in poke_entry %}
             <tr>
                 <td id = 'poke_font'>{{entry.dex_id}}</td>
-                <td><img src="../static/pokewiki/pokemon-icon/{{entry.f_name}}.png"></td>
+                <td><img src="../static/pokewiki/pokemon-icon/{{entry.f_name}}.png" loading=lazy></td>
                 <td id = 'poke_font'><a href="{% url 'pokemon-detail' entry.s_name %}">{{entry.s_name}}</a></td>
                 <td id = 'poke_font'>
                   {% if entry.f_name != entry.s_name %}
@@ -60,9 +83,9 @@
                   {% endif %}
                 </td>
                 <td>
-                  <img src="../static/pokewiki/type-icon/{{entry.type1}}.png" alt={{entry.type1}} height=24px width=24px>
+                  <img src="../static/pokewiki/type-icon/{{entry.type1}}.png" alt={{entry.type1}} height=24px width=24px loading=lazy> 
                   {% if entry.type2 %}
-                    <img src="../static/pokewiki/type-icon/{{entry.type2}}.png" alt={{entry.type2}} height=24px width=24px>
+                    <img src="../static/pokewiki/type-icon/{{entry.type2}}.png" alt={{entry.type2}} height=24px width=24px loading=lazy>
                   {% endif %}
                 </td>
                 <td id = "poke_font">{{entry.gen}}</td>
@@ -72,35 +95,10 @@
       </table>
     </div>
 </body>
-
-<style>
-.icon-bar {
-    width: 100%; /* Full-width */
-    background-color: #ffffe8; /* Light yellow background */
-    overflow: auto; /* Overflow due to float */
-}
-
-.icon-bar a {
-    float: left; /* Float links side by side */
-    text-align: center; /* Center-align text */
-    width: 5.55555%; /* Equal width */
-    padding: 12px 0;
-    transition: all 0.3s ease; /* Add transition for hover effects */
-}
-
-.icon-bar a:hover {
-    background-color: #444444; /* Add a hover color */
-}
-
-.active {
-    background-color: #000000; /* Add an active/current color */
-}
-</style>
-
 {% endblock content %}
 
 {% block extra_js %}
-<script>
+  <script>
 
     function log_filter() {
       var input, filter, table, tr, td, i, txtValue;
@@ -142,6 +140,5 @@
              }
          }
      }
-
-    </script>
+  </script>
 {% endblock extra_js %}

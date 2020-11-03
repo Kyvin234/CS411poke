@@ -10,7 +10,7 @@
         overflow: auto; /* Overflow due to float */
     }
 
-    .icon-bar a {
+    .icon-bar button {
         float: left; /* Float links side by side */
         text-align: center; /* Center-align text */
         width: 5.55555%; /* Equal width */
@@ -18,13 +18,14 @@
         transition: all 0.3s ease; /* Add transition for hover effects */
     }
 
-    .icon-bar a:hover {
+    .icon-bar button:hover {
         background-color: #444444; /* Add a hover color */
     }
 
-    .active {
-        background-color: #000000; /* Add an active/current color */
+    .searchbar {
+        width: 100%;
     }
+
     </style>
 {% endblock title %}
 
@@ -36,24 +37,24 @@
     </div>
     <!-- The side bar section for types -->
     <div class="icon-bar">
-        <a href="#"><img src="../static/pokewiki/type-icon/bug.png" height=32px width=32px onclick=button_filter("bug")></a>
-        <a href="#"><img src="../static/pokewiki/type-icon/dark.png" height=32px width=32px onclick=button_filter("dark")></a>
-        <a href="#"><img src="../static/pokewiki/type-icon/dragon.png" height=32px width=32px onclick=button_filter("dragon")></a>
-        <a href="#"><img src="../static/pokewiki/type-icon/electric.png" height=32px width=32px onclick=button_filter("electric")></a>
-        <a href="#"><img src="../static/pokewiki/type-icon/fairy.png" height=32px width=32px onclick=button_filter("fairy")></a>
-        <a href="#"><img src="../static/pokewiki/type-icon/fighting.png" height=32px width=32px onclick=button_filter("fighting")></a>
-        <a href="#"><img src="../static/pokewiki/type-icon/fire.png" height=32px width=32px onclick=button_filter("fire")></a>
-        <a href="#"><img src="../static/pokewiki/type-icon/flying.png" height=32px width=32px onclick=button_filter("flying")></a>
-        <a href="#"><img src="../static/pokewiki/type-icon/ghost.png" height=32px width=32px onclick=button_filter("ghost")></a>
-        <a href="#"><img src="../static/pokewiki/type-icon/grass.png" height=32px width=32px onclick=button_filter("grass")></a>
-        <a href="#"><img src="../static/pokewiki/type-icon/ground.png" height=32px width=32px onclick=button_filter("ground")></a>
-        <a href="#"><img src="../static/pokewiki/type-icon/ice.png" height=32px width=32px onclick=button_filter("ice")></a>
-        <a href="#"><img src="../static/pokewiki/type-icon/normal.png" height=32px width=32px onclick=button_filter("normal")></a>
-        <a href="#"><img src="../static/pokewiki/type-icon/poison.png" height=32px width=32px onclick=button_filter("poison")></a>
-        <a href="#"><img src="../static/pokewiki/type-icon/psychic.png" height=32px width=32px onclick=button_filter("psychic")></a>
-        <a href="#"><img src="../static/pokewiki/type-icon/rock.png" height=32px width=32px onclick=button_filter("rock")></a>
-        <a href="#"><img src="../static/pokewiki/type-icon/steel.png" height=32px width=32px onclick=button_filter("steel")></a>
-        <a href="#"><img src="../static/pokewiki/type-icon/water.png" height=32px width=32px onclick=button_filter("water")></a>
+        <button><img src="../static/pokewiki/type-icon/bug.png" height=32px width=32px onclick=button_filter("bug") ondblclick=clear_filter()></button>
+        <button><img src="../static/pokewiki/type-icon/dark.png" height=32px width=32px onclick=button_filter("dark") ondblclick=clear_filter()></button>
+        <button><img src="../static/pokewiki/type-icon/dragon.png" height=32px width=32px onclick=button_filter("dragon") ondblclick=clear_filter()></button>
+        <button><img src="../static/pokewiki/type-icon/electric.png" height=32px width=32px onclick=button_filter("electric") ondblclick=clear_filter()></button>
+        <button><img src="../static/pokewiki/type-icon/fairy.png" height=32px width=32px onclick=button_filter("fairy") ondblclick=clear_filter()></button>
+        <button><img src="../static/pokewiki/type-icon/fighting.png" height=32px width=32px onclick=button_filter("fighting") ondblclick=clear_filter()></button>
+        <button><img src="../static/pokewiki/type-icon/fire.png" height=32px width=32px onclick=button_filter("fire") ondblclick=clear_filter()></button>
+        <button><img src="../static/pokewiki/type-icon/flying.png" height=32px width=32px onclick=button_filter("flying") ondblclick=clear_filter()></button>
+        <button><img src="../static/pokewiki/type-icon/ghost.png" height=32px width=32px onclick=button_filter("ghost") ondblclick=clear_filter()></button>
+        <button><img src="../static/pokewiki/type-icon/grass.png" height=32px width=32px onclick=button_filter("grass") ondblclick=clear_filter()></button>
+        <button><img src="../static/pokewiki/type-icon/ground.png" height=32px width=32px onclick=button_filter("ground") ondblclick=clear_filter()></button>
+        <button><img src="../static/pokewiki/type-icon/ice.png" height=32px width=32px onclick=button_filter("ice") ondblclick=clear_filter()></button>
+        <button><img src="../static/pokewiki/type-icon/normal.png" height=32px width=32px onclick=button_filter("normal") ondblclick=clear_filter()></button>
+        <button><img src="../static/pokewiki/type-icon/poison.png" height=32px width=32px onclick=button_filter("poison") ondblclick=clear_filter()></button>
+        <button><img src="../static/pokewiki/type-icon/psychic.png" height=32px width=32px onclick=button_filter("psychic") ondblclick=clear_filter()></button>
+        <button><img src="../static/pokewiki/type-icon/rock.png" height=32px width=32px onclick=button_filter("rock") ondblclick=clear_filter()></button>
+        <button><img src="../static/pokewiki/type-icon/steel.png" height=32px width=32px onclick=button_filter("steel") ondblclick=clear_filter()></button>
+        <button><img src="../static/pokewiki/type-icon/water.png" height=32px width=32px onclick=button_filter("water") ondblclick=clear_filter()></button>
     </div>
     <!-- Table -->
     <div class="table-wrapper-scroll-y my-custom-scrollbar" >
@@ -98,47 +99,57 @@
 {% endblock content %}
 
 {% block extra_js %}
-  <script>
+<script>
 
-    function log_filter() {
-      var input, filter, table, tr, td, i, txtValue;
-      input = document.getElementById("myInput");
-      filter = input.value.toUpperCase();
-      table = document.getElementById("myTable");
-      tr = table.getElementsByTagName("tr");
-      for (i = 0; i < tr.length; i++) {
-        td = tr[i].getElementsByTagName("td")[2];
-        if (td) {
-          txtValue = td.textContent || td.innerText;
-          if (txtValue.toUpperCase().indexOf(filter) > -1) {
-            tr[i].style.display = "";
-          } else {
-            tr[i].style.display = "none";
-          }
-        }
+function log_filter() {
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("myInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[2];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
       }
     }
+  }
+}
 
-    function button_filter(button){
-        var table, tr, td, i, txtValue1, txtValue2;
-        table = document.getElementById("myTable");
-        tr = table.getElementsByTagName("tr");
-        for (i = 0; i < tr.length; i++) {
-          td = tr[i].getElementsByTagName("td")[4]; // Get the image column for types
-          if (td) {
+function button_filter(button){
+    var table, tr, td, i, txtValue1, txtValue2;
+    table = document.getElementById("myTable");
+    tr = table.getElementsByTagName("tr");
+    for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[4]; // Get the image column for types
+        if (td) {
             txtValue1 = td.getElementsByTagName("img")[0].attributes[1].textContent;  // The first type
             if(td.getElementsByTagName("img")[1]){
                 txtValue2 = td.getElementsByTagName("img")[1].attributes[1].textContent;  // The second type if exists
             }
             else txtValue2 = ""
-             if (txtValue1.indexOf(button) > -1 || txtValue2.indexOf(button) > -1) {
-                 tr[i].style.display = "";
-               }
-               else {
-                 tr[i].style.display = "none";
-               }
-             }
-         }
-     }
-  </script>
+            if (txtValue1.indexOf(button) > -1 || txtValue2.indexOf(button) > -1) {
+                tr[i].style.display = "";
+            }
+            else {
+                tr[i].style.display = "none";
+            }
+        }
+    }
+}
+
+     function clear_filter(){
+    var table, tr, i;
+    table = document.getElementById("myTable");
+    tr = table.getElementsByTagName("tr");
+    for (i = 0; i < tr.length; i++) {
+        tr[i].style.display = "";
+    }
+}
+
+</script>
 {% endblock extra_js %}

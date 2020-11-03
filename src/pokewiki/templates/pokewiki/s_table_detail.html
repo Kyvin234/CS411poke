@@ -33,20 +33,33 @@
             <h2> move </h2>
             <table class="table table-hover" id="myTable">
             <thead>
-                <tr class = "header">
-                    <th scope="col">#</th>
-                    <th scope="col">Icon</th>
-                    <th scope="col">Name</th>
-                    <th scope="col">Form</th>
-                    <th scope="col">Types</th>
-                    <th scope="col">Generation</th>
-                </tr>
+                  <th scope="col">id</th>
+                  <th scope="col">Name</th>
+                  <th scope="col">Types</th>
+                  <th scope="col">damage class</th>
+                  <th scope="col">Power</th>
+                  <th scope="col">PP</th>
+                  <th scope="col">Accuaracy</th>
             </thead>
             <tbody>
                 {% for m in pokemon_move%}
                     {% if m.f_name_id == row.f_name%}
                         <tr>
+                            <td>{{m.m_id}}</td>
                             <td><a href="{% url 'move-detail' m.m_name_id %}">{{m.m_name_id}}</a></td>
+                            <td> <img src="../../static/pokewiki/type-icon/{{m.types}}.png" height=24px width=24px> </td>
+                            <td id = 'poke_font'> <img src="../../static/pokewiki/move-icon/{{m.dmg_class}}.png"> {{m.dmg_class}}</td>
+                            {% if m.power == None%}
+                                <td>-</td>
+                            {% else %}
+                                <td>{{m.power}}</td>
+                            {% endif %}
+                            <td>{{m.pp}}</td>
+                            {% if m.accuaracy == None%}
+                                <td>-</td>
+                            {% else %}
+                                <td>{{m.accuaracy}}</td>
+                            {% endif %}
                         </tr>
                     {% endif %}
                 {% endfor %}

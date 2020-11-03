@@ -3,16 +3,16 @@
     height: 75vh;
     overflow: auto;
     }
-    ::-webkit-scrollbar {
+  ::-webkit-scrollbar {
       width: 10px;
       height: 30px;
     }
     
-    ::-webkit-scrollbar-thumb {
+  ::-webkit-scrollbar-thumb {
       background: rgba(0, 0, 0, 0.2);
     }
     
-    ::-webkit-scrollbar-track {
+  ::-webkit-scrollbar-track {
       background: rgba(0, 0, 0, 0.05);
     }
   .table-wrapper-scroll-y {
@@ -48,7 +48,6 @@
       border: none !important;
       background-size: auto;
   }​
-
   ul {
     margin: 0;
   }
@@ -121,42 +120,11 @@
     margin-top: 80px;
   }
 
-  .article-title {
-    color: #444444;
-  }
-
-  a.article-title:hover {
-    color: #428bca;
-    text-decoration: none;
-  }
-
-  .article-content {
-    white-space: pre-line;
-  }
-
   .article-img {
     height: 65px;
     width: 65px;
     margin-right: 16px;
   }
-
-  .article-metadata {
-    padding-bottom: 1px;
-    margin-bottom: 4px;
-    border-bottom: 1px solid #e3e3e3
-  }
-
-  .article-metadata a:hover {
-    color: #333;
-    text-decoration: none;
-  }
-
-  .article-svg {
-    width: 25px;
-    height: 25px;
-    vertical-align: middle;
-  }
-
   .account-img {
     height: 125px;
     width: 125px;

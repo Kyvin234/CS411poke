@@ -74,8 +74,8 @@ class s_dview(DetailView):
                     ''' , (self.kwargs['pk'],))
         context['pokemon_ability'] = dictfetchall(cursor)
         cursor.execute('''
-                SELECT f_name_id, m_name_id
-                FROM pokewiki_m_relation
+                SELECT *
+                FROM pokewiki_m_relation AS pr join pokewiki_m_table AS pt ON pr.m_name_id = pt.m_name
                 WHERE f_name_id LIKE %s
                 order by f_name_id
                     ''' , (''+self.kwargs['pk']+'%',))

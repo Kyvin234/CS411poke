@@ -7,11 +7,11 @@
       width: 10px;
       height: 30px;
     }
-    
+
   ::-webkit-scrollbar-thumb {
       background: rgba(0, 0, 0, 0.2);
     }
-    
+
   ::-webkit-scrollbar-track {
       background: rgba(0, 0, 0, 0.05);
     }
@@ -88,7 +88,11 @@
   #itemdex_pg{
     background-attachment:fixed;margin-top:80px;background-image: url("icons/cubonewallpaper.png");background-repeat: no-repeat;background-position: top center;margin-left:auto;margin-right:auto;background-position: 0px 66px;background-size: cover;
   }
-  
+  #chartContainer{
+      background-color: #ffffff,
+      opacity: 0.3,
+  }
+
   .bg-steel {
     /* background-color: #9fdfc0; */
     background-image: url("icons/pokemonbanner.png");

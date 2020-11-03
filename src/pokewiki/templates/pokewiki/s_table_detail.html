@@ -17,55 +17,111 @@
                     {% endif %}
                 {% endif %}
             {% endfor %}
+            <p><img src="../../static/pokewiki/pokemon-icon/{{row.f_name}}.png"></p>
             <p> dex_id : {{row.dex_id}} </p>
             <p> {{row.type1}} {{row.type2}}</p>
             <p> generation : {{row.gen}} </p>
             <p>height : {{row.height}}</p>
             <p>weight : {{row.weight}}</p>
-            <p>HP : {{row.hp}}</p>
+            <p> capture rate: {{row.capture_rate }}</p>
+            <p> gender rate: {{row.gender_rate }}</p>
+            <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+            <div id = "chartContainer"  style="height: 370px; width: 100%;"></div>
+            <script>
+                window.onload = function () {
+                    CanvasJS.addColorSet("pokemonStatBar",
+                    [
+                    "#F85888",
+                    "#78C850",
+                    "#6890F0", //blue
+                    "#F8D030", //yellow
+                    "#F08030", //orange
+                    "#FE0000"
+                ]);
+                var chart = new CanvasJS.Chart("chartContainer", {
+                  colorSet: "pokemonStatBar",
+                  animationEnabled: true,
+                  exportEnabled: true,
+                  title: {
+                    text: "Stats of {{row.f_name}}"
+                  },
+                  axisX: {
+                    margin: 10,
+                    labelPlacement: "inside",
+                    tickPlacement: "inside"
+                  },
+                  axisY2: {
+                    title: "Stat Values",
+                    titleFontSize: 14,
+                    includeZero: true,
+                  },
+                  data: [{
+                    type: "bar",
+                    axisYType: "secondary",
+                    indexLabel: "{y}",
+                    dataPoints: [
+                      // { label: "HP", y: {{row.hp}} },
+                      // { label: "Attack", y:{{row.atk}}},
+                      // { label: "Defense", y:{{row.df}}},
+                      // { label: "Sp. Attack", y: {{row.spatk}} },
+                      // { label: "Sp. Defense", y: {{row.spdf}} },
+                      { label: "Speed", y: {{row.spd}} },
+                      { label: "Sp. Defense", y: {{row.spdf}} },
+                      { label: "Sp. Attack", y: {{row.spatk}} },
+                      { label: "Defense", y:{{row.df}}},
+                      { label: "Attack", y:{{row.atk}}},
+                       { label: "HP", y: {{row.hp}} },
+                    ]
+                  }]
+                });
+                chart.render();
+
+                }
+            </script>
+            <!-- <script>
+                anychart.onDocumentReady(function () {
+
+                    var data = anychart.data.set([
+                      ["HP", {{row.hp}}],
+                      ["Attack", {{row.atk}}],
+                      ["Defense", {{row.df}}],
+                      ["Sp. Attack", {{row.spatk}}],
+                      ["Sp. Def", {{row.spdf}}],
+                      ["Speed", {{row.spd}}]
+                    ]);
+                    var chart = anychart.bar();
+                    var series = chart.bar(data);
+                    chart.title("Pokémon Stats");
+                    chart.container("container");
+                    chart.draw();
+                });
+            </script> -->
+            <!-- <p>HP : {{row.hp}}</p>
             <p>ATK : {{row.atk}}</p>
             <p>DEF : {{row.df}}</p>
             <p>SP.ATK : {{row.spatk}}</p>
             <p>SP.DEF : {{row.spdf}}</p>
-            <p>SPD : {{row.spd}}</p>
-            <p> capture rate: {{row.capture_rate }}</p>
-            <p> gender rate: {{row.gender_rate }}</p>
+            <p>SPD : {{row.spd}}</p> -->
             <h2> move </h2>
+            <div class="table-wrapper-scroll-y my-custom-scrollbar" >
             <table class="table table-hover" id="myTable">
             <thead>
-                  <th scope="col">id</th>
-                  <th scope="col">Name</th>
-                  <th scope="col">Types</th>
-                  <th scope="col">damage class</th>
-                  <th scope="col">Power</th>
-                  <th scope="col">PP</th>
-                  <th scope="col">Accuaracy</th>
+                <tr class = "header">
+                    <th scope="col">moves</th>
+                </tr>
             </thead>
             <tbody>
                 {% for m in pokemon_move%}
                     {% if m.f_name_id == row.f_name%}
                         <tr>
-                            <td>{{m.m_id}}</td>
                             <td><a href="{% url 'move-detail' m.m_name_id %}">{{m.m_name_id}}</a></td>
-                            <td> <img src="../../static/pokewiki/type-icon/{{m.types}}.png" height=24px width=24px> </td>
-                            <td id = 'poke_font'> <img src="../../static/pokewiki/move-icon/{{m.dmg_class}}.png"> {{m.dmg_class}}</td>
-                            {% if m.power == None%}
-                                <td>-</td>
-                            {% else %}
-                                <td>{{m.power}}</td>
-                            {% endif %}
-                            <td>{{m.pp}}</td>
-                            {% if m.accuaracy == None%}
-                                <td>-</td>
-                            {% else %}
-                                <td>{{m.accuaracy}}</td>
-                            {% endif %}
                         </tr>
                     {% endif %}
                 {% endfor %}
             </tbody>
             </table>
+            </div>
     </body>
-    
+
         {% endfor %}
 {% endblock content %}

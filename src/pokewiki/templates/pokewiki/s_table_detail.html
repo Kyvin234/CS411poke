@@ -44,7 +44,7 @@
                     <tr style = "background: #E57474; text-align:center">
                         <th style="width:150px">
                             <div style="float:left">
-                                <span style="color:#000;font-family: Comic Sans MS;">HP</span>
+                                <span style="color:#000;font-family: Comic Sans MS;">HP:</span>
                             </div>
                             <div style="float:right; color:black; font-family: Comic Sans MS;">
                                 {{row.hp}}
@@ -58,7 +58,7 @@
                         <tr style = "background: #FFB380; text-align:center">
                             <th style="width:150px">
                                 <div style="float:left">
-                                    <span style="color:#000;font-family: Comic Sans MS;">Attack</span>
+                                    <span style="color:#000;font-family: Comic Sans MS;">Attack:</span>
                                 </div>
                                 <div style="float:right; color:black; font-family: Comic Sans MS;">
                                     {{row.atk}}
@@ -72,7 +72,7 @@
                             <tr style = "background: #FAE078; text-align:center">
                                 <th style="width:150px">
                                     <div style="float:left">
-                                        <span style="color:#000;font-family: Comic Sans MS;">Defense</span>
+                                        <span style="color:#000;font-family: Comic Sans MS;">Defense:</span>
                                     </div>
                                     <div style="float:right; color:black;font-family: Comic Sans MS;">
                                         {{row.df}}
@@ -86,7 +86,7 @@
                             <tr style = "background: #62C5DA; text-align:center">
                                 <th style="width:150px">
                                     <div style="float:left">
-                                        <span style="color:#000;font-family: Comic Sans MS;">Sp.Attack</span>
+                                        <span style="color:#000;font-family: Comic Sans MS;">Sp.Attack:</span>
                                     </div>
                                     <div style="float:right; color:black; font-family: Comic Sans MS;">
                                         {{row.spatk}}
@@ -97,102 +97,58 @@
                                     width:calc(100%*{{row.spatk}}/255); height:20px"></div>
                                 </td>
                                 <!-- ////////////////////////////////////SPDEF STAT BAR-->
-                                <tr style = "background: #A7DB8D; text-align:center">
+                                <tr style = "background: #F4C2C2; text-align:center">
                                     <th style="width:150px">
                                         <div style="float:left">
-                                            <span style="color:#000; font-family: Comic Sans MS;">Sp.Defense</span>
+                                            <span style="color:#000; font-family: Comic Sans MS;">Sp.Defense:</span>
                                         </div>
                                         <div style="float:right; color:black; font-family: Comic Sans MS;">
                                             {{row.spdf}}
                                         </div>
                                     </th>
                                     <td style="width:255px">
-                                        <div class="statbar" style="background-color:#78C850;
+                                        <div class="statbar" style="background-color:#E17F93;
                                         width:calc(100%*{{row.spdf}}/255); height:20px"></div>
                                     </td>
                                     <!-- ////////////////////////////////////SPEED STAT BAR-->
-                                    <tr style = "background: #BD93D3; text-align:center">
+                                    <tr style = "background: #A7DB8D; text-align:center">
                                         <th style="width:150px">
                                             <div style="float:left">
-                                                <span style="color:#000;font-family: Comic Sans MS;">Speed</span>
+                                                <span style="color:#000;font-family: Comic Sans MS;">Speed:</span>
                                             </div>
                                             <div style="float:right; color:black; font-family: Comic Sans MS;">
                                                 {{row.spd}}
                                             </div>
                                         </th>
                                         <td style="width:255px">
-                                            <div class="statbar" style="background-color:#A45EE5;
+                                            <div class="statbar" style="background-color:#78C850;
                                             width:calc(100%*{{row.spd}}/255); height:20px"></div>
                                         </td>
                                         <!-- ////////////////////////////////////TOTAL STAT BAR-->
-                                        <!-- <tr style = "background: #A7DB8D; text-align:center">
+                                        <!-- PINK HEX #E17F93  #F4C2C2
+                                             GREEN HEX #78C850 #A7DB8D
+                                             PURPLE HEX #A45EE5 #BD93D3
+                                             BLUE HEX #0492C2 #62C5DA
+                                             YELLOW HEX #F8D030 #FAE078
+                                             ORANGE HEX #FF822E #FFB380
+                                             RED HEX #BC3838 #E57474
+                                         -->
+                                        <tr style = "background: #BD93D3; text-align:center">
                                             <th style="width:150px">
                                                 <div style="float:left">
-                                                    <span style="color:#000;">Total</span>
+                                                    <span style="color:#000; font-family: Comic Sans MS;">Total:</span>
                                                 </div>
-                                                <div style="float:right">
-                                                    {{row.hp}}+{{row.atk}}+{{row.df}}+{{row.spatk}}+{{row.spdf}}+{{row.spd}}
+                                                <div style="float:right; font-family: Comic Sans MS; color:black;">
+                                                    {{row.hp|add:row.atk|add:row.df|add:row.spatk|add:row.spdf|add:row.spd}}
                                                 </div>
                                             </th>
                                             <td style="width:255px">
-                                                <div class="statbar" style="background-color:#78C850;
-                                                width:calc(100%*{{row.spd}}/255); height:20px"></div>
-                                            </td> -->
+                                                <div class="statbar" style="background-color:#A45EE5;
+                                                width:calc(100%*{{row.hp|add:row.atk|add:row.df|add:row.spatk|add:row.spdf|add:row.spd}}
+                                            </div>/1530); height:20px"></div>
+                                            </td>
                 </tbody>
             </table>
-            <!-- <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
-            <div id = "chartContainer"  style="height: 370px; width: 100%;"></div>
-            <script>
-                window.onload = function () {
-                    CanvasJS.addColorSet("pokemonStatBar",
-                    [
-                    "#F85888",
-                    "#78C850",
-                    "#6890F0", //blue
-                    "#F8D030", //yellow
-                    "#F08030", //orange
-                    "#FE0000"
-                ]);
-                var chart = new CanvasJS.Chart("chartContainer", {
-                  colorSet: "pokemonStatBar",
-                  animationEnabled: true,
-                  exportEnabled: true,
-                  title: {
-                    text: "Stats of {{row.f_name}}"
-                  },
-                  axisX: {
-                    margin: 10,
-                    labelPlacement: "inside",
-                    tickPlacement: "inside"
-                  },
-                  axisY2: {
-                    title: "Stat Values",
-                    titleFontSize: 14,
-                    includeZero: true,
-                  },
-                  data: [{
-                    type: "bar",
-                    axisYType: "secondary",
-                    indexLabel: "{y}",
-                    dataPoints: [
-                      // { label: "HP", y: {{row.hp}} },
-                      // { label: "Attack", y:{{row.atk}}},
-                      // { label: "Defense", y:{{row.df}}},
-                      // { label: "Sp. Attack", y: {{row.spatk}} },
-                      // { label: "Sp. Defense", y: {{row.spdf}} },
-                      { label: "Speed", y: {{row.spd}} },
-                      { label: "Sp. Defense", y: {{row.spdf}} },
-                      { label: "Sp. Attack", y: {{row.spatk}} },
-                      { label: "Defense", y:{{row.df}}},
-                      { label: "Attack", y:{{row.atk}}},
-                       { label: "HP", y: {{row.hp}} },
-                    ]
-                  }]
-                });
-                chart.render();
-
-                }
-            </script> -->
             <h2> Learnable Moves </h2>
             <div class="table-wrapper-scroll-y my-custom-scrollbar" >
             <table class="table table-hover" id="myTable">

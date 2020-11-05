@@ -1,23 +1,25 @@
 {% extends "pokewiki/base.html" %}
 
 {% block title %}
-    <title>{{object.a_name}}</title>
+    <title style = "font-family: Comic Sans MS">{{object.a_name}}</title>
 {% endblock title %}
 
 {% block content %}
     <body id="abidex_pg">
         <h1> {{object.a_name}} </h1>
-        <p> {{object.description}} </p>
+        <p style = "font-family: Comic Sans MS"> {{object.description}} </p>
         {% for count in p_with_a|slice:":1" %}
             <h2>  There are {{count.count}} Pokemon with this ability: </h2>
         {% endfor %}
         {% for row in p_with_a %}
             <h1> {{row.f_name_id}}  </h1>
-            <a href="{% url 'pokemon-detail' row.s_name_id %}">{{row.s_name_id}}</a>
+            <a href="{% url 'pokemon-detail' row.s_name_id %}" style = "font-family: Comic Sans MS">
+                {{row.s_name_id}}
+            </a>
             {% if row.is_hidden == 1 %}
-                <p> hidden </p>
+                <p style = "font-family: Comic Sans MS"> (hidden ability) </p>
             {% else %}
-                <p> normal </p>
+                <p style = "font-family: Comic Sans MS"> (normal ability)</p>
             {% endif %}
         {% endfor %}
     </body>

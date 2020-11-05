@@ -7,9 +7,9 @@
 {% block content %}
     <body id="movedex_pg">
         <h1> {{object.m_name}} </h1>
-        <p> {{object.effect}} </p>
+        <p style= "font-family: Comic Sans MS"> {{object.effect}} </p>
         {% for count in p_with_m|slice:":1" %}
-            <h2>  There are {{count.count}} Pokemon that can learn this move </h2>
+            <h2 style="text-align:center">  There are {{count.count}} Pokémon that can learn this move. </h2>
         {% endfor %}
         <table class="table table-hover" id="myTable">
             <thead>
@@ -25,23 +25,23 @@
             <tbody>
                 {% for entry in p_with_m%}
                     <tr>
-                        <td>{{entry.dex_id}}</td>
+                        <td style="font-family: Comic Sans MS">{{entry.dex_id}}</td>
                         <td><img src="../static/pokewiki/pokemon-icon/{{entry.f_name}}.png"></td>
-                        <td><a href="{% url 'pokemon-detail' entry.s_name %}">{{entry.s_name}}</a></td>
+                        <td><a href="{% url 'pokemon-detail' entry.s_name %}" style= "font-family: Comic Sans MS">{{entry.s_name}}</a></td>
                         <td>
                             {% if entry.f_name != entry.s_name %}
-                                <a href="{% url 'pokemon-detail' entry.s_name %}">{{entry.f_name}}</a>
+                                <a href="{% url 'pokemon-detail' entry.s_name %}" style= "font-family: Comic Sans MS">{{entry.f_name}}</a>
                                 {% if 'mega' in entry.f_name %}
                                     <img src="../static/pokewiki/icons/megastone.png" height=24px width=24px>
                                 {% endif %}
                             {% endif %}
                         </td>
-                        <td><img src="../static/pokewiki/type-icon/{{entry.type1}}.png" alt={{entry.type1}} height=24px width=24px> 
+                        <td><img src="../static/pokewiki/type-icon/{{entry.type1}}.png" alt={{entry.type1}} height=24px width=24px>
                             {% if entry.type2 %}
                                 <img src="../static/pokewiki/type-icon/{{entry.type2}}.png" alt={{entry.type2}} height=24px width=24px>
                             {% endif %}
                         </td>
-                        <td>{{entry.gen}}</td>
+                        <td style="font-family: Comic Sans MS">{{entry.gen}}</td>
                     </tr>
                 {% endfor %}
             </tbody>

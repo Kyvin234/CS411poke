@@ -11,20 +11,20 @@
             {% for a in pokemon_ability %}
                 {% if a.f_name == row.f_name %}
                     {% if a.is_hidden == 1 %}
-                        <a href="{% url 'ability-detail' a.a_id %}" style ="font-family:Comic Sans MS">{{a.a_name}}(hidden)</a>
+                        <br><a href="{% url 'ability-detail' a.a_id %}" style ="font-family:Comic Sans MS">{{a.a_name}}(hidden ability)</a>
                     {% else %}
                         <a href="{% url 'ability-detail' a.a_id %}" style ="font-family:Comic Sans MS">{{a.a_name}}</a>
                     {% endif %}
                 {% endif %}
             {% endfor %}
             <p><img src="../../static/pokewiki/pokemon-icon/{{row.f_name}}.png"></p>
-            <p style ="font-family:Comic Sans MS"> dex_id : {{row.dex_id}} </p>
-            <p style ="font-family:Comic Sans MS"> {{row.type1}} {{row.type2}}</p>
-            <p style ="font-family:Comic Sans MS"> generation : {{row.gen}} </p>
-            <p style ="font-family:Comic Sans MS">height : {{row.height}}</p>
-            <p style ="font-family:Comic Sans MS">weight : {{row.weight}}</p>
-            <p style ="font-family:Comic Sans MS"> capture rate: {{row.capture_rate }}</p>
-            <p style ="font-family:Comic Sans MS"> gender rate: {{row.gender_rate }}</p>
+            <p style ="font-family:Comic Sans MS"> Dex ID No. : {{row.dex_id}} </p>
+            <p style ="font-family:Comic Sans MS"> Type: {{row.type1}} {{row.type2}}</p>
+            <p style ="font-family:Comic Sans MS"> Generation : {{row.gen}} </p>
+            <p style ="font-family:Comic Sans MS">Height : {{row.height}} decimeters(dm)</p>
+            <p style ="font-family:Comic Sans MS">Weight : {{row.weight}} hectograms(hg)</p>
+            <p style ="font-family:Comic Sans MS"> Capture Rate: {{row.capture_rate }}</p>
+            <p style ="font-family:Comic Sans MS"> Gender Rate: {{row.gender_rate }}</p>
             <!-- STAT TABLE-->
             <table style = "background: #6FFEF6; border-radius: 10px; -moz-border-radius:10px;
             -webkit-border-radius:10; -khtml-border-radius:10px; -icab-border-radius:10px;

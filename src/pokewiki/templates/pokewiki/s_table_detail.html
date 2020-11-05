@@ -25,7 +25,122 @@
             <p>weight : {{row.weight}}</p>
             <p> capture rate: {{row.capture_rate }}</p>
             <p> gender rate: {{row.gender_rate }}</p>
-            <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+            <table style = "background: #6FFEF6; border-radius: 10px; -moz-border-radius:10px;
+            -webkit-border-radius:10; -khtml-border-radius:10px; -icab-border-radius:10px;
+            -o-border-radius:10px; border:3px solid #05A89F; white-space:nowrap">
+            <!--/////////////////////////////////////////////////////// CAPTION-->
+                <caption style ="color:black; caption-side:top; text-align:center;
+                background:#40ece2; border-radius: 10px; -moz-border-radius:10px;
+                -webkit-border-radius:10; -khtml-border-radius:10px; -icab-border-radius:10px;
+                -o-border-radius:10px; border:3px solid #05A89F; white-space:nowrap; font-family: Comic Sans MS">
+                Base Stats For {{row.f_name}}</caption>
+                <tbody>
+                    <!--
+                    RED HEX #E57474, #BC3838
+
+
+                    -->
+                    <!--/////////////////////////////////////////////HP STAT BAR-->
+                    <tr style = "background: #E57474; text-align:center">
+                        <th style="width:150px">
+                            <div style="float:left">
+                                <span style="color:#000;font-family: Comic Sans MS;">HP</span>
+                            </div>
+                            <div style="float:right; color:black; font-family: Comic Sans MS;">
+                                {{row.hp}}
+                            </div>
+                        </th>
+                        <td style="width:255px">
+                            <div class="statbar" style="background-color:#BC3838;
+                            width:calc(100%*{{row.hp}}/255); height:20px"></div>
+                        </td>
+                        <!--/////////////////////////////////////////ATK STAT BAR-->
+                        <tr style = "background: #FFB380; text-align:center">
+                            <th style="width:150px">
+                                <div style="float:left">
+                                    <span style="color:#000;font-family: Comic Sans MS;">Attack</span>
+                                </div>
+                                <div style="float:right; color:black; font-family: Comic Sans MS;">
+                                    {{row.atk}}
+                                </div>
+                            </th>
+                            <td style="width:255px">
+                                <div class="statbar" style="background-color:#FF822e;
+                                width:calc(100%*{{row.atk}}/255); height:20px"></div>
+                            </td>
+                            <!-- ////////////////////////////////////DEF STAT BAR-->
+                            <tr style = "background: #FAE078; text-align:center">
+                                <th style="width:150px">
+                                    <div style="float:left">
+                                        <span style="color:#000;font-family: Comic Sans MS;">Defense</span>
+                                    </div>
+                                    <div style="float:right; color:black;font-family: Comic Sans MS;">
+                                        {{row.df}}
+                                    </div>
+                                </th>
+                                <td style="width:255px">
+                                    <div class="statbar" style="background-color:#F8D030;
+                                    width:calc(100%*{{row.df}}/255); height:20px"></div>
+                                </td>
+                            <!-- ////////////////////////////////////SPATK STAT BAR-->
+                            <tr style = "background: #62C5DA; text-align:center">
+                                <th style="width:150px">
+                                    <div style="float:left">
+                                        <span style="color:#000;font-family: Comic Sans MS;">Sp.Attack</span>
+                                    </div>
+                                    <div style="float:right; color:black; font-family: Comic Sans MS;">
+                                        {{row.spatk}}
+                                    </div>
+                                </th>
+                                <td style="width:255px">
+                                    <div class="statbar" style="background-color:#0492C2;
+                                    width:calc(100%*{{row.spatk}}/255); height:20px"></div>
+                                </td>
+                                <!-- ////////////////////////////////////SPDEF STAT BAR-->
+                                <tr style = "background: #A7DB8D; text-align:center">
+                                    <th style="width:150px">
+                                        <div style="float:left">
+                                            <span style="color:#000; font-family: Comic Sans MS;">Sp.Defense</span>
+                                        </div>
+                                        <div style="float:right; color:black; font-family: Comic Sans MS;">
+                                            {{row.spdf}}
+                                        </div>
+                                    </th>
+                                    <td style="width:255px">
+                                        <div class="statbar" style="background-color:#78C850;
+                                        width:calc(100%*{{row.spdf}}/255); height:20px"></div>
+                                    </td>
+                                    <!-- ////////////////////////////////////SPEED STAT BAR-->
+                                    <tr style = "background: #BD93D3; text-align:center">
+                                        <th style="width:150px">
+                                            <div style="float:left">
+                                                <span style="color:#000;font-family: Comic Sans MS;">Speed</span>
+                                            </div>
+                                            <div style="float:right; color:black; font-family: Comic Sans MS;">
+                                                {{row.spd}}
+                                            </div>
+                                        </th>
+                                        <td style="width:255px">
+                                            <div class="statbar" style="background-color:#A45EE5;
+                                            width:calc(100%*{{row.spd}}/255); height:20px"></div>
+                                        </td>
+                                        <!-- ////////////////////////////////////TOTAL STAT BAR-->
+                                        <!-- <tr style = "background: #A7DB8D; text-align:center">
+                                            <th style="width:150px">
+                                                <div style="float:left">
+                                                    <span style="color:#000;">Total</span>
+                                                </div>
+                                                <div style="float:right">
+                                                    {{row.hp}}+{{row.atk}}+{{row.df}}+{{row.spatk}}+{{row.spdf}}+{{row.spd}}
+                                                </div>
+                                            </th>
+                                            <td style="width:255px">
+                                                <div class="statbar" style="background-color:#78C850;
+                                                width:calc(100%*{{row.spd}}/255); height:20px"></div>
+                                            </td> -->
+                </tbody>
+            </table>
+            <!-- <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
             <div id = "chartContainer"  style="height: 370px; width: 100%;"></div>
             <script>
                 window.onload = function () {
@@ -77,32 +192,8 @@
                 chart.render();
 
                 }
-            </script>
-            <!-- <script>
-                anychart.onDocumentReady(function () {
-
-                    var data = anychart.data.set([
-                      ["HP", {{row.hp}}],
-                      ["Attack", {{row.atk}}],
-                      ["Defense", {{row.df}}],
-                      ["Sp. Attack", {{row.spatk}}],
-                      ["Sp. Def", {{row.spdf}}],
-                      ["Speed", {{row.spd}}]
-                    ]);
-                    var chart = anychart.bar();
-                    var series = chart.bar(data);
-                    chart.title("Pokémon Stats");
-                    chart.container("container");
-                    chart.draw();
-                });
             </script> -->
-            <!-- <p>HP : {{row.hp}}</p>
-            <p>ATK : {{row.atk}}</p>
-            <p>DEF : {{row.df}}</p>
-            <p>SP.ATK : {{row.spatk}}</p>
-            <p>SP.DEF : {{row.spdf}}</p>
-            <p>SPD : {{row.spd}}</p> -->
-            <h2> move </h2>
+            <h2> Learnable Moves </h2>
             <div class="table-wrapper-scroll-y my-custom-scrollbar" >
             <table class="table table-hover" id="myTable">
             <thead>

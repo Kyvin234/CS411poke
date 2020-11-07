@@ -52,6 +52,15 @@
     margin: 0;
   }
   nav ul{overflow:hidden; overflow-y:scroll;}
+
+/*graph*/
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  }
+  #chartdiv {
+    width: 100%;
+    height: 90%;
+  }
   #poke_font{
       font-family: "Comic Sans MS", cursive, sans-serif;
       color : black;

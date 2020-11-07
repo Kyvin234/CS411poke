@@ -18,6 +18,70 @@
                             {{ form.description|as_crispy_field }}
                         </div>
                     </div>
+                    <!-- add pokemon graph-->
+                    <script src="//cdn.amcharts.com/lib/4/core.js"></script>
+                    <script src="//cdn.amcharts.com/lib/4/charts.js"></script>
+                    <script src="//cdn.amcharts.com/lib/4/themes/animated.js"></script>
+                    <script src="//cdn.amcharts.com/lib/4/plugins/forceDirected.js"></script>
+                    <div id="chartdiv">
+                        <script>
+                            am4core.useTheme(am4themes_animated);
+                            // Create chart
+                            var chart = am4core.create("chartdiv", am4plugins_forceDirected.ForceDirectedTree);
+                            // Create series
+                            var series = chart.series.push(new am4plugins_forceDirected.ForceDirectedSeries())
+                            // Set data
+                            series.data = [{
+                              "name": "Tyranitar",
+                              "value": 400,
+                              "link":["Garchomp"]
+                            }, {
+                              "name": "Garchomp",
+                              "value":400,
+                              "link":["Pikachu"],
+                              // "children": [{
+                              //   "name": "B1", "value": 135
+                              // },
+                            }, {
+                              "name": "Pikachu",
+                              "value":400,
+                              "link":["Garchomp","Tyranitar"],
+                            }, {
+                              "name": "Charizard",
+                              "value":400,
+                              "link":["Garchomp", "Pikachu"]
+                            }, {
+                              "name": "Blastoise",
+                              "value":400,
+                              "link":["Garchomp"],
+                            }];
+                            // Set up data fields
+                            series.dataFields.value = "value";
+                            series.dataFields.name = "name";
+                            series.dataFields.children = "children";
+                            series.dataFields.id = "name";
+                            series.dataFields.linkWith = "link";
+                            series.links.template.strokeWidth = 5;
+                            // series.minRadius = 30;
+                            // series.maxRadius = 30;
+                            // Add labels
+                            series.nodes.template.label.text = "{name}";
+                            series.fontSize = 10;
+                            series.minRadius = 15;
+                            series.maxRadius = 40;
+                            series.centerStrength = 0.5;
+                            chart.zoomable = true;
+                            series.nodes.template.events.on("hit", function(event) {
+                              if (event.target.isActive) {
+                                chart.zoomToDataItem(event.target.dataItem, 3, true)
+                              }
+                              else {
+                                chart.zoomOut();
+                              }
+                            });
+                        </script>
+                    </div>
+                    <div id="chartdiv"></div>
                     <div class="form-row" style="display:none">
                         <div class="form-group col-md-11 mb-0" >
                             {{ form.team_comp|as_crispy_field }}
@@ -59,8 +123,13 @@
 {% block extra_js %}
     <script>
         //pokemon selector
+        var team_graph = {
+            {"name": "TaoHeyi"},
+            {"name": "shlint"}
+
+        };
         var select = 0;
-        //a function to initialize team_dict for update 
+        //a function to initialize team_dict for update
         //a function to delete the last added pokemon
         var team_dict = {
                 "p1": "",
@@ -71,7 +140,7 @@
                 "p6": "",
         };
         //load the contents if updating
-        window.onload = function() 
+        window.onload = function()
         {
             var update = document.getElementById("id_team_comp");
 
@@ -84,7 +153,7 @@
                     list.innerText = obj["p".concat(i.toString())];
                     team_dict["p".concat(i.toString())] = list.innerText;
                 }
-            
+
         };
         function pokeSelect(pokename)
         {
@@ -117,15 +186,15 @@
                     else
                         list.className = "list-group-item";
                 }
-            
+
             }
-            //alert(select_id); 
+            //alert(select_id);
         }
         function show_poke(pokename)
         {
             var p_shown = document.getElementById(pokename);
             p_shown.style = "display:\"\";";
-        } 
+        }
         function hide_poke(pokename)
         {
             var p_hidden = document.getElementById(pokename);

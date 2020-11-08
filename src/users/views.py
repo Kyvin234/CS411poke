@@ -10,6 +10,7 @@ from django.contrib.auth.decorators import login_required
 from django.urls import reverse_lazy
 from .forms import teamform
 import json
+import pymongo
 # import logging
 # from .forms import TeamForm
 
@@ -45,6 +46,10 @@ class team_cview(LoginRequiredMixin, CreateView):
     fields = ['team_name', 'team_comp','description']  
     success_url = reverse_lazy('team')
     def get_context_data(self, **kwargs):
+        myclient = pymongo.MongoClient("mongodb+srv://yuey8:yuyue72520@cluster0-t2jyv.mongodb.net/Student_Info?retryWrites=true&w=majority")
+        mydb = myclient['server']
+        mycol = mydb['453_student_info']
+        x = mycol.find_one()
         context = super().get_context_data(**kwargs)
         cursor = connection.cursor()
         cursor.execute('''
@@ -54,6 +59,7 @@ class team_cview(LoginRequiredMixin, CreateView):
                             ORDER BY dex_id
                            ''') 
         context['pokemon_detail'] = dictfetchall(cursor)
+        context['test'] = {'test' : x}
         return context
     
     def form_valid(self, form):

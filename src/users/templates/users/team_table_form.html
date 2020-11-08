@@ -81,7 +81,6 @@
                             });
                         </script>
                     </div>
-                    <div id="chartdiv"></div>
                     <div class="form-row" style="display:none">
                         <div class="form-group col-md-11 mb-0" >
                             {{ form.team_comp|as_crispy_field }}
@@ -123,11 +122,10 @@
 {% block extra_js %}
     <script>
         //pokemon selector
-        var team_graph = {
-            {"name": "TaoHeyi"},
-            {"name": "shlint"}
-
-        };
+        // var team_graph = {
+        //     {"name": "TaoHeyi"},
+        //     {"name": "shlint"}
+        // };
         var select = 0;
         //a function to initialize team_dict for update
         //a function to delete the last added pokemon

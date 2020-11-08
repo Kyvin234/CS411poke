@@ -59,7 +59,7 @@
   }
   #chartdiv {
     width: 100%;
-    height: 90%;
+    height: 50vh;
   }
   #poke_font{
       font-family: "Comic Sans MS", cursive, sans-serif;

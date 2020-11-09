@@ -14,6 +14,9 @@ import pymongo
 # import logging
 # from .forms import TeamForm
 
+myclient = pymongo.MongoClient("mongodb+srv://yuey8:yuyue72520@cluster0-t2jyv.mongodb.net/Student_Info?retryWrites=true&w=majority")
+mydb = myclient['cs411']
+
 def register(request):
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
@@ -46,20 +49,20 @@ class team_cview(LoginRequiredMixin, CreateView):
     fields = ['team_name', 'team_comp','description']  
     success_url = reverse_lazy('team')
     def get_context_data(self, **kwargs):
-        myclient = pymongo.MongoClient("mongodb+srv://yuey8:yuyue72520@cluster0-t2jyv.mongodb.net/Student_Info?retryWrites=true&w=majority")
-        mydb = myclient['server']
-        mycol = mydb['453_student_info']
-        x = mycol.find_one()
+        # mongodb team data
+        mycol = mydb['gen7ou']
+        x = list(mycol.find())
+        # user's team info
         context = super().get_context_data(**kwargs)
-        cursor = connection.cursor()
-        cursor.execute('''
-                         SELECT distinct s_name, f_name, dex_id, gen, type1, type2
-                            FROM pokewiki_s_table, pokewiki_f_table
-                            WHERE s_name = s_name_id 
-                            ORDER BY dex_id
-                           ''') 
-        context['pokemon_detail'] = dictfetchall(cursor)
-        context['test'] = {'test' : x}
+        # cursor = connection.cursor()
+        # cursor.execute('''
+        #                  SELECT distinct s_name, f_name, dex_id, gen, type1, type2
+        #                     FROM pokewiki_s_table, pokewiki_f_table
+        #                     WHERE s_name = s_name_id 
+        #                     ORDER BY dex_id
+        #                    ''') 
+        # context['pokemon_detail'] = dictfetchall(cursor)
+        context['pokemon_team_detail'] = {'pokemon_team_detail' : x}
         return context
     
     def form_valid(self, form):
@@ -102,7 +105,7 @@ class team_uview(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
         context = super().get_context_data(**kwargs)
         cursor = connection.cursor()
         cursor.execute('''
-                         SELECT distinct s_name, f_name, dex_id, gen, type1, type2
+                            SELECT distinct s_name, f_name, dex_id, gen, type1, type2
                             FROM pokewiki_s_table, pokewiki_f_table
                             WHERE s_name = s_name_id 
                             ORDER BY dex_id

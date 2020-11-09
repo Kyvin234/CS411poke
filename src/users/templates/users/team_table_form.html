@@ -108,13 +108,14 @@
                 <input type = "text" class = "form-control" onkeyup = log_filter() id="myInput" placeholder = "Search for a Pokémon..."/>
             </div>
             <p>
-                {% for row in pokemon_detail%}
-                    <img id='{{row.f_name}}' src="../../static/pokewiki/pokemon-icon/{{row.f_name}}.png" onclick="pokeSelect('{{row.f_name}}')" >
-                {% endfor %}
+                {%for l, k in pokemon_team_detail.items%}
+                    {% for row in k%}
+                        <img id='{{row.pokemon|lower}}' src="../../static/pokewiki/pokemon-icon/{{row.pokemon|lower}}.png" onclick="pokeSelect('{{row.pokemon|lower}}')" >
+                        <!-- {{row}} -->
+                    {%endfor%}
+                {%endfor%}
             </p>
-            {% comment %} {% for row in pokemon_detail%}
-               {{row.f_name}}
-            {% endfor %} {% endcomment %}
+
         </form>
     </div>
 {% endblock content %}

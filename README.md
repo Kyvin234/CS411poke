@@ -24,3 +24,10 @@ default user right now:
 
     username : ash
     password : default123
+
+to be fixed in mongodb:
+four tapus
+farfetched
+zygarde
+nidoranm nidoranf
+oricorio

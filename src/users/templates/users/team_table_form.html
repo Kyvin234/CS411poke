@@ -90,9 +90,6 @@
                         </small>
                     </div>
                     <ul id="myList" class="list-group">
-                        {% for key,value in row.team_comp.items%}
-
-                        {% endfor %}
                         <li id="1" class="list-group-item" onclick="select_edit(1)" ondblclick="delete_list(1)"></li>
                         <li id="2" class="list-group-item" onclick="select_edit(2)" ondblclick="delete_list(2)"></li>
                         <li id="3" class="list-group-item" onclick="select_edit(3)" ondblclick="delete_list(3)"></li>
@@ -100,6 +97,11 @@
                         <li id="5" class="list-group-item" onclick="select_edit(5)" ondblclick="delete_list(5)"></li>
                         <li id="6" class="list-group-item" onclick="select_edit(6)" ondblclick="delete_list(6)"></li>
                     </ul>
+                    <div>
+                        <small style="display: inline;"> STATUS: </small>
+                        <small style="display: inline;" id="team_validation"></small>
+                    </div>
+                    
             </fieldset>
             <div class="form-group">
                 <button class="btn btn-outline-info" type="submit">Create</button>
@@ -107,7 +109,7 @@
             <div class = "searchbar mt-sm-2 mr-2">
                 <input type = "text" class = "form-control" onkeyup = log_filter() id="myInput" placeholder = "Search for a Pokémon..."/>
             </div>
-            <p>
+            <p id="pokemon_field">
                 {%for l, k in pokemon_team_detail.items%}
                     {% for row in k%}
                         <img id='{{row.pokemon|lower}}' src="../../static/pokewiki/pokemon-icon/{{row.pokemon|lower}}.png" onclick="pokeSelect('{{row.pokemon|lower}}')" >
@@ -123,10 +125,6 @@
 {% block extra_js %}
     <script>
         //pokemon selector
-        // var team_graph = {
-        //     {"name": "TaoHeyi"},
-        //     {"name": "shlint"}
-        // };
         var select = 0;
         //a function to initialize team_dict for update
         //a function to delete the last added pokemon
@@ -138,40 +136,50 @@
                 "p5": "",
                 "p6": "",
         };
+        var team_size = 0;
         //load the contents if updating
         window.onload = function()
         {
-            var update = document.getElementById("id_team_comp");
-
-                //console.log(update.value)
+            //(using django to check if it's an updateview or a createview)
+            {% if object %}
+                //load from to-be-modified team
+                var update = document.getElementById("id_team_comp");
                 var obj = JSON.parse(update.value);
                 for(let i = 1; i <= 6; i++)
                 {
                     let list = document.getElementById(i.toString());
-                    //console.log("p".concat(i.toString()));
                     list.innerText = obj["p".concat(i.toString())];
                     team_dict["p".concat(i.toString())] = list.innerText;
                 }
+            {% endif %}
 
+            //check if the team is valid
+            valid_check();
         };
+        
+        /*
+            Function to pick a pokemon from the field and append it to the team
+        */
         function pokeSelect(pokename)
         {
             if(select > 0)
             {
                 //append name to the list
                 var node = document.getElementById(select);
-                if(node.innerText != "")
-                    show_poke(node.innerText)
                 node.innerText = pokename;
                 //append the pokemon to dict
                 team_dict["p".concat(select.toString())] = pokename;
                 //generate json data for the team
                 var team_json = document.getElementById("id_team_comp");
                 team_json.innerHTML = JSON.stringify(team_dict);
-                //hide the selected pokemon
-                hide_poke(pokename)
+                team_size++;
+                console.log(team_size);
+                valid_check();
             }
         }
+        /*
+            highlight the list element being selected
+        */
         function select_edit(select_id)
         {
             if(select != select_id)
@@ -187,18 +195,10 @@
                 }
 
             }
-            //alert(select_id);
         }
-        function show_poke(pokename)
-        {
-            var p_shown = document.getElementById(pokename);
-            p_shown.style = "display:\"\";";
-        }
-        function hide_poke(pokename)
-        {
-            var p_hidden = document.getElementById(pokename);
-            p_hidden.style = "display:none;";
-        }
+        /*
+            Function to delete a pokemon from the list when double-clicked
+        */
         function delete_list(select_id)
         {
             var list = document.getElementById(select_id);
@@ -206,11 +206,64 @@
             {
                 list.className = "list-group-item"
                 select = 0;
-                show_poke(list.innerText);
                 list.innerText = "";
+                team_size--;
+                valid_check();
             }
-
         }
+        /*
+            Function to search a pokemon from the field 
+        */
+        function log_filter() 
+        {
+            var pokemons = document.getElementById("pokemon_field").children;
+            var input, filter, i, txtValue;
+            input = document.getElementById("myInput");
+            filter = input.value.toUpperCase();
+            for (i = 0; i < pokemons.length; i++) 
+            {
+                if (pokemons[i]) 
+                {
+                    txtValue = pokemons[i].id;
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) 
+                    {
+                        pokemons[i].style.display = "";
+                    } else 
+                    {
+                        pokemons[i].style.display = "none";
+                    }
+                }
+            }
+        }
+        /*
+            function to check if the team is valid
+            -if it's valid, the status becomes green and the button is enabled to create a team
+            -if it's invalid, the status becomes red and the button is disabled
+        */
+        function valid_check()
+        {
+            //get the team dictionary
+            let team = document.getElementById("team_dict");
+            let valid = true;
+            let checker = document.getElementById("team_validation");
+            //check if there are 6 pokemons in the team 
+            for(let i = 1; i <= 6; i++)
+            {
+                if(team_size != 6)
+                {
+                    //invalid
+                    checker.innerText = "INVALID, You MUST have 6 pokemons in the team";
+                    checker.style.color = "#ff6b60"
+                    return;
+                }    
+            }
+            checker.innerText   = "VALID";
+            checker.style.color = "#99ffcc"
+            //check if pokemons have the same dex number if not it's invalid
+        }
+        // function gen7_ou_check()
+        // {
 
+        // }
     </script>
 {% endblock extra_js %}

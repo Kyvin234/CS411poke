@@ -80,6 +80,10 @@
                       <a href="{% url 'pokemon-detail' entry.s_name %}">{{entry.f_name}}</a>
                       {% if 'mega' in entry.f_name %}
                         <img src="../static/pokewiki/icons/megastone.png" height=24px width=24px>
+                      {% elif 'alola' in entry.f_name %}
+                        <img src="../static/pokewiki/icons/alola.png" height=24px width=37px>
+                      {% elif '-ash' in entry.f_name %}
+                        <img src="../static/pokewiki/icons/bbond-ash.png" height=24px width=24px>
                       {% endif %}
                   {% endif %}
                 </td>

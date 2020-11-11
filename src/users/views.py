@@ -51,7 +51,7 @@ class team_cview(LoginRequiredMixin, CreateView):
     def get_context_data(self, **kwargs):
         # mongodb team data
         mycol = mydb['gen7ou']
-        x = list(mycol.find())
+        x = list(mycol.find().sort("dex_id"))
         # user's team info
         context = super().get_context_data(**kwargs)
         # cursor = connection.cursor()

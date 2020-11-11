@@ -14,7 +14,7 @@
                     <tr class = "header">
                         <td>{{row.team_name}}</td>
                         {% for key,value in row.team_comp.items %}
-                            <td><img src="../static/pokewiki/pokemon-icon/{{value}}.png"></td>
+                            <td><img src="../static/pokewiki/pokemon-icon/{{value.name}}.png"></td>
                         {% endfor %}
                     </tr>
                 </thead>
@@ -22,26 +22,41 @@
                     <tr>
                         <td>name</td>
                         {% for key,value in row.team_comp.items %}
-                            <td>{{value}}</td>
+                            <td>{{value.name}}</td>
                         {% endfor %}
                     </tr>
                     <tr>
                         <td>nature</td>
+                        {% for key,value in row.team_comp.items %}
+                            <td>{{value.nature}}</td>
+                        {% endfor %}
                     </tr>
                     <tr>
                         <td>ability</td>
+                        {% for key,value in row.team_comp.items %}
+                            <td>{{value.ability}}</td>
+                        {% endfor %}
                     </tr>
                     <tr>
                         <td>item</td>
+                        {% for key,value in row.team_comp.items %}
+                            <td>{{value.item}}</td>
+                        {% endfor %}
                     </tr>
                     <tr>
                         <td>move</td>
                     </tr>
                     <tr>
                         <td>EVs</td>
+                        {% for key,value in row.team_comp.items %}
+                            <td>{{value.EV}}</td>
+                        {% endfor %}
                     </tr>
                     <tr>
                         <td>IVs</td>
+                        {% for key,value in row.team_comp.items %}
+                            <td>{{value.IV}}</td>
+                        {% endfor %}
                     </tr>
                     <tr>
                         <td>description</td>

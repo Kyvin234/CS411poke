@@ -112,7 +112,7 @@
             <p id="pokemon_field">
                 {%for l, k in pokemon_team_detail.items%}
                     {% for row in k%}
-                        <img id='{{row.pokemon|lower}}' src="../../static/pokewiki/pokemon-icon/{{row.pokemon|lower}}.png" onclick="pokeSelect('{{row.pokemon|lower}}')" >
+                        <img id='{{row.pokemon|lower}}' alt='{{row.dex_id}}' src="../../static/pokewiki/pokemon-icon/{{row.pokemon|lower}}.png" onclick="pokeSelect('{{row.pokemon|lower}}', '{{row.dex_id}}')" >
                         <!-- {{row}} -->
                     {%endfor%}
                 {%endfor%}
@@ -128,13 +128,14 @@
         var select = 0;
         //a function to initialize team_dict for update
         //a function to delete the last added pokemon
-        var team_dict = {
-                "p1": "",
-                "p2": "",
-                "p3": "",
-                "p4": "",
-                "p5": "",
-                "p6": "",
+        var team_dict = 
+        {
+                "p1": {"id" : 0, "name" : "", "nature" : "", "IV" : "", "EV" : "", "item" : ""},
+                "p2": {"id" : 0, "name" : "", "nature" : "", "IV" : "", "EV" : "", "item" : ""},
+                "p3": {"id" : 0, "name" : "", "nature" : "", "IV" : "", "EV" : "", "item" : ""},
+                "p4": {"id" : 0, "name" : "", "nature" : "", "IV" : "", "EV" : "", "item" : ""},
+                "p5": {"id" : 0, "name" : "", "nature" : "", "IV" : "", "EV" : "", "item" : ""},
+                "p6": {"id" : 0, "name" : "", "nature" : "", "IV" : "", "EV" : "", "item" : ""},
         };
         var team_size = 0;
         //load the contents if updating
@@ -148,8 +149,8 @@
                 for(let i = 1; i <= 6; i++)
                 {
                     let list = document.getElementById(i.toString());
-                    list.innerText = obj["p".concat(i.toString())];
-                    team_dict["p".concat(i.toString())] = list.innerText;
+                    list.innerText = obj["p".concat(i.toString())]["name"];
+                    team_dict["p".concat(i.toString())]["name"] = list.innerText;
                 }
             {% endif %}
 
@@ -160,20 +161,22 @@
         /*
             Function to pick a pokemon from the field and append it to the team
         */
-        function pokeSelect(pokename)
+        function pokeSelect(pokename, dex_id)
         {
             if(select > 0)
             {
                 //append name to the list
                 var node = document.getElementById(select);
+                if(node.innerText == "")
+                    team_size++;
                 node.innerText = pokename;
                 //append the pokemon to dict
-                team_dict["p".concat(select.toString())] = pokename;
+                team_dict["p".concat(select.toString())]["name"] = pokename;
+                team_dict["p".concat(select.toString())]["id"]   = dex_id;
                 //generate json data for the team
                 var team_json = document.getElementById("id_team_comp");
                 team_json.innerHTML = JSON.stringify(team_dict);
-                team_size++;
-                console.log(team_size);
+                // console.log(team_size);
                 valid_check();
             }
         }
@@ -244,26 +247,64 @@
         {
             //get the team dictionary
             let team = document.getElementById("team_dict");
-            let valid = true;
             let checker = document.getElementById("team_validation");
-            //check if there are 6 pokemons in the team 
-            for(let i = 1; i <= 6; i++)
+            //initial state
+            if(team_size == 0)
             {
-                if(team_size != 6)
-                {
-                    //invalid
-                    checker.innerText = "INVALID, You MUST have 6 pokemons in the team";
-                    checker.style.color = "#ff6b60"
-                    return;
-                }    
+                return;
             }
-            checker.innerText   = "VALID";
-            checker.style.color = "#99ffcc"
-            //check if pokemons have the same dex number if not it's invalid
+            //check if there are 6 pokemons in the team 
+            if(team_size != 6)
+            {
+                //invalid
+                checker.innerText = "INVALID, You MUST have 6 pokemons in the team";
+                checker.style.color = "#ff6b60"
+                return;
+            }
+            //check based on the applied rule    
+            gen7_ou_check();
+            
         }
-        // function gen7_ou_check()
-        // {
-
-        // }
+        /*
+            team validator for gen7ou rule
+        */
+        function gen7_ou_check()
+        {
+            let checker = document.getElementById("team_validation");
+            let array = []; //array for pokemon dex_id
+            let mega_count = 0; //mega_count
+            for(let key in team_dict)
+            {
+                array.push(team_dict[key]["id"]);
+                
+                if(team_dict[key]["name"].includes("-mega"))
+                {
+                    mega_count++;
+                }
+            }
+            //check for pokemons with same national dex id
+            if(hasDuplicates(array) == true)
+            {
+                checker.innerText   = "INVALID, You CANNOT have two Pokémons with the same National Pokédex number on a team.";
+                checker.style.color = "#ff6b60"
+            }
+            else if(mega_count > 1) //check number of megas in the team
+            {
+                checker.innerText   = "INVALID, You CANNOT have more than one mega-evolved pokemons in one team.";
+                checker.style.color = "#ff6b60"
+            }
+            else //valid
+            {
+                checker.innerText   = "VALID";
+                checker.style.color = "#99ffcc";
+            }
+        }
+        /*
+            function to check if an array has a duplicate
+        */
+        function hasDuplicates(array) 
+        {
+            return (new Set(array)).size !== array.length;
+        }
     </script>
 {% endblock extra_js %}

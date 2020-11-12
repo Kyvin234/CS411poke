@@ -95,6 +95,28 @@
   #itemdex_pg{
     background-attachment:fixed;margin-top:80px;background-image: url("icons/cubonewallpaper.png");background-repeat: no-repeat;background-position: top center;margin-left:auto;margin-right:auto;background-position: 0px 66px;background-size: cover;
   }
+  .square {
+    float:left;
+    position: relative;
+    width: 30%;
+    padding-bottom : 25%; 
+    margin:1.66%;
+    background-color:#e6eff3;
+    overflow:hidden;
+    border-radius: 5%;
+  }
+
+  .team_picker {
+      position:absolute;
+      height:90%; 
+      width:90%; 
+      padding: 5%;
+  }
+  .team_picker img {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+  }
   .bg-steel {
     /* background-color: #9fdfc0; */
     background-image: url("icons/pokemonbanner.png");

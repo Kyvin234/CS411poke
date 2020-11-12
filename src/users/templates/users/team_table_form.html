@@ -89,17 +89,38 @@
                             <p>pick your Pokemon from below</p>
                         </small>
                     </div>
-                    <ul id="myList" class="list-group">
-                        <li id="1" class="list-group-item" onclick="select_edit(1)" ondblclick="delete_list(1)"></li>
-                        <li id="2" class="list-group-item" onclick="select_edit(2)" ondblclick="delete_list(2)"></li>
-                        <li id="3" class="list-group-item" onclick="select_edit(3)" ondblclick="delete_list(3)"></li>
-                        <li id="4" class="list-group-item" onclick="select_edit(4)" ondblclick="delete_list(4)"></li>
-                        <li id="5" class="list-group-item" onclick="select_edit(5)" ondblclick="delete_list(5)"></li>
-                        <li id="6" class="list-group-item" onclick="select_edit(6)" ondblclick="delete_list(6)"></li>
-                    </ul>
+                    <div class="square" id="1" onclick="select_member(1)" ondblclick="delete_member(1)" >
+                        <div class="team_picker">
+                        </div>
+                    </div>
+                    <div class="square" id="2" onclick="select_member(2)" ondblclick="delete_member(2)">
+                        <div class="team_picker">
+                        </div>
+                    </div>
+                    <div class="square" id="3" onclick="select_member(3)" ondblclick="delete_member(3)">
+                        <div class="team_picker">              
+                        </div>
+                    </div>
+                    <div class="square" id="4" onclick="select_member(4)" ondblclick="delete_member(4)">
+                        <div class="team_picker">
+                        </div>
+                    </div>
+                    <div class="square" id="5" onclick="select_member(5)" ondblclick="delete_member(5)">
+                        <div class="team_picker">
+                        </div>
+                    </div>
+                    <div class="square" id="6" onclick="select_member(6)" ondblclick="delete_member(6)">
+                        <div class="team_picker">              
+                        </div>
+                    </div>
                     <div>
-                        <small style="display: inline;"> STATUS: </small>
-                        <small style="display: inline;" id="team_validation"></small>
+                        <small style="display: inline;"> RULEs: </small>
+                        <br>
+                        <small style="display: inline;" id="rule1"> HAVE 6 Pokemons in the team</small>
+                        <br>
+                        <small style="display: inline;" id="rule2"> No more than ONE megas in the team</small>
+                        <br>
+                        <small style="display: inline;" id="rule3"> No two pokemons have two the same national dex number</small>
                     </div>
                     
             </fieldset>
@@ -126,6 +147,8 @@
     <script>
         //pokemon selector
         var select = 0;
+        //active color for selected team member
+        var active = "#9bd6f0";
         //a function to initialize team_dict for update
         //a function to delete the last added pokemon
         var team_dict = 
@@ -148,9 +171,9 @@
                 var obj = JSON.parse(update.value);
                 for(let i = 1; i <= 6; i++)
                 {
-                    let list = document.getElementById(i.toString());
-                    list.innerText = obj["p".concat(i.toString())]["name"];
-                    team_dict["p".concat(i.toString())]["name"] = list.innerText;
+                    let team_member = document.getElementById(i.toString()).children[0];
+                    team_member.innerText = obj["p".concat(i.toString())]["name"];
+                    team_dict["p".concat(i.toString())]["name"] = team_member.innerText;
                 }
             {% endif %}
 
@@ -166,7 +189,7 @@
             if(select > 0)
             {
                 //append name to the list
-                var node = document.getElementById(select);
+                var node = document.getElementById(select).children[0];
                 if(node.innerText == "")
                     team_size++;
                 node.innerText = pokename;
@@ -183,35 +206,38 @@
         /*
             highlight the list element being selected
         */
-        function select_edit(select_id)
+        function select_member(select_id)
         {
             if(select != select_id)
             {
-                select = select_id;
-                for(let i = 1; i <= 6; i++)
+                //deactivate previous selected
+                if(select != 0)
                 {
-                    let list = document.getElementById(i);
-                    if(i == select_id)
-                        list.className = "list-group-item active";
-                    else
-                        list.className = "list-group-item";
+                    let team_member = document.getElementById(select);
+                    team_member.style.backgroundColor = "#e6eff3";
                 }
-
+                //activate current selected
+                select = select_id;
+                team_member = document.getElementById(select);
+                team_member.style.backgroundColor = active;
             }
         }
         /*
             Function to delete a pokemon from the list when double-clicked
         */
-        function delete_list(select_id)
+        function delete_member(select_id)
         {
-            var list = document.getElementById(select_id);
-            if(list.className == "list-group-item active")
+            if(team_size != 0)
             {
-                list.className = "list-group-item"
-                select = 0;
-                list.innerText = "";
-                team_size--;
-                valid_check();
+                var team_member = document.getElementById(select_id);
+                if(select == select_id)
+                {
+                    team_member.style.background = "#e6eff3"
+                    select = 0;
+                    team_member.children[0].innerText = "";
+                    team_size--;
+                    valid_check();
+                }
             }
         }
         /*
@@ -246,19 +272,10 @@
         function valid_check()
         {
             //get the team dictionary
-            let team = document.getElementById("team_dict");
-            let checker = document.getElementById("team_validation");
+            // let team = document.getElementById("team_dict");
             //initial state
             if(team_size == 0)
             {
-                return;
-            }
-            //check if there are 6 pokemons in the team 
-            if(team_size != 6)
-            {
-                //invalid
-                checker.innerText = "INVALID, You MUST have 6 pokemons in the team";
-                checker.style.color = "#ff6b60"
                 return;
             }
             //check based on the applied rule    
@@ -270,32 +287,48 @@
         */
         function gen7_ou_check()
         {
-            let checker = document.getElementById("team_validation");
             let array = []; //array for pokemon dex_id
             let mega_count = 0; //mega_count
             for(let key in team_dict)
             {
-                array.push(team_dict[key]["id"]);
-                
+                if(team_dict[key]["id"] != "")
+                    array.push(team_dict[key]["id"]);
                 if(team_dict[key]["name"].includes("-mega"))
                 {
                     mega_count++;
                 }
             }
+            if(team_size != 6)
+            {
+                //invalid
+                let checker = document.getElementById("rule1");
+                // checker.innerText = "INVALID, You MUST have 6 pokemons in the team";
+                checker.style.color = "#ff6b60"
+                // return;
+            }
+            else{
+                let checker = document.getElementById("rule1");
+                checker.style.color = "#99ffcc";
+            }
             //check for pokemons with same national dex id
+            if(mega_count > 1) //check number of megas in the team
+            {
+                let checker = document.getElementById("rule2");
+                // checker.innerText   = "INVALID, You CANNOT have more than one mega-evolved pokemons in one team.";
+                checker.style.color = "#ff6b60"
+            }
+            else{
+                let checker = document.getElementById("rule2");
+                checker.style.color = "#99ffcc";
+            }
             if(hasDuplicates(array) == true)
             {
-                checker.innerText   = "INVALID, You CANNOT have two Pokémons with the same National Pokédex number on a team.";
+                let checker = document.getElementById("rule3");
+                // checker.innerText   = "INVALID, You CANNOT have two Pokémons with the same National Pokédex number on a team.";
                 checker.style.color = "#ff6b60"
             }
-            else if(mega_count > 1) //check number of megas in the team
-            {
-                checker.innerText   = "INVALID, You CANNOT have more than one mega-evolved pokemons in one team.";
-                checker.style.color = "#ff6b60"
-            }
-            else //valid
-            {
-                checker.innerText   = "VALID";
+            else{
+                let checker = document.getElementById("rule3");
                 checker.style.color = "#99ffcc";
             }
         }

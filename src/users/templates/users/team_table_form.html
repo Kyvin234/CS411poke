@@ -149,6 +149,8 @@
         var select = 0;
         //active color for selected team member
         var active = "#9bd6f0";
+        var valid = "green";
+        var invalid = "red";
         //a function to initialize team_dict for update
         //a function to delete the last added pokemon
         var team_dict = 
@@ -227,14 +229,17 @@
         */
         function delete_member(select_id)
         {
+            console.log(select_id)
             if(team_size != 0)
             {
                 var team_member = document.getElementById(select_id);
                 if(select == select_id)
                 {
                     team_member.style.background = "#e6eff3"
-                    select = 0;
                     team_member.children[0].innerText = "";
+                    team_dict["p".concat(select.toString())]["name"] = "";
+                    team_dict["p".concat(select.toString())]["id"]   = 0;
+                    select = 0;
                     team_size--;
                     valid_check();
                 }
@@ -302,34 +307,32 @@
             {
                 //invalid
                 let checker = document.getElementById("rule1");
-                // checker.innerText = "INVALID, You MUST have 6 pokemons in the team";
-                checker.style.color = "#ff6b60"
-                // return;
+                checker.style.color = invalid;
             }
             else{
                 let checker = document.getElementById("rule1");
-                checker.style.color = "#99ffcc";
+                checker.style.color = valid;
             }
             //check for pokemons with same national dex id
             if(mega_count > 1) //check number of megas in the team
             {
                 let checker = document.getElementById("rule2");
                 // checker.innerText   = "INVALID, You CANNOT have more than one mega-evolved pokemons in one team.";
-                checker.style.color = "#ff6b60"
+                checker.style.color = invalid;
             }
             else{
                 let checker = document.getElementById("rule2");
-                checker.style.color = "#99ffcc";
+                checker.style.color = valid;
             }
             if(hasDuplicates(array) == true)
             {
                 let checker = document.getElementById("rule3");
                 // checker.innerText   = "INVALID, You CANNOT have two Pokémons with the same National Pokédex number on a team.";
-                checker.style.color = "#ff6b60"
+                checker.style.color = invalid;
             }
             else{
                 let checker = document.getElementById("rule3");
-                checker.style.color = "#99ffcc";
+                checker.style.color = valid;
             }
         }
         /*

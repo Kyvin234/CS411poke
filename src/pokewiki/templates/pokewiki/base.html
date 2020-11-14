@@ -9,11 +9,11 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
         <link rel="stylesheet" type="text/css" href="{% static 'pokewiki/main.css' %}">
         <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
-        <!-- <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}" /> -->
+        <!-- title block -->
         {% block title %}{% endblock title %}
     </head>
-    <!-- <body> -->
     <header class="site-header">
+        <!-- navbar -->
         <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
             <div class="container">
             <a class="navbar-brand" href="/">
@@ -62,8 +62,8 @@
             </div>
         </nav>
         </header>
-
-        <div class="container" >
+        <!-- main content block -->
+        <div class="container">
             {% if messages %}
                 {% for message in messages %}
                     <div class="alert alert-{{ message.tags }}">
@@ -73,6 +73,6 @@
             {% endif %}
             {% block content %}{% endblock content %}
         </div>
+        <!-- javascript block -->
         {% block extra_js %}{% endblock extra_js %}
-    <!-- </body> -->
 </html>

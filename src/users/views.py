@@ -1,4 +1,4 @@
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib import messages
@@ -6,17 +6,19 @@ from django.contrib.auth.forms import UserCreationForm
 from django.db import connection
 from django.views.generic import ListView, CreateView, DeleteView, UpdateView
 from .models import team_table
+from pokewiki.models import f_table
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse_lazy
 from .forms import teamform
 import json
 import pymongo
-# import logging
-# from .forms import TeamForm
 
+
+# mongodb clients
 myclient = pymongo.MongoClient("mongodb+srv://yuey8:yuyue72520@cluster0-t2jyv.mongodb.net/Student_Info?retryWrites=true&w=majority")
 mydb = myclient['cs411']
 
+# register form
 def register(request):
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
@@ -28,11 +30,11 @@ def register(request):
     else:
         form = UserCreationForm()
     return render(request, 'users/register.html', {'form': form})
-
+# user profile form
 @login_required
 def profile(request):
     return render(request, 'users/profile.html')
-    
+# user's team view
 class team_lview(LoginRequiredMixin, ListView):
     model = team_table
     template_name = 'users/team.html'
@@ -43,7 +45,7 @@ class team_lview(LoginRequiredMixin, ListView):
                             FROM users_team_table
                             WHERE creator_id = %s
                         """, (self.request.user.id,))
-
+# user team-creating view
 class team_cview(LoginRequiredMixin, CreateView):
     model = team_table
     fields = ['team_name', 'team_comp','description']  
@@ -73,7 +75,7 @@ class team_cview(LoginRequiredMixin, CreateView):
             [form.instance.team_name, json.dumps(form.instance.team_comp), form.instance.creator_id, form.instance.description]
         )
         return HttpResponseRedirect(self.success_url)
-
+# user team-deleating view
 class team_delview(LoginRequiredMixin, UserPassesTestMixin, CreateView):
     model = team_table
     success_url = reverse_lazy('team')
@@ -96,7 +98,7 @@ class team_delview(LoginRequiredMixin, UserPassesTestMixin, CreateView):
             return True
         else:
             return False
-
+# user team updating view
 class team_uview(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = team_table
     fields = ['team_name', 'team_comp', 'description']  
@@ -130,30 +132,28 @@ class team_uview(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
         else:
             return False
 
+# ajax requests
+def get_pokeinfo(request):
+    pokemon = request.POST.get("pokemon")
+    cursor = connection.cursor()
+    cursor.execute(
+        
+            """ SELECT a_name
+                FROM pokewiki_f_table AS pf 
+                        JOIN pokewiki_a_relation AS ar ON ar.f_name_id = pf.f_name
+                        NATURAL JOIN pokewiki_a_table
+                WHERE f_name = %s
+            """, (pokemon, )
+    )
+    data = {
+        "info" : dictfetchall(cursor)
+    }
+    return JsonResponse(data)
+
+# converting mysql cursor into a dictionary for django template language access
 def dictfetchall(cursor):
-    "Returns all rows from a cursor as a dict"
     desc = cursor.description
     return [
         dict(zip([col[0] for col in desc], row))
         for row in cursor.fetchall()
     ]
-# def team(request):
-    # HTML contains a cascading dropdown selecting list
-    # If a form is submitted, reload page and hide the form
-    # if request.method == 'POST':
-    #     form = TeamForm(request.POST)
-    #     # if form.is_valid():
-    #     #     # form.save()
-    #     #     username = form.cleaned_data.get('username')
-    #     t_name = form.cleaned_data.get('teamname')
-    #     messages.success(request, f'team created {t_name}!')
-    #     return redirect('team')
-    # else:
-    #     form = TeamForm()
-    # # print(team_table.objects.all())
-    # data = {
-    #     'team_entry' : team_table.objects.all()
-    # }
-    # return render(request, 'users/team.html', data)
-
-# def teamListView()

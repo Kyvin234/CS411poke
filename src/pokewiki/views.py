@@ -45,7 +45,7 @@ class s_lview(ListView):
     # ordering = ['dex_id']
     def get_queryset(self):
         qs = super().get_queryset() 
-        return qs.raw("""   SELECT distinct s_name, f_name, dex_id, gen, type1, type2
+        return qs.raw("""   SELECT distinct s_name, f_name, dex_id, gen, type1, type2, hp, atk, spatk, df, spdf, spd
                             FROM pokewiki_s_table, pokewiki_f_table
                             WHERE s_name = s_name_id 
                             ORDER BY dex_id

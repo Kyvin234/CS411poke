@@ -64,9 +64,9 @@
                 <th scope="col">#</th>
                 <th scope="col">Icon</th>
                 <th scope="col">Name</th>
-                <th scope="col">Form</th>
                 <th scope="col">Types</th>
                 <th scope="col">Generation</th>
+                <th scope="col" colspan="2">STATS</th>
             </tr>
         </thead>
         <tbody>
@@ -74,17 +74,14 @@
             <tr>
                 <td id = 'poke_font'>{{entry.dex_id}}</td>
                 <td><img src="../static/pokewiki/pokemon-icon/{{entry.f_name}}.png" loading=lazy></td>
-                <td id = 'poke_font'><a href="{% url 'pokemon-detail' entry.s_name %}">{{entry.s_name}}</a></td>
                 <td id = 'poke_font'>
-                  {% if entry.f_name != entry.s_name %}
-                      <a href="{% url 'pokemon-detail' entry.s_name %}">{{entry.f_name}}</a>
-                      {% if 'mega' in entry.f_name %}
-                        <img src="../static/pokewiki/icons/megastone.png"　height=24px width=24px>
-                      {% elif 'alola' in entry.f_name %}
-                        <img src="../static/pokewiki/icons/alola.png"　height=24px width=37px>
-                      {% elif '-ash' in entry.f_name %}
-                        <img src="../static/pokewiki/icons/bbond-ash.png"　height=24px width=24px>
-                      {% endif %}
+                  <a href="{% url 'pokemon-detail' entry.s_name %}">{{entry.f_name}}</a>
+                  {% if 'mega' in entry.f_name %}
+                    <img src="../static/pokewiki/icons/megastone.png"　height=24px width=24px>
+                  {% elif 'alola' in entry.f_name %}
+                    <img src="../static/pokewiki/icons/alola.png"　    height=24px width=37px>
+                  {% elif '-ash' in entry.f_name %}
+                    <img src="../static/pokewiki/icons/bbond-ash.png"　height=24px width=24px>
                   {% endif %}
                 </td>
                 <td>
@@ -94,6 +91,7 @@
                   {% endif %}
                 </td>
                 <td id = "poke_font">{{entry.gen}}</td>
+                <td id = "poke_font" colspan="2">{{entry.hp}}    {{entry.atk}}    {{entry.spatk}}    {{entry.df}}    {{entry.spdf}}    {{entry.spd}}</td>
             </tr>
             {% endfor %}
         </tbody>
@@ -112,7 +110,7 @@ function log_filter() {
   table = document.getElementById("myTable");
   tr = table.getElementsByTagName("tr");
   for (i = 0; i < tr.length; i++) {
-    td = tr[i].getElementsByTagName("td")[3];
+    td = tr[i].getElementsByTagName("td")[2];
     if (td) {
       txtValue = td.textContent || td.innerText;
       if (txtValue.toUpperCase().indexOf(filter) > -1) {
@@ -129,7 +127,7 @@ function button_filter(button){
     table = document.getElementById("myTable");
     tr = table.getElementsByTagName("tr");
     for (i = 0; i < tr.length; i++) {
-        td = tr[i].getElementsByTagName("td")[4]; // Get the image column for types
+        td = tr[i].getElementsByTagName("td")[3]; // Get the image column for types
         if (td) {
             txtValue1 = td.getElementsByTagName("img")[0].attributes[1].textContent;  // The first type
             if(td.getElementsByTagName("img")[1]){

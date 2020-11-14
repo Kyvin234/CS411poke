@@ -19,11 +19,11 @@
                         </div>
                     </div>
                     <!-- add pokemon graph-->
-                    <script src="//cdn.amcharts.com/lib/4/core.js"></script>
+                    <!-- <script src="//cdn.amcharts.com/lib/4/core.js"></script>
                     <script src="//cdn.amcharts.com/lib/4/charts.js"></script>
                     <script src="//cdn.amcharts.com/lib/4/themes/animated.js"></script>
-                    <script src="//cdn.amcharts.com/lib/4/plugins/forceDirected.js"></script>
-                    <div id="chartdiv">
+                    <script src="//cdn.amcharts.com/lib/4/plugins/forceDirected.js"></script> -->
+                    <!-- <div id="chartdiv">
                         <script>
                             am4core.useTheme(am4themes_animated);
                             // Create chart
@@ -80,7 +80,7 @@
                               }
                             });
                         </script>
-                    </div>
+                    </div> -->
                     <div class="form-row" style="display:none">
                         <div class="form-group col-md-11 mb-0" >
                             {{ form.team_comp|as_crispy_field }}
@@ -89,70 +89,104 @@
                             <p>pick your Pokemon from below</p>
                         </small>
                     </div>
-                    <div class="square" id="1" onclick="select_member(1)" ondblclick="delete_member(1)" >
-                        <div class="team_picker">
-                        </div>
+                    <div class="form-group">
+                        <button class="btn btn-outline-info" type="submit">Create</button>
                     </div>
-                    <div class="square" id="2" onclick="select_member(2)" ondblclick="delete_member(2)">
-                        <div class="team_picker">
-                        </div>
-                    </div>
-                    <div class="square" id="3" onclick="select_member(3)" ondblclick="delete_member(3)">
-                        <div class="team_picker">              
-                        </div>
-                    </div>
-                    <div class="square" id="4" onclick="select_member(4)" ondblclick="delete_member(4)">
-                        <div class="team_picker">
-                        </div>
-                    </div>
-                    <div class="square" id="5" onclick="select_member(5)" ondblclick="delete_member(5)">
-                        <div class="team_picker">
-                        </div>
-                    </div>
-                    <div class="square" id="6" onclick="select_member(6)" ondblclick="delete_member(6)">
-                        <div class="team_picker">              
-                        </div>
-                    </div>
-                    <div>
-                        <small style="display: inline;"> RULEs: </small>
-                        <br>
-                        <small style="display: inline;" id="rule1"> HAVE 6 Pokemons in the team</small>
-                        <br>
-                        <small style="display: inline;" id="rule2"> No more than ONE megas in the team</small>
-                        <br>
-                        <small style="display: inline;" id="rule3"> No two pokemons have two the same national dex number</small>
-                    </div>
-                    
-            </fieldset>
-            <div class="form-group">
-                <button class="btn btn-outline-info" type="submit">Create</button>
-            </div>
-            <div class = "searchbar mt-sm-2 mr-2">
-                <input type = "text" class = "form-control" onkeyup = log_filter() id="myInput" placeholder = "Search for a Pokémon..."/>
-            </div>
-            <p id="pokemon_field">
-                {%for l, k in pokemon_team_detail.items%}
-                    {% for row in k%}
-                        <img id='{{row.pokemon|lower}}' alt='{{row.dex_id}}' src="../../static/pokewiki/pokemon-icon/{{row.pokemon|lower}}.png" onclick="pokeSelect('{{row.pokemon|lower}}', '{{row.dex_id}}')" >
-                        <!-- {{row}} -->
-                    {%endfor%}
-                {%endfor%}
-            </p>
-
+                </fieldset>
         </form>
+        <div class="square" id="1" onclick="select_member(1)" ondblclick="delete_member(1)" >
+            <div class="team_picker">
+                <div class="input-group input-group-sm mb-3">
+                    <!-- pokemon name -->
+                    <form method="POST">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="inputGroup-sizing-default">Pokemon</span>
+                            </div>
+                            <input id="test1" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+                        </div>
+                    </form>
+                    <!-- pokemon ability -->
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="inputGroupSelect01">Ability</label>
+                        </div>
+                        <select class="custom-select" id="inputGroupSelect01">
+                            <option value="" disabled selected>Select Ability</option>
+                        </select>
+                    </div>
+                    <!-- pokemon nature -->
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="inputGroupSelect01">Nature</label>
+                        </div>
+                        <select class="custom-select" id="inputGroupSelect01">
+                            <option value="" disabled selected>Select Nature</option>
+                        </select>
+                    </div>
+                    <!-- pokemon item -->
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="inputGroupSelect01">Item</label>
+                        </div>
+                        <select class="custom-select" id="inputGroupSelect01">
+                            <option value="" disabled selected>Select Item</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="square" id="2" onclick="select_member(2)" ondblclick="delete_member(2)">
+            <div class="team_picker">
+            </div>
+        </div>
+        <div class="square" id="3" onclick="select_member(3)" ondblclick="delete_member(3)">
+            <div class="team_picker">              
+            </div>
+        </div>
+        <div class="square" id="4" onclick="select_member(4)" ondblclick="delete_member(4)">
+            <div class="team_picker">
+            </div>
+        </div>
+        <div class="square" id="5" onclick="select_member(5)" ondblclick="delete_member(5)">
+            <div class="team_picker">
+            </div>
+        </div>
+        <div class="square" id="6" onclick="select_member(6)" ondblclick="delete_member(6)">
+            <div class="team_picker">              
+            </div>
+        </div>
+        <div>
+            <small style="display: inline;"> RULEs: </small>
+            <br>
+            <small style="display: inline;" id="rule1"> No more than ONE megas in the team</small>
+            <br>
+            <small style="display: inline;" id="rule2"> No two pokemons have two the same national dex number</small>
+        </div>
+        <div class = "searchbar mt-sm-2 mr-2">
+            <input type = "text" class = "form-control" onkeyup = log_filter() id="myInput" placeholder = "Search for a Pokémon..."/>
+        </div>
+        <p id="pokemon_field">
+            {%for l, k in pokemon_team_detail.items%}
+                {% for row in k%}
+                    <img loading="lazy" id='{{row.pokemon|lower}}' alt='{{row.dex_id}}' src="../../static/pokewiki/pokemon-icon/{{row.pokemon|lower}}.png" onclick="pokeSelect('{{row.pokemon|lower}}', '{{row.dex_id}}')" >
+                    <!-- {{row}} -->
+                {%endfor%}
+            {%endfor%}
+        </p>
     </div>
 {% endblock content %}
 
 {% block extra_js %}
-    <script>
+    <!-- User Interface in javascript -->
+    <script defer>
         //pokemon selector
         var select = 0;
-        //active color for selected team member
-        var active = "#9bd6f0";
-        var valid = "green";
-        var invalid = "red";
-        //a function to initialize team_dict for update
-        //a function to delete the last added pokemon
+        //active, valid, invalid colors for selected team member
+        const active  = "#9bd6f0";
+        const valid   = "green";
+        const invalid = "red";
+        //team json information
         var team_dict = 
         {
                 "p1": {"id" : 0, "name" : "", "nature" : "", "IV" : "", "EV" : "", "item" : ""},
@@ -162,27 +196,24 @@
                 "p5": {"id" : 0, "name" : "", "nature" : "", "IV" : "", "EV" : "", "item" : ""},
                 "p6": {"id" : 0, "name" : "", "nature" : "", "IV" : "", "EV" : "", "item" : ""},
         };
-        var team_size = 0;
         //load the contents if updating
         window.onload = function()
         {
             //(using django to check if it's an updateview or a createview)
             {% if object %}
                 //load from to-be-modified team
-                var update = document.getElementById("id_team_comp");
-                var obj = JSON.parse(update.value);
-                for(let i = 1; i <= 6; i++)
+                let obj = JSON.parse(document.getElementById("id_team_comp").value);
+                let i;
+                for(i = 1; i <= 6; i++)
                 {
                     let team_member = document.getElementById(i.toString()).children[0];
                     team_member.innerText = obj["p".concat(i.toString())]["name"];
                     team_dict["p".concat(i.toString())]["name"] = team_member.innerText;
                 }
             {% endif %}
-
             //check if the team is valid
             valid_check();
         };
-        
         /*
             Function to pick a pokemon from the field and append it to the team
         */
@@ -191,17 +222,12 @@
             if(select > 0)
             {
                 //append name to the list
-                var node = document.getElementById(select).children[0];
-                if(node.innerText == "")
-                    team_size++;
-                node.innerText = pokename;
+                document.getElementById(select).children[0].innerText = pokename;
                 //append the pokemon to dict
                 team_dict["p".concat(select.toString())]["name"] = pokename;
                 team_dict["p".concat(select.toString())]["id"]   = dex_id;
                 //generate json data for the team
-                var team_json = document.getElementById("id_team_comp");
-                team_json.innerHTML = JSON.stringify(team_dict);
-                // console.log(team_size);
+                document.getElementById("id_team_comp").innerHTML = JSON.stringify(team_dict);
                 valid_check();
             }
         }
@@ -229,20 +255,15 @@
         */
         function delete_member(select_id)
         {
-            console.log(select_id)
-            if(team_size != 0)
+            let team_member = document.getElementById(select_id);
+            if(select == select_id)
             {
-                var team_member = document.getElementById(select_id);
-                if(select == select_id)
-                {
-                    team_member.style.background = "#e6eff3"
-                    team_member.children[0].innerText = "";
-                    team_dict["p".concat(select.toString())]["name"] = "";
-                    team_dict["p".concat(select.toString())]["id"]   = 0;
-                    select = 0;
-                    team_size--;
-                    valid_check();
-                }
+                team_member.style.background = "#e6eff3"
+                team_member.children[0].innerText = "";
+                team_dict["p".concat(select.toString())]["name"] = "";
+                team_dict["p".concat(select.toString())]["id"]   = "";
+                select = 0;
+                valid_check();
             }
         }
         /*
@@ -251,10 +272,10 @@
         function log_filter() 
         {
             var pokemons = document.getElementById("pokemon_field").children;
-            var input, filter, i, txtValue;
+            var input, filter, i, l, txtValue;
             input = document.getElementById("myInput");
             filter = input.value.toUpperCase();
-            for (i = 0; i < pokemons.length; i++) 
+            for (i = 0; i < l; i++) 
             {
                 if (pokemons[i]) 
                 {
@@ -276,16 +297,8 @@
         */
         function valid_check()
         {
-            //get the team dictionary
-            // let team = document.getElementById("team_dict");
-            //initial state
-            if(team_size == 0)
-            {
-                return;
-            }
             //check based on the applied rule    
             gen7_ou_check();
-            
         }
         /*
             team validator for gen7ou rule
@@ -303,35 +316,22 @@
                     mega_count++;
                 }
             }
-            if(team_size != 6)
+            //check number of megas in the team
+            let checker = document.getElementById("rule1");
+            if(mega_count > 1) 
             {
-                //invalid
-                let checker = document.getElementById("rule1");
                 checker.style.color = invalid;
             }
             else{
-                let checker = document.getElementById("rule1");
                 checker.style.color = valid;
             }
             //check for pokemons with same national dex id
-            if(mega_count > 1) //check number of megas in the team
-            {
-                let checker = document.getElementById("rule2");
-                // checker.innerText   = "INVALID, You CANNOT have more than one mega-evolved pokemons in one team.";
-                checker.style.color = invalid;
-            }
-            else{
-                let checker = document.getElementById("rule2");
-                checker.style.color = valid;
-            }
+            checker = document.getElementById("rule2");
             if(hasDuplicates(array) == true)
             {
-                let checker = document.getElementById("rule3");
-                // checker.innerText   = "INVALID, You CANNOT have two Pokémons with the same National Pokédex number on a team.";
                 checker.style.color = invalid;
             }
             else{
-                let checker = document.getElementById("rule3");
                 checker.style.color = valid;
             }
         }
@@ -342,5 +342,42 @@
         {
             return (new Set(array)).size !== array.length;
         }
+    </script>
+    <!-- Ajax response in JQuery -->
+    <script>
+        /*
+            ajax response that captures a pokemon's name and returns its detail from database
+        */
+        $("#test1").change(function () 
+        {
+            var pokemon = $(this).val();
+            $.ajax({
+                type:'POST',
+                url: '/ajax/get_pokeinfo',
+                data: {
+                    'pokemon': pokemon,
+                    csrfmiddlewaretoken: '{{ csrf_token }}'
+                },
+                dataType: 'json',
+                success: function (data) {
+                    //get info for a pokemon
+                    console.log(data["info"])
+                    //append options to select
+                    let i;
+                    let l = data["info"].length;
+                    for(i = 0; i<l; i++)
+                    {
+                        optionText = data["info"][i]["a_name"]; 
+                        optionValue = data["info"][i]["a_name"]; 
+                        console.log(optionText);
+                        $('#inputGroupSelect01').append(`<option value="${optionValue}"> ${optionText} </option>`);
+                    }
+                },
+                error: function(xhr){
+                    alert("Error: " + xhr.statusText);
+                    return false;
+                }
+            });
+        });
     </script>
 {% endblock extra_js %}

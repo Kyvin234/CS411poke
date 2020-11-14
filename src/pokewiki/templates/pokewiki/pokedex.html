@@ -123,15 +123,17 @@ function log_filter() {
 }
 
 function button_filter(button){
-    var table, tr, td, i, txtValue1, txtValue2;
+    var table, tr, td, tg, i, l, txtValue1, txtValue2;
     table = document.getElementById("myTable");
     tr = table.getElementsByTagName("tr");
-    for (i = 0; i < tr.length; i++) {
+    l = tr.length;
+    for (i = 0; i < l; i++) {
         td = tr[i].getElementsByTagName("td")[3]; // Get the image column for types
         if (td) {
-            txtValue1 = td.getElementsByTagName("img")[0].attributes[1].textContent;  // The first type
-            if(td.getElementsByTagName("img")[1]){
-                txtValue2 = td.getElementsByTagName("img")[1].attributes[1].textContent;  // The second type if exists
+            tg = td.getElementsByTagName("img");
+            txtValue1 = tg[0].attributes[1].textContent;  // The first type
+            if(tg[1]){
+                txtValue2 = tg[1].attributes[1].textContent;  // The second type if exists
             }
             else txtValue2 = ""
             if (txtValue1.indexOf(button) > -1 || txtValue2.indexOf(button) > -1) {
@@ -144,11 +146,12 @@ function button_filter(button){
     }
 }
 
-     function clear_filter(){
-    var table, tr, i;
+function clear_filter(){
+    var table, tr, i, l;
     table = document.getElementById("myTable");
     tr = table.getElementsByTagName("tr");
-    for (i = 0; i < tr.length; i++) {
+    l = tr.length;
+    for (i = 0; i < l; i++) {
         tr[i].style.display = "";
     }
 }

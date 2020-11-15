@@ -94,6 +94,7 @@
                     </div>
                 </fieldset>
         </form>
+        <!-- team member 1 -->
         <div class="square" id="1" onclick="select_member(1)" ondblclick="delete_member(1)" >
             <div class="team_picker">
                 <div class="input-group input-group-sm mb-3">
@@ -103,7 +104,7 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="inputGroup-sizing-default">Pokemon</span>
                             </div>
-                            <input id="test1" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+                            <input readonly id="tm1" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
                         </div>
                     </form>
                     <!-- pokemon ability -->
@@ -111,7 +112,7 @@
                         <div class="input-group-prepend">
                             <label class="input-group-text" for="inputGroupSelect01">Ability</label>
                         </div>
-                        <select class="custom-select" id="inputGroupSelect01">
+                        <select class="custom-select" id="as1" onchange="select_abi(this.value, 1)">
                             <option value="" disabled selected>Select Ability</option>
                         </select>
                     </div>
@@ -136,26 +137,223 @@
                 </div>
             </div>
         </div>
+        <!-- team member 2 -->
         <div class="square" id="2" onclick="select_member(2)" ondblclick="delete_member(2)">
             <div class="team_picker">
+                <div class="input-group input-group-sm mb-3">
+                    <!-- pokemon name -->
+                    <form method="POST">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="inputGroup-sizing-default">Pokemon</span>
+                            </div>
+                            <input readonly id="tm2" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+                        </div>
+                    </form>
+                    <!-- pokemon ability -->
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="inputGroupSelect01">Ability</label>
+                        </div>
+                        <select class="custom-select" id="as2" onchange="select_abi(this.value, 2)">
+                            <option value="" disabled selected>Select Ability</option>
+                        </select>
+                    </div>
+                    <!-- pokemon nature -->
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="inputGroupSelect01">Nature</label>
+                        </div>
+                        <select class="custom-select" id="inputGroupSelect01">
+                            <option value="" disabled selected>Select Nature</option>
+                        </select>
+                    </div>
+                    <!-- pokemon item -->
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="inputGroupSelect01">Item</label>
+                        </div>
+                        <select class="custom-select" id="inputGroupSelect01">
+                            <option value="" disabled selected>Select Item</option>
+                        </select>
+                    </div>
+                </div>
             </div>
         </div>
+        <!-- team member 3 -->
         <div class="square" id="3" onclick="select_member(3)" ondblclick="delete_member(3)">
-            <div class="team_picker">              
+            <div class="team_picker">   
+
+                <div class="input-group input-group-sm mb-3">
+                    <!-- pokemon name -->
+                    <form method="POST">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="inputGroup-sizing-default">Pokemon</span>
+                            </div>
+                            <input readonly id="tm3" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+                        </div>
+                    </form>
+                    <!-- pokemon ability -->
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="inputGroupSelect01">Ability</label>
+                        </div>
+                        <select class="custom-select" id="as3" onchange="select_abi(this.value, 3)">
+                            <option value="" disabled selected>Select Ability</option>
+                        </select>
+                    </div>
+                    <!-- pokemon nature -->
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="inputGroupSelect01">Nature</label>
+                        </div>
+                        <select class="custom-select" id="inputGroupSelect01">
+                            <option value="" disabled selected>Select Nature</option>
+                        </select>
+                    </div>
+                    <!-- pokemon item -->
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="inputGroupSelect01">Item</label>
+                        </div>
+                        <select class="custom-select" id="inputGroupSelect01">
+                            <option value="" disabled selected>Select Item</option>
+                        </select>
+                    </div>
+                </div>           
             </div>
         </div>
+        <!-- team member 4 -->
         <div class="square" id="4" onclick="select_member(4)" ondblclick="delete_member(4)">
             <div class="team_picker">
+                <div class="input-group input-group-sm mb-3">
+                    <!-- pokemon name -->
+                    <form method="POST">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="inputGroup-sizing-default">Pokemon</span>
+                            </div>
+                            <input readonly id="tm4" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+                        </div>
+                    </form>
+                    <!-- pokemon ability -->
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="inputGroupSelect01">Ability</label>
+                        </div>
+                        <select class="custom-select" id="as4" onchange="select_abi(this.value, 4)">
+                            <option value="" disabled selected>Select Ability</option>
+                        </select>
+                    </div>
+                    <!-- pokemon nature -->
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="inputGroupSelect01">Nature</label>
+                        </div>
+                        <select class="custom-select" id="inputGroupSelect01">
+                            <option value="" disabled selected>Select Nature</option>
+                        </select>
+                    </div>
+                    <!-- pokemon item -->
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="inputGroupSelect01">Item</label>
+                        </div>
+                        <select class="custom-select" id="inputGroupSelect01">
+                            <option value="" disabled selected>Select Item</option>
+                        </select>
+                    </div>
+                </div>
             </div>
         </div>
+        <!-- team member 5 -->
         <div class="square" id="5" onclick="select_member(5)" ondblclick="delete_member(5)">
             <div class="team_picker">
+                <div class="input-group input-group-sm mb-3">
+                    <!-- pokemon name -->
+                    <form method="POST">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="inputGroup-sizing-default">Pokemon</span>
+                            </div>
+                            <input readonly id="tm5" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+                        </div>
+                    </form>
+                    <!-- pokemon ability -->
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="inputGroupSelect01">Ability</label>
+                        </div>
+                        <select class="custom-select" id="as5" onchange="select_abi(this.value, 5)">
+                            <option value="" disabled selected>Select Ability</option>
+                        </select>
+                    </div>
+                    <!-- pokemon nature -->
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="inputGroupSelect01">Nature</label>
+                        </div>
+                        <select class="custom-select" id="inputGroupSelect01">
+                            <option value="" disabled selected>Select Nature</option>
+                        </select>
+                    </div>
+                    <!-- pokemon item -->
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="inputGroupSelect01">Item</label>
+                        </div>
+                        <select class="custom-select" id="inputGroupSelect01">
+                            <option value="" disabled selected>Select Item</option>
+                        </select>
+                    </div>
+                </div>
             </div>
         </div>
+        <!-- team member 6 -->
         <div class="square" id="6" onclick="select_member(6)" ondblclick="delete_member(6)">
-            <div class="team_picker">              
+            <div class="team_picker">         
+                <div class="input-group input-group-sm mb-3">
+                    <!-- pokemon name -->
+                    <form method="POST">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="inputGroup-sizing-default">Pokemon</span>
+                            </div>
+                            <input readonly id="tm6" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+                        </div>
+                    </form>
+                    <!-- pokemon ability -->
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="inputGroupSelect01">Ability</label>
+                        </div>
+                        <select class="custom-select" id="as6" onchange="select_abi(this.value, 6)">
+                            <option value="" disabled selected>Select Ability</option>
+                        </select>
+                    </div>
+                    <!-- pokemon nature -->
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="inputGroupSelect01">Nature</label>
+                        </div>
+                        <select class="custom-select" id="inputGroupSelect01">
+                            <option value="" disabled selected>Select Nature</option>
+                        </select>
+                    </div>
+                    <!-- pokemon item -->
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="inputGroupSelect01">Item</label>
+                        </div>
+                        <select class="custom-select" id="inputGroupSelect01">
+                            <option value="" disabled selected>Select Item</option>
+                        </select>
+                    </div>
+                </div>     
             </div>
         </div>
+        <!-- rule constraints -->
         <div>
             <small style="display: inline;"> RULEs: </small>
             <br>
@@ -163,9 +361,11 @@
             <br>
             <small style="display: inline;" id="rule2"> No two pokemons have two the same national dex number</small>
         </div>
+        <!-- search bar -->
         <div class = "searchbar mt-sm-2 mr-2">
             <input type = "text" class = "form-control" onkeyup = log_filter() id="myInput" placeholder = "Search for a Pokémon..."/>
         </div>
+        <!-- pokemon selecting field -->
         <p id="pokemon_field">
             {%for l, k in pokemon_team_detail.items%}
                 {% for row in k%}
@@ -183,32 +383,37 @@
         //pokemon selector
         var select = 0;
         //active, valid, invalid colors for selected team member
-        const active  = "#9bd6f0";
-        const valid   = "green";
-        const invalid = "red";
+        const inactive = "#e6eff3";
+        const active   = "#9bd6f0";
+        const valid    = "green";
+        const invalid  = "red";
         //team json information
         var team_dict = 
         {
-                "p1": {"id" : 0, "name" : "", "nature" : "", "IV" : "", "EV" : "", "item" : ""},
-                "p2": {"id" : 0, "name" : "", "nature" : "", "IV" : "", "EV" : "", "item" : ""},
-                "p3": {"id" : 0, "name" : "", "nature" : "", "IV" : "", "EV" : "", "item" : ""},
-                "p4": {"id" : 0, "name" : "", "nature" : "", "IV" : "", "EV" : "", "item" : ""},
-                "p5": {"id" : 0, "name" : "", "nature" : "", "IV" : "", "EV" : "", "item" : ""},
-                "p6": {"id" : 0, "name" : "", "nature" : "", "IV" : "", "EV" : "", "item" : ""},
+                "p1": {"id" : 0, "name" : "", "nature" : "", "ability" : "", "IV" : "", "EV" : "", "item" : ""},
+                "p2": {"id" : 0, "name" : "", "nature" : "", "ability" : "", "IV" : "", "EV" : "", "item" : ""},
+                "p3": {"id" : 0, "name" : "", "nature" : "", "ability" : "", "IV" : "", "EV" : "", "item" : ""},
+                "p4": {"id" : 0, "name" : "", "nature" : "", "ability" : "", "IV" : "", "EV" : "", "item" : ""},
+                "p5": {"id" : 0, "name" : "", "nature" : "", "ability" : "", "IV" : "", "EV" : "", "item" : ""},
+                "p6": {"id" : 0, "name" : "", "nature" : "", "ability" : "", "IV" : "", "EV" : "", "item" : ""},
         };
-        //load the contents if updating
+        /*
+            load the contents if updating
+        */
         window.onload = function()
         {
             //(using django to check if it's an updateview or a createview)
             {% if object %}
                 //load from to-be-modified team
-                let obj = JSON.parse(document.getElementById("id_team_comp").value);
-                let i;
+                team_dict = JSON.parse(document.getElementById("id_team_comp").value);
+                let i, pokename, abiname;
                 for(i = 1; i <= 6; i++)
                 {
-                    let team_member = document.getElementById(i.toString()).children[0];
-                    team_member.innerText = obj["p".concat(i.toString())]["name"];
-                    team_dict["p".concat(i.toString())]["name"] = team_member.innerText;
+                    pokename = team_dict["p".concat(i.toString())]["name"]
+                    abiname  = team_dict["p".concat(i.toString())]["ability"]
+                    document.getElementById("tm".concat(i.toString())).value = pokename;
+                    get_pokeinfo(pokename, i);
+                    document.getElementById("as".concat(i.toString())).value = abiname;
                 }
             {% endif %}
             //check if the team is valid
@@ -222,14 +427,17 @@
             if(select > 0)
             {
                 //append name to the list
-                document.getElementById(select).children[0].innerText = pokename;
+                document.getElementById("tm".concat(select.toString())).value = pokename;
                 //append the pokemon to dict
                 team_dict["p".concat(select.toString())]["name"] = pokename;
                 team_dict["p".concat(select.toString())]["id"]   = dex_id;
+                //get pokemon detail
+                get_pokeinfo(pokename, select);
+                //check if the team is valid
+                valid_check();
                 //generate json data for the team
                 document.getElementById("id_team_comp").innerHTML = JSON.stringify(team_dict);
-                valid_check();
-            }
+        }
         }
         /*
             highlight the list element being selected
@@ -242,12 +450,13 @@
                 if(select != 0)
                 {
                     let team_member = document.getElementById(select);
-                    team_member.style.backgroundColor = "#e6eff3";
+                    team_member.style.backgroundColor = inactive;
                 }
                 //activate current selected
                 select = select_id;
                 team_member = document.getElementById(select);
                 team_member.style.backgroundColor = active;
+                
             }
         }
         /*
@@ -255,14 +464,22 @@
         */
         function delete_member(select_id)
         {
+            let member_input = document.getElementById("tm".concat(select_id.toString()))
             let team_member = document.getElementById(select_id);
             if(select == select_id)
             {
-                team_member.style.background = "#e6eff3"
-                team_member.children[0].innerText = "";
+                //set background to be unselected color
+                team_member.style.background = inactive;
+                //clear the value
+                member_input.value = "";
+                //set the team_dict
                 team_dict["p".concat(select.toString())]["name"] = "";
                 team_dict["p".concat(select.toString())]["id"]   = "";
+                //remove all options except the default first one
+                $('#as'.concat(select_id.toString())).find('option').not(':first').remove();
+                //reset select
                 select = 0;
+                //check if the team is valid
                 valid_check();
             }
         }
@@ -342,15 +559,11 @@
         {
             return (new Set(array)).size !== array.length;
         }
-    </script>
-    <!-- Ajax response in JQuery -->
-    <script>
         /*
-            ajax response that captures a pokemon's name and returns its detail from database
+            function that makes an ajax call to obtain pokemon details from backend
         */
-        $("#test1").change(function () 
+        function get_pokeinfo(pokemon, select)
         {
-            var pokemon = $(this).val();
             $.ajax({
                 type:'POST',
                 url: '/ajax/get_pokeinfo',
@@ -361,7 +574,7 @@
                 dataType: 'json',
                 success: function (data) {
                     //get info for a pokemon
-                    console.log(data["info"])
+                    // console.log(data["info"])
                     //append options to select
                     let i;
                     let l = data["info"].length;
@@ -369,8 +582,8 @@
                     {
                         optionText = data["info"][i]["a_name"]; 
                         optionValue = data["info"][i]["a_name"]; 
-                        console.log(optionText);
-                        $('#inputGroupSelect01').append(`<option value="${optionValue}"> ${optionText} </option>`);
+                        // console.log(optionText);
+                        $('#as'.concat(select.toString())).append(`<option value="${optionValue}"> ${optionText} </option>`);
                     }
                 },
                 error: function(xhr){
@@ -378,6 +591,16 @@
                     return false;
                 }
             });
-        });
+        }
+        /*
+            function that handles ability select
+        */
+        function select_abi(value, id)
+        {
+            team_dict["p".concat(id.toString())]["ability"] = value;
+            console.log(team_dict);
+            //generate json data for the team
+            document.getElementById("id_team_comp").innerHTML = JSON.stringify(team_dict);
+        }
     </script>
 {% endblock extra_js %}

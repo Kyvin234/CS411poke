@@ -64,6 +64,10 @@
       font-family: "Comic Sans MS", cursive, sans-serif;
       color : black;
   }
+  #divtable{
+      float:right;
+      position:relative;
+  }
   #homepg_txt{
       margin-top: 0px;
   }
@@ -72,6 +76,7 @@
   }
   #pokedex{
       margin-top: 80px;
+      float: right;
   }
   #abidex{
       margin-top:80px;
@@ -98,7 +103,7 @@
     float:left;
     position: relative;
     width: 30%;
-    padding-bottom : 25%; 
+    padding-bottom : 25%;
     margin:1.66%;
     background-color:#e6eff3;
     overflow:hidden;
@@ -107,8 +112,8 @@
 
   .team_picker {
       position:absolute;
-      height:90%; 
-      width:90%; 
+      height:90%;
+      width:90%;
       padding: 5%;
   }
   .team_picker img {

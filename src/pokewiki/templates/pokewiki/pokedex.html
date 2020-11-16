@@ -85,13 +85,13 @@
                   {% endif %}
                 </td>
                 <td>
-                  <img src="../static/pokewiki/type-icon/{{entry.type1}}.png" alt={{entry.type1}} height=24px width=24px loading=lazy> 
+                  <img src="../static/pokewiki/type-icon/{{entry.type1}}.png" alt={{entry.type1}} height=24px width=24px loading=lazy>
                   {% if entry.type2 %}
                     <img src="../static/pokewiki/type-icon/{{entry.type2}}.png" alt={{entry.type2}} height=24px width=24px loading=lazy>
                   {% endif %}
                 </td>
                 <td id = "poke_font">{{entry.gen}}</td>
-                <td id = "poke_font" colspan="2">{{entry.hp}}    {{entry.atk}}    {{entry.spatk}}    {{entry.df}}    {{entry.spdf}}    {{entry.spd}}</td>
+                <td id = "poke_font" colspan="2"> HP:{{entry.hp}}  Atk:{{entry.atk}}  Def:{{entry.spatk}}  Sp.Atk:{{entry.df}}  Sp.Def:{{entry.spdf}}  Speed:{{entry.spd}}</td>
             </tr>
             {% endfor %}
         </tbody>

@@ -6,27 +6,94 @@
 
 {% block content %}
     <body id="pokedex">
+    <div class = "container">
+        <div id="box1">
         {% for row in pokemon_detail %}
             <h1 style ="font-family:Comic Sans MS">{{row.f_name}}</h1>
             {% for a in pokemon_ability %}
                 {% if a.f_name == row.f_name %}
-                    {% if a.is_hidden == 1 %}
-                        <br><a href="{% url 'ability-detail' a.a_id %}" style ="font-family:Comic Sans MS">Abilities: {{a.a_name}}(hidden ability)</a>
+                    {% if a.is_hidden == 0 %}
+                        <br><a href="{% url 'ability-detail' a.a_id %}" style ="font-family:Comic Sans MS">{{a.a_name}}</a>
                     {% else %}
-                        <a href="{% url 'ability-detail' a.a_id %}" style ="font-family:Comic Sans MS">{{a.a_name}}</a>
+                        <a href="{% url 'ability-detail' a.a_id %}" style ="font-family:Comic Sans MS">{{a.a_name}}(hidden ability)</a>
                     {% endif %}
                 {% endif %}
             {% endfor %}
             <p><img src="../../static/pokewiki/pokedetailimg/{{row.f_name}}.jpg"></p>
-            <p style ="font-family:Comic Sans MS"> Dex ID No. : {{row.dex_id}} </p>
+        </div>
+        <div id = "box2">
+            <caption style ="color:black; caption-side:top; text-align:center;
+            background:#40ece2; border-radius: 10px; -moz-border-radius:10px;
+            -webkit-border-radius:10; -khtml-border-radius:10px; -icab-border-radius:10px;
+            -o-border-radius:10px; border:3px solid #05A89F; white-space:nowrap; font-family:Arial">
+            Pokédex Data</caption>
+            <hr style ="width:50%, text-align:left; margin-left:0">
+            <table class = "info-table" id="info-table">
+                <tbody>
+                    <!-- DEX ID -->
+                    <tr>
+                        <th>National Dex No.</th>
+                        <td>
+                            <strong>
+                                {{row.dex_id}}
+                            </strong>
+                        </td>
+                    </tr>
+                    <!-- TYPE -->
+                    <tr>
+                        <th>Type</th>
+                        <td>
+                            <a>
+                                <img src="../../static/pokewiki/type-icon/{{row.type1}}.png" height=32px width=32px><img src="../../static/pokewiki/type-icon/{{row.type2}}.png" height=32px width=32px>
+                            </a>
+                        </td>
+                    </tr>
+                    <!-- GENERATION -->
+                    <tr>
+                        <th>Generation</th>
+                        <td>
+                            {{row.gen}}
+                        </td>
+                    </tr>
+                    <!-- HEIGHT -->
+                    <tr>
+                        <th>Height</th>
+                        <td>
+                            {{row.height}} decimeters(dm)
+                        </td>
+                    </tr>
+                    <!-- WEIGHT -->
+                    <tr>
+                        <th>Weight</th>
+                        <td>
+                            {{row.weight}} hectograms(hg)
+                        </td>
+                    </tr>
+                    <!-- CAPTURE RATE -->
+                    <tr>
+                        <th>Capture Rate</th>
+                        <td>
+                            {{row.capture_rate}}
+                        </td>
+                    </tr>
+                    <!-- GENDER RATE -->
+                    <tr>
+                        <th>Gender</th>
+                        <td>
+                            {{row.gender_rate}}
+                        </td>
+                    </tr>
+            <!-- <p><img src="../../static/pokewiki/pokedetailimg/{{row.f_name}}.jpg"></p>
+            <p style ="font-family:Trebuchet MS"> Dex ID No. : {{row.dex_id}} </p>
             <p style ="font-family:Comic Sans MS"> Type: {{row.type1}} {{row.type2}}</p>
             <p style ="font-family:Comic Sans MS"> Generation : {{row.gen}} </p>
             <p style ="font-family:Comic Sans MS">Height : {{row.height}} decimeters(dm)</p>
             <p style ="font-family:Comic Sans MS">Weight : {{row.weight}} hectograms(hg)</p>
             <p style ="font-family:Comic Sans MS"> Capture Rate: {{row.capture_rate }}</p>
-            <p style ="font-family:Comic Sans MS"> Gender Rate: {{row.gender_rate }}</p>
+            <p style ="font-family:Comic Sans MS"> Gender Rate: {{row.gender_rate }}</p> -->
+        </div>
             <!-- STAT TABLE-->
-            <div id = "divtable">
+            <div id = "box3">
             <table style = "background: #6FFEF6; border-radius: 10px; -moz-border-radius:10px;
             -webkit-border-radius:10; -khtml-border-radius:10px; -icab-border-radius:10px;
             -o-border-radius:10px; border:3px solid #05A89F; white-space:nowrap" id="stattable">
@@ -151,6 +218,7 @@
                                             </td>
                 </tbody>
             </table>
+            </div>
             </div>
             <h2 style = "font-family: Comic Sans MS"> Learnable Moves </h2>
             <div class="table-wrapper-scroll-y my-custom-scrollbar" >

@@ -64,10 +64,21 @@
       font-family: "Comic Sans MS", cursive, sans-serif;
       color : black;
   }
-  #divtable{
-      float:right;
-      position:relative;
+  #box1{
+      float:left;
+      width:330px;
+      height:200px;
   }
+  #box2{
+      float:left;
+      width:330px;
+      height:200px;
+  }
+  #box3{
+        float:right;
+        width:330px;
+        height:200px;
+    }
   #homepg_txt{
       margin-top: 0px;
   }
@@ -76,7 +87,8 @@
   }
   #pokedex{
       margin-top: 80px;
-      float: right;
+      /* float: left; */
+      /* background-image: url("icons/kantoquad1.png"); background-repeat: no-repeat;background-position: top center;margin-left:auto;margin-right:auto;background-position: 0px 66px;background-size: cover; */
   }
   #abidex{
       margin-top:80px;
@@ -170,4 +182,14 @@
 
   .team-body{
     display: none;
+  }
+  element.style{
+  }
+/*side by side elems in detail pg*/
+  .container{
+      width: 1000px;
+      height:200px;
+      padding-top:10px;
+      padding-left:5px;
+      padding-right:5px;
   }

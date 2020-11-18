@@ -412,11 +412,16 @@
                     pokename = team_dict["p".concat(i.toString())]["name"]
                     abiname  = team_dict["p".concat(i.toString())]["ability"]
                     natname  = team_dict["p".concat(i.toString())]["nature"]
-                    document.getElementById("tm".concat(i.toString())).value = pokename;
                     get_pokeinfo(pokename, i);
+                    nature_init(i);
+                    document.getElementById("tm".concat(i.toString())).value = pokename;
                     document.getElementById("as".concat(i.toString())).value = abiname;
+                    // console.log(document.getElementById("as".concat(i.toString())).value );
+                    // console.log(abiname);
                     document.getElementById("ns".concat(i.toString())).value = natname;
                 }
+                console.log(team_dict);
+
             {% else %}
                 for(i = 1; i <= 6; i++)
                     nature_init(i);
@@ -431,6 +436,7 @@
         {
             if(select > 0)
             {
+                clear_select(select);
                 //append name to the list
                 document.getElementById("tm".concat(select.toString())).value = pokename;
                 //append the pokemon to dict
@@ -586,7 +592,6 @@
                     //append options to select
                     let i;
                     let l = data["info"].length;
-                    clear_select(select);
                     for(i = 0; i<l; i++)
                     {
                         optionText = data["info"][i]["a_name"]; 

@@ -37,24 +37,24 @@
     </div>
     <!-- The side bar section for types -->
     <div class="icon-bar">
-        <button><img src="../static/pokewiki/type-icon/bug.png" height=32px width=32px onclick=button_filter("bug") ondblclick=clear_filter()></button>
-        <button><img src="../static/pokewiki/type-icon/dark.png" height=32px width=32px onclick=button_filter("dark") ondblclick=clear_filter()></button>
-        <button><img src="../static/pokewiki/type-icon/dragon.png" height=32px width=32px onclick=button_filter("dragon") ondblclick=clear_filter()></button>
-        <button><img src="../static/pokewiki/type-icon/electric.png" height=32px width=32px onclick=button_filter("electric") ondblclick=clear_filter()></button>
-        <button><img src="../static/pokewiki/type-icon/fairy.png" height=32px width=32px onclick=button_filter("fairy") ondblclick=clear_filter()></button>
-        <button><img src="../static/pokewiki/type-icon/fighting.png" height=32px width=32px onclick=button_filter("fighting") ondblclick=clear_filter()></button>
-        <button><img src="../static/pokewiki/type-icon/fire.png" height=32px width=32px onclick=button_filter("fire") ondblclick=clear_filter()></button>
-        <button><img src="../static/pokewiki/type-icon/flying.png" height=32px width=32px onclick=button_filter("flying") ondblclick=clear_filter()></button>
-        <button><img src="../static/pokewiki/type-icon/ghost.png" height=32px width=32px onclick=button_filter("ghost") ondblclick=clear_filter()></button>
-        <button><img src="../static/pokewiki/type-icon/grass.png" height=32px width=32px onclick=button_filter("grass") ondblclick=clear_filter()></button>
-        <button><img src="../static/pokewiki/type-icon/ground.png" height=32px width=32px onclick=button_filter("ground") ondblclick=clear_filter()></button>
-        <button><img src="../static/pokewiki/type-icon/ice.png" height=32px width=32px onclick=button_filter("ice") ondblclick=clear_filter()></button>
-        <button><img src="../static/pokewiki/type-icon/normal.png" height=32px width=32px onclick=button_filter("normal") ondblclick=clear_filter()></button>
-        <button><img src="../static/pokewiki/type-icon/poison.png" height=32px width=32px onclick=button_filter("poison") ondblclick=clear_filter()></button>
-        <button><img src="../static/pokewiki/type-icon/psychic.png" height=32px width=32px onclick=button_filter("psychic") ondblclick=clear_filter()></button>
-        <button><img src="../static/pokewiki/type-icon/rock.png" height=32px width=32px onclick=button_filter("rock") ondblclick=clear_filter()></button>
-        <button><img src="../static/pokewiki/type-icon/steel.png" height=32px width=32px onclick=button_filter("steel") ondblclick=clear_filter()></button>
-        <button><img src="../static/pokewiki/type-icon/water.png" height=32px width=32px onclick=button_filter("water") ondblclick=clear_filter()></button>
+        <button><img src="../static/pokewiki/type-icon/bug.png" height=32px width=32px onclick="button_filter('bug')" ondblclick="clear_filter()"></button>
+        <button><img src="../static/pokewiki/type-icon/dark.png" height=32px width=32px onclick="button_filter('dark')" ondblclick="clear_filter()"></button>
+        <button><img src="../static/pokewiki/type-icon/dragon.png" height=32px width=32px onclick="button_filter('dragon')" ondblclick="clear_filter()"></button>
+        <button><img src="../static/pokewiki/type-icon/electric.png" height=32px width=32px onclick="button_filter('electric')" ondblclick="clear_filter()"></button>
+        <button><img src="../static/pokewiki/type-icon/fairy.png" height=32px width=32px onclick="button_filter('fairy')" ondblclick="clear_filter()"></button>
+        <button><img src="../static/pokewiki/type-icon/fighting.png" height=32px width=32px onclick="button_filter('fighting')" ondblclick="clear_filter()"></button>
+        <button><img src="../static/pokewiki/type-icon/fire.png" height=32px width=32px onclick="button_filter('fire')" ondblclick="clear_filter()"></button>
+        <button><img src="../static/pokewiki/type-icon/flying.png" height=32px width=32px onclick="button_filter('flying')" ondblclick="clear_filter()"></button>
+        <button><img src="../static/pokewiki/type-icon/ghost.png" height=32px width=32px onclick="button_filter('ghost')" ondblclick="clear_filter()"></button>
+        <button><img src="../static/pokewiki/type-icon/grass.png" height=32px width=32px onclick="button_filter('grass')" ondblclick="clear_filter()"></button>
+        <button><img src="../static/pokewiki/type-icon/ground.png" height=32px width=32px onclick="button_filter('ground')" ondblclick="clear_filter()"></button>
+        <button><img src="../static/pokewiki/type-icon/ice.png" height=32px width=32px onclick="button_filter('ice')" ondblclick="clear_filter()"></button>
+        <button><img src="../static/pokewiki/type-icon/normal.png" height=32px width=32px onclick="button_filter('normal')" ondblclick="clear_filter()"></button>
+        <button><img src="../static/pokewiki/type-icon/poison.png" height=32px width=32px onclick="button_filter('poison')" ondblclick="clear_filter()"></button>
+        <button><img src="../static/pokewiki/type-icon/psychic.png" height=32px width=32px onclick="button_filter('psychic')" ondblclick="clear_filter()"></button>
+        <button><img src="../static/pokewiki/type-icon/rock.png" height=32px width=32px onclick="button_filter('rock')" ondblclick="clear_filter()"></button>
+        <button><img src="../static/pokewiki/type-icon/steel.png" height=32px width=32px onclick="button_filter('steel')" ondblclick="clear_filter()"></button>
+        <button><img src="../static/pokewiki/type-icon/water.png" height=32px width=32px onclick="button_filter('water')" ondblclick="clear_filter()"></button>
     </div>
     <!-- Table -->
     <div class="table-wrapper-scroll-y my-custom-scrollbar" >
@@ -72,9 +72,9 @@
         <tbody>
             {% for entry in poke_entry %}
             <tr>
-                <td id = 'poke_font'>{{entry.dex_id}}</td>
+                <td class = 'poke_font'>{{entry.dex_id}}</td>
                 <td><img src="../static/pokewiki/pokemon-icon/{{entry.f_name}}.png" loading=lazy></td>
-                <td id = 'poke_font'>
+                <td class = 'poke_font'>
                   <a href="{% url 'pokemon-detail' entry.s_name %}">{{entry.f_name}}</a>
                   {% if 'mega' in entry.f_name %}
                     <img src="../static/pokewiki/icons/megastone.png"　height=24px width=24px>
@@ -90,8 +90,8 @@
                     <img src="../static/pokewiki/type-icon/{{entry.type2}}.png" alt={{entry.type2}} height=24px width=24px loading=lazy>
                   {% endif %}
                 </td>
-                <td id = "poke_font">{{entry.gen}}</td>
-                <td id = "poke_font" colspan="2"> HP:{{entry.hp}}  Atk:{{entry.atk}}  Def:{{entry.spatk}}  Sp.Atk:{{entry.df}}  Sp.Def:{{entry.spdf}}  Speed:{{entry.spd}}</td>
+                <td class = "poke_font">{{entry.gen}}</td>
+                <td class = "poke_font" colspan="2"> HP:{{entry.hp}}  Atk:{{entry.atk}}  Def:{{entry.spatk}}  Sp.Atk:{{entry.df}}  Sp.Def:{{entry.spdf}}  Speed:{{entry.spd}}</td>
             </tr>
             {% endfor %}
         </tbody>

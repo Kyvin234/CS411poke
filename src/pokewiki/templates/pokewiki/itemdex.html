@@ -15,8 +15,7 @@
       <table class="table table-striped mb-0" id="myTable">
           <thead>
               <tr class = "header">
-                  <th scope="col">id</th>
-                  <th scope="col">icon</th>
+                  <th scope="col">Icon</th>
                   <th scope="col">Name</th>
                   <th scope="col">category</th>
               </tr>
@@ -24,8 +23,7 @@
           <tbody>
               {% for entry in item_entry%}
                 <tr>
-                    <td id = 'poke_font'>{{entry.i_id}}</td>
-                    <td id = 'poke_font'>#</td>
+                    <td> <img src="../static/pokewiki/item-icon/{{entry.i_name}}.png" height=24px width=24px loading=lazy></td>
                     <td id = 'poke_font'><a href="{% url 'item-detail' entry.i_id%}">{{entry.i_name}}</a></td>
                     <td id = 'poke_font'>{{entry.category}}</td>
                 </tr>
@@ -44,7 +42,7 @@
       table = document.getElementById("myTable");
       tr = table.getElementsByTagName("tr");
       for (i = 0; i < tr.length; i++) {
-        td = tr[i].getElementsByTagName("td")[2];
+        td = tr[i].getElementsByTagName("td")[1];
         if (td) {
           txtValue = td.textContent || td.innerText;
           if (txtValue.toUpperCase().indexOf(filter) > -1) {

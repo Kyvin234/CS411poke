@@ -130,9 +130,7 @@
                         <div class="input-group-prepend">
                             <label class="input-group-text"  >Item</label>
                         </div>
-                        <select class="custom-select" id="inputGroupSelect01">
-                            <option value="" disabled selected>Select Item</option>
-                        </select>
+                        <input readonly id="is1" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
                     </div>
                 </div>
             </div>
@@ -173,9 +171,7 @@
                         <div class="input-group-prepend">
                             <label class="input-group-text"  >Item</label>
                         </div>
-                        <select class="custom-select" id="inputGroupSelect01">
-                            <option value="" disabled selected>Select Item</option>
-                        </select>
+                        <input readonly id="is2" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
                     </div>
                 </div>
             </div>
@@ -217,9 +213,7 @@
                         <div class="input-group-prepend">
                             <label class="input-group-text"  >Item</label>
                         </div>
-                        <select class="custom-select" id="inputGroupSelect01">
-                            <option value="" disabled selected>Select Item</option>
-                        </select>
+                        <input readonly id="is3" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
                     </div>
                 </div>           
             </div>
@@ -240,7 +234,7 @@
                     <!-- pokemon ability -->
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
-                            <label class="input-group-text"  >Ability</label>
+                            <label class="input-group-text" >Ability</label>
                         </div>
                         <select class="custom-select" id="as4" onchange="select_abi(this.value, 4)">
                             <option value="" disabled selected>Select Ability</option>
@@ -260,9 +254,7 @@
                         <div class="input-group-prepend">
                             <label class="input-group-text"  >Item</label>
                         </div>
-                        <select class="custom-select" id="inputGroupSelect01">
-                            <option value="" disabled selected>Select Item</option>
-                        </select>
+                        <input readonly id="is4" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
                     </div>
                 </div>
             </div>
@@ -301,11 +293,9 @@
                     <!-- pokemon item -->
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
-                            <label class="input-group-text"  >Item</label>
+                            <label class="input-group-text">Item</label>
                         </div>
-                        <select class="custom-select" id="inputGroupSelect01">
-                            <option value="" disabled selected>Select Item</option>
-                        </select>
+                        <input readonly id="is5" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
                     </div>
                 </div>
             </div>
@@ -346,9 +336,7 @@
                         <div class="input-group-prepend">
                             <label class="input-group-text"  >Item</label>
                         </div>
-                        <select class="custom-select" id="inputGroupSelect01">
-                            <option value="" disabled selected>Select Item</option>
-                        </select>
+                        <input readonly id="is6" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
                     </div>
                 </div>     
             </div>
@@ -361,25 +349,32 @@
             <br>
             <small style="display: inline;" id="rule2"> No two pokemons have two the same national dex number</small>
         </div>
+        <!-- pokemon selecting field -->
         <!-- search bar -->
         <div class = "searchbar mt-sm-2 mr-2">
             <input type = "text" class = "form-control" onkeyup = log_filter() id="myInput" placeholder = "Search for a Pokémon..."/>
         </div>
-        <!-- pokemon selecting field -->
-        <p id="pokemon_field">
-            {%for l, k in pokemon_team_detail.items%}
-                {% for row in k%}
-                    <img loading="lazy" id='{{row.pokemon|lower}}' alt='{{row.dex_id}}' src="../../static/pokewiki/pokemon-icon/{{row.pokemon|lower}}.png" onclick="pokeSelect('{{row.pokemon|lower}}', '{{row.dex_id}}')" >
-                    <!-- {{row}} -->
+        <div id="pi_select" >
+            <button onclick="pi_toggle()">toggle</button>
+            <p id="pokemon_field" >
+                {%for l, k in pokemon_team_detail.items%}
+                    {% for row in k%}
+                        <img loading="lazy" id='{{row.pokemon|lower}}' alt='{{row.dex_id}}' src="../../static/pokewiki/pokemon-icon/{{row.pokemon|lower}}.png" onclick="pokeSelect('{{row.pokemon|lower}}', '{{row.dex_id}}')" >
+                    {%endfor%}
                 {%endfor%}
-            {%endfor%}
-        </p>
+            </p>
+            <p id="item_field" >
+                {% for entry in item_info%}
+                    <td> <img src="../../static/pokewiki/item-icon/{{entry.i_name}}.png" loading=lazy></td>
+                {% endfor %}
+            </p>
+        </div>
     </div>
 {% endblock content %}
 
 {% block extra_js %}
     <!-- User Interface in javascript -->
-    <script async>
+    <script>
         //pokemon selector
         var select = 0;
         //active, valid, invalid colors for selected team member
@@ -406,21 +401,18 @@
             {% if object %}
                 //load from to-be-modified team
                 team_dict = JSON.parse(document.getElementById("id_team_comp").value);
-                let i, pokename, abiname;
+                let i, pn, an, nn;
                 for(i = 1; i <= 6; i++)
                 {
-                    pokename = team_dict["p".concat(i.toString())]["name"]
-                    abiname  = team_dict["p".concat(i.toString())]["ability"]
-                    natname  = team_dict["p".concat(i.toString())]["nature"]
+                    pn = team_dict["p".concat(i.toString())]["name"]
+                    an  = team_dict["p".concat(i.toString())]["ability"]
+                    nn  = team_dict["p".concat(i.toString())]["nature"]
                     get_pokeinfo(pokename, i);
                     nature_init(i);
-                    document.getElementById("tm".concat(i.toString())).value = pokename;
-                    document.getElementById("as".concat(i.toString())).value = abiname;
-                    // console.log(document.getElementById("as".concat(i.toString())).value );
-                    // console.log(abiname);
-                    document.getElementById("ns".concat(i.toString())).value = natname;
+                    document.getElementById("tm".concat(i.toString())).value = pn;
+                    document.getElementById("as".concat(i.toString())).value = an;
+                    document.getElementById("ns".concat(i.toString())).value = nn;
                 }
-                console.log(team_dict);
 
             {% else %}
                 for(i = 1; i <= 6; i++)
@@ -460,13 +452,13 @@
                 //deactivate previous selected
                 if(select != 0)
                 {
-                    let team_member = document.getElementById(select);
-                    team_member.style.backgroundColor = inactive;
+                    let tm = document.getElementById(select);
+                    tm.style.backgroundColor = inactive;
                 }
                 //activate current selected
                 select = select_id;
-                team_member = document.getElementById(select);
-                team_member.style.backgroundColor = active;
+                tm = document.getElementById(select);
+                tm.style.backgroundColor = active;
                 
             }
         }
@@ -475,19 +467,19 @@
         */
         function delete_member(select_id)
         {
-            let member_input = document.getElementById("tm".concat(select_id.toString()))
-            let team_member = document.getElementById(select_id);
+            let mi = document.getElementById("tm".concat(select_id.toString())) //member input
+            let tm = document.getElementById(select_id); //team_member
             if(select == select_id)
             {
                 let di = "p".concat(select_id.toString());
                 //set background to be unselected color
-                team_member.style.background = inactive;
+                tm.style.background = inactive;
                 //clear the value
-                member_input.value = "";
+                mif.value = "";
                 //set the team_dict
-                team_dict[di]["name"]    = "";
-                team_dict[di]["id"]      = "";
-                team_dict[di]["nature"]  = "";
+                team_dict[di]["name"]     = "";
+                team_dict[di]["id"]       = "";
+                team_dict[di]["nature"]   = "";
                 team_dict[di]["ability"]  = "";
                 //remove all options except the default first one
                 clear_select(select_id);
@@ -506,6 +498,7 @@
             var input, filter, i, l, txtValue;
             input = document.getElementById("myInput");
             filter = input.value.toUpperCase();
+            l = pokemons.length;
             for (i = 0; i < l; i++) 
             {
                 if (pokemons[i]) 
@@ -514,6 +507,7 @@
                     if (txtValue.toUpperCase().indexOf(filter) > -1) 
                     {
                         pokemons[i].style.display = "";
+                        
                     } else 
                     {
                         pokemons[i].style.display = "none";
@@ -591,12 +585,11 @@
                     // console.log(data["info"])
                     //append options to select
                     let i;
-                    let l = data["info"].length;
+                    let l = data["ability"].length;
                     for(i = 0; i<l; i++)
                     {
-                        optionText = data["info"][i]["a_name"]; 
-                        optionValue = data["info"][i]["a_name"]; 
-                        // console.log(optionText);
+                        optionText = data["ability"][i]["a_name"]; 
+                        optionValue = data["ability"][i]["a_name"]; 
                         $('#as'.concat(select.toString())).append(`<option value="${optionValue}"> ${optionText} </option>`);
                     }
                 },
@@ -622,7 +615,6 @@
         function select_nat(value, id)
         {
             team_dict["p".concat(id.toString())]["nature"] = value;
-            // console.log(team_dict);
             //generate json data for the team
             document.getElementById("id_team_comp").innerHTML = JSON.stringify(team_dict);
         }
@@ -633,9 +625,11 @@
         {
             $('#as'.concat(select_id.toString())).find('option').not(':first').remove();
             $('#as'.concat(select_id.toString())).val("");
-            // $('#ns'.concat(select_id.toString())).find('option').not(':first').remove();
             $('#ns'.concat(select_id.toString())).val("");
         }
+        /*
+            function that initializes natures options
+        */
         function nature_init(select_id)
         {
             $('#ns'.concat(select_id.toString())).append(`<option value="adamant"> Adamant Attack+ Sp.Atk- </option>`);
@@ -663,6 +657,21 @@
             $('#ns'.concat(select_id.toString())).append(`<option value="sassysassy</option>`);
             $('#ns'.concat(select_id.toString())).append(`<option value="careful">  careful</option>`);
             $('#ns'.concat(select_id.toString())).append(`<option value="quirky">  quirky</option>`);
+        }
+        /*
+            toggle between pokemon picker and item picker
+        */
+        function pi_toggle()
+        {
+            var p  = document.getElementById("pokemon_field");
+            var i = document.getElementById("item_field");
+            if (p.style.display === "none") {
+                p.style.display = "block";
+                i.style.display = "none";
+            } else {
+                p.style.display = "none";
+                i.style.display = "block";
+            }
         }
     </script>
 {% endblock extra_js %}

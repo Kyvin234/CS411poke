@@ -15,7 +15,9 @@
                     <tr class = "header">
                         <td>{{row.team_name}}</td>
                         {% for key,value in row.team_comp.items %}
-                            <td><img src="../static/pokewiki/pokemon-icon/{{value.name}}.png"></td>
+                            {% if value.name %}
+                                <td><img src="../static/pokewiki/pokemon-icon/{{value.name}}.png" alt="N/A"></td>
+                            {% endif %}
                         {% endfor %}
                     </tr>
                 </thead>
@@ -41,7 +43,9 @@
                     <tr>
                         <td>item</td>
                         {% for key,value in row.team_comp.items %}
-                            <td>{{value.item}}</td>
+                            {% if value.item %}
+                                <td><img src="../static/pokewiki/item-icon/{{value.item}}.png" alt="N/A"></td>
+                            {% endif %}
                         {% endfor %}
                     </tr>
                     <tr>

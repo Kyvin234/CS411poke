@@ -352,20 +352,20 @@
         <!-- pokemon selecting field -->
         <!-- search bar -->
         <div class = "searchbar mt-sm-2 mr-2">
-            <input type = "text" class = "form-control" onkeyup = log_filter() id="myInput" placeholder = "Search for a Pokémon..."/>
+            <input type = "text" class = "form-control" onkeyup = "log_filter()" id="search" placeholder = "Search for a Pokémon..."/>
         </div>
         <div id="pi_select" >
             <button onclick="pi_toggle()">toggle</button>
             <p id="pokemon_field" >
                 {%for l, k in pokemon_team_detail.items%}
                     {% for row in k%}
-                        <img loading="lazy" id='{{row.pokemon|lower}}' alt='{{row.dex_id}}' src="../../static/pokewiki/pokemon-icon/{{row.pokemon|lower}}.png" onclick="pokeSelect('{{row.pokemon|lower}}', '{{row.dex_id}}')" >
+                        <img loading="lazy" id='{{row.pokemon|lower}}' alt='{{row.dex_id}}' src="../../static/pokewiki/pokemon-icon/{{row.pokemon|lower}}.png" onclick="select_poke('{{row.pokemon|lower}}', '{{row.dex_id}}')" >
                     {%endfor%}
                 {%endfor%}
             </p>
             <p id="item_field" >
                 {% for entry in item_info%}
-                    <td> <img src="../../static/pokewiki/item-icon/{{entry.i_name}}.png" loading=lazy></td>
+                    <td> <img id='{{entry.i_name}}'src="../../static/pokewiki/item-icon/{{entry.i_name}}.png" onclick="select_item(this.id)"loading=lazy></td>
                 {% endfor %}
             </p>
         </div>
@@ -374,9 +374,10 @@
 
 {% block extra_js %}
     <!-- User Interface in javascript -->
-    <script>
+    <script async>
         //pokemon selector
         var select = 0;
+        var cur_bar = 0; //0 pokemon filter, 1 item filter
         //active, valid, invalid colors for selected team member
         const inactive = "#e6eff3";
         const active   = "#9bd6f0";
@@ -404,9 +405,9 @@
                 let i, pn, an, nn;
                 for(i = 1; i <= 6; i++)
                 {
-                    pn = team_dict["p".concat(i.toString())]["name"]
-                    an  = team_dict["p".concat(i.toString())]["ability"]
-                    nn  = team_dict["p".concat(i.toString())]["nature"]
+                    pn = team_dict["p".concat(i.toString())]["name"];
+                    an  = team_dict["p".concat(i.toString())]["ability"];
+                    nn  = team_dict["p".concat(i.toString())]["nature"];
                     get_pokeinfo(pokename, i);
                     nature_init(i);
                     document.getElementById("tm".concat(i.toString())).value = pn;
@@ -420,11 +421,13 @@
             {% endif %}
             //check if the team is valid
             valid_check();
+            //hide item select field
+            document.getElementById("item_field").style.display = "none";
         };
         /*
             Function to pick a pokemon from the field and append it to the team
         */
-        function pokeSelect(pokename, dex_id)
+        function select_poke(pokename, dex_id)
         {
             if(select > 0)
             {
@@ -440,7 +443,21 @@
                 valid_check();
                 //generate json data for the team
                 document.getElementById("id_team_comp").innerHTML = JSON.stringify(team_dict);
+            }
         }
+        /*
+            Function to pick an item from the field and append it to the team
+        */
+        function select_item(itemname)
+        {
+            if(select > 0)
+            {
+                document.getElementById("is".concat(select.toString())).value = itemname;
+                //append the item to dict
+                team_dict["p".concat(select.toString())]["item"] = itemname;
+                //generate json data for the team
+                document.getElementById("id_team_comp").innerHTML = JSON.stringify(team_dict);
+            }
         }
         /*
             highlight the list element being selected
@@ -494,23 +511,30 @@
         */
         function log_filter() 
         {
-            var pokemons = document.getElementById("pokemon_field").children;
+
+            var es;
+            if(cur_bar == 0)
+                es = document.getElementById("pokemon_field").children;
+            else
+                es = document.getElementById("item_field").children;
+
             var input, filter, i, l, txtValue;
-            input = document.getElementById("myInput");
+            input = document.getElementById("search");
             filter = input.value.toUpperCase();
-            l = pokemons.length;
+            // console.log(es)
+            l = es.length;
             for (i = 0; i < l; i++) 
             {
-                if (pokemons[i]) 
+                if(es[i]) 
                 {
-                    txtValue = pokemons[i].id;
+                    txtValue = es[i].id;
                     if (txtValue.toUpperCase().indexOf(filter) > -1) 
                     {
-                        pokemons[i].style.display = "";
+                        es[i].style.display = "";
                         
                     } else 
                     {
-                        pokemons[i].style.display = "none";
+                        es[i].style.display = "none";
                     }
                 }
             }
@@ -623,9 +647,11 @@
         */
         function clear_select(select_id)
         {
-            $('#as'.concat(select_id.toString())).find('option').not(':first').remove();
-            $('#as'.concat(select_id.toString())).val("");
-            $('#ns'.concat(select_id.toString())).val("");
+            var idx = select_id.toString();
+            $('#as'.concat(idx)).find('option').not(':first').remove();
+            $('#as'.concat(idx)).val("");
+            $('#ns'.concat(idx)).val("");
+            $('#is'.concat(idx)).val("");
         }
         /*
             function that initializes natures options
@@ -663,15 +689,29 @@
         */
         function pi_toggle()
         {
-            var p  = document.getElementById("pokemon_field");
-            var i = document.getElementById("item_field");
+            var p,i,c;
+            p = document.getElementById("pokemon_field");
+            i = document.getElementById("item_field");
             if (p.style.display === "none") {
+                //hide item picker and show pokemon picker
                 p.style.display = "block";
                 i.style.display = "none";
+                cur_bar = 0;
+
             } else {
+                //hide pokemon picker and show item picker
                 p.style.display = "none";
                 i.style.display = "block";
+                cur_bar = 1;
+                //finished toggling use p as a temp
+                p = i;
             }
+            //reset filter
+            for(c = 0; c<p.children.length; c++)
+            {
+                p.children[c].style.display = "";
+            }
+            document.getElementById("search").value = "";
         }
     </script>
 {% endblock extra_js %}

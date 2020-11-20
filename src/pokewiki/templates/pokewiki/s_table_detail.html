@@ -6,220 +6,224 @@
 
 {% block content %}
     <body id="pokedex">
-    <div class = "container">
-        <div id="box1">
-        {% for row in pokemon_detail %}
-            <h1 style ="font-family:Comic Sans MS">{{row.f_name}}</h1>
-            {% for a in pokemon_ability %}
-                {% if a.f_name == row.f_name %}
-                    {% if a.is_hidden == 0 %}
-                        <br><a href="{% url 'ability-detail' a.a_id %}" style ="font-family:Comic Sans MS">{{a.a_name}}</a>
-                    {% else %}
-                        <a href="{% url 'ability-detail' a.a_id %}" style ="font-family:Comic Sans MS">{{a.a_name}}(hidden ability)</a>
-                    {% endif %}
-                {% endif %}
-            {% endfor %}
-            <p><img src="../../static/pokewiki/pokedetailimg/{{row.f_name}}.jpg"></p>
-        </div>
-        <div id = "box2">
-            <caption style ="color:black; caption-side:top; text-align:center;
-            background:#40ece2; border-radius: 10px; -moz-border-radius:10px;
-            -webkit-border-radius:10; -khtml-border-radius:10px; -icab-border-radius:10px;
-            -o-border-radius:10px; border:3px solid #05A89F; white-space:nowrap; font-family:Arial">
-            Pokédex Data</caption>
-            <hr style ="width:50%, text-align:left; margin-left:0">
-            <table class = "info-table" id="info-table">
-                <tbody>
-                    <!-- DEX ID -->
-                    <tr>
-                        <th>National Dex No.</th>
-                        <td>
-                            <strong>
-                                {{row.dex_id}}
-                            </strong>
-                        </td>
-                    </tr>
-                    <!-- TYPE -->
-                    <tr>
-                        <th>Type</th>
-                        <td>
-                            <a>
-                                <img src="../../static/pokewiki/type-icon/{{row.type1}}.png" height=32px width=32px><img src="../../static/pokewiki/type-icon/{{row.type2}}.png" height=32px width=32px>
-                            </a>
-                        </td>
-                    </tr>
-                    <!-- GENERATION -->
-                    <tr>
-                        <th>Generation</th>
-                        <td>
-                            {{row.gen}}
-                        </td>
-                    </tr>
-                    <!-- HEIGHT -->
-                    <tr>
-                        <th>Height</th>
-                        <td>
-                            {{row.height}} decimeters(dm)
-                        </td>
-                    </tr>
-                    <!-- WEIGHT -->
-                    <tr>
-                        <th>Weight</th>
-                        <td>
-                            {{row.weight}} hectograms(hg)
-                        </td>
-                    </tr>
-                    <!-- CAPTURE RATE -->
-                    <tr>
-                        <th>Capture Rate</th>
-                        <td>
-                            {{row.capture_rate}}
-                        </td>
-                    </tr>
-                    <!-- GENDER RATE -->
-                    <tr>
-                        <th>Gender</th>
-                        <td>
-                            {{row.gender_rate}}
-                        </td>
-                    </tr>
-            <!-- <p><img src="../../static/pokewiki/pokedetailimg/{{row.f_name}}.jpg"></p>
-            <p style ="font-family:Trebuchet MS"> Dex ID No. : {{row.dex_id}} </p>
-            <p style ="font-family:Comic Sans MS"> Type: {{row.type1}} {{row.type2}}</p>
-            <p style ="font-family:Comic Sans MS"> Generation : {{row.gen}} </p>
-            <p style ="font-family:Comic Sans MS">Height : {{row.height}} decimeters(dm)</p>
-            <p style ="font-family:Comic Sans MS">Weight : {{row.weight}} hectograms(hg)</p>
-            <p style ="font-family:Comic Sans MS"> Capture Rate: {{row.capture_rate }}</p>
-            <p style ="font-family:Comic Sans MS"> Gender Rate: {{row.gender_rate }}</p> -->
-        </div>
-            <!-- STAT TABLE-->
-            <div id = "box3">
-            <table style = "background: #6FFEF6; border-radius: 10px; -moz-border-radius:10px;
-            -webkit-border-radius:10; -khtml-border-radius:10px; -icab-border-radius:10px;
-            -o-border-radius:10px; border:3px solid #05A89F; white-space:nowrap" id="stattable">
-            <!--/////////////////////////////////////////////////////// CAPTION-->
-                <caption style ="color:black; caption-side:top; text-align:center;
-                background:#40ece2; border-radius: 10px; -moz-border-radius:10px;
-                -webkit-border-radius:10; -khtml-border-radius:10px; -icab-border-radius:10px;
-                -o-border-radius:10px; border:3px solid #05A89F; white-space:nowrap; font-family: Comic Sans MS">
-                Base Stats For {{row.f_name}}</caption>
-                <tbody>
-                    <!--
-                    RED HEX #E57474, #BC3838
-
-
-                    -->
-                    <!--/////////////////////////////////////////////HP STAT BAR-->
-                    <tr style = "background: #E57474; text-align:center">
-                        <th style="width:150px">
-                            <div style="float:left">
-                                <span style="color:#000;font-family: Comic Sans MS;">HP:</span>
-                            </div>
-                            <div style="float:right; color:black; font-family: Comic Sans MS;">
-                                {{row.hp}}
-                            </div>
-                        </th>
-                        <td style="width:255px">
-                            <div class="statbar" style="background-color:#BC3838;
-                            width:calc(100%*{{row.hp}}/255); height:20px"></div>
-                        </td>
-                        <!--/////////////////////////////////////////ATK STAT BAR-->
-                        <tr style = "background: #FFB380; text-align:center">
-                            <th style="width:150px">
-                                <div style="float:left">
-                                    <span style="color:#000;font-family: Comic Sans MS;">Attack:</span>
-                                </div>
-                                <div style="float:right; color:black; font-family: Comic Sans MS;">
-                                    {{row.atk}}
-                                </div>
-                            </th>
-                            <td style="width:255px">
-                                <div class="statbar" style="background-color:#FF822e;
-                                width:calc(100%*{{row.atk}}/255); height:20px"></div>
-                            </td>
-                            <!-- ////////////////////////////////////DEF STAT BAR-->
-                            <tr style = "background: #FAE078; text-align:center">
-                                <th style="width:150px">
-                                    <div style="float:left">
-                                        <span style="color:#000;font-family: Comic Sans MS;">Defense:</span>
-                                    </div>
-                                    <div style="float:right; color:black;font-family: Comic Sans MS;">
-                                        {{row.df}}
-                                    </div>
-                                </th>
-                                <td style="width:255px">
-                                    <div class="statbar" style="background-color:#F8D030;
-                                    width:calc(100%*{{row.df}}/255); height:20px"></div>
+    <div class = "pokedetails">
+        <div class = "box">
+            <div class = "box-row">
+                <div class="box-cell box1">
+                {% for row in pokemon_detail %}
+                    <h1 style ="font-family:Comic Sans MS">{{row.f_name}}</h1>
+                    {% for a in pokemon_ability %}
+                        {% if a.f_name == row.f_name %}
+                            {% if a.is_hidden == 0 %}
+                                <br><a href="{% url 'ability-detail' a.a_id %}" style ="font-family:Comic Sans MS">{{a.a_name}}</a>
+                            {% else %}
+                                <a href="{% url 'ability-detail' a.a_id %}" style ="font-family:Comic Sans MS">{{a.a_name}}(hidden ability)</a>
+                            {% endif %}
+                        {% endif %}
+                    {% endfor %}
+                    <p><img src="../../static/pokewiki/pokedetailimg/{{row.f_name}}.jpg"></p>
+                </div>
+                <div class = " box-cell box2">
+                    <caption style ="color:black; caption-side:top; text-align:center;
+                    background:#40ece2; border-radius: 10px; -moz-border-radius:10px;
+                    -webkit-border-radius:10; -khtml-border-radius:10px; -icab-border-radius:10px;
+                    -o-border-radius:10px; border:3px solid #05A89F; white-space:nowrap; font-family:Arial">
+                    Pokédex Data</caption>
+                    <hr style ="width:50%, text-align:left; margin-left:0">
+                    <table class = "info-table" id="info-table">
+                        <tbody>
+                            <!-- DEX ID -->
+                            <tr>
+                                <th>National Dex No.</th>
+                                <td>
+                                    <strong>
+                                        {{row.dex_id}}
+                                    </strong>
                                 </td>
-                            <!-- ////////////////////////////////////SPATK STAT BAR-->
-                            <tr style = "background: #62C5DA; text-align:center">
+                            </tr>
+                            <!-- TYPE -->
+                            <tr>
+                                <th>Type</th>
+                                <td>
+                                    <a>
+                                        <img src="../../static/pokewiki/type-icon/{{row.type1}}.png" height=32px width=32px>
+                                        {% if row.type2 %}
+                                        <img src="../../static/pokewiki/type-icon/{{row.type2}}.png" height=32px width=32px>
+                                        {% endif %}
+                                    </a>
+                                </td>
+                            </tr>
+                            <!-- GENERATION -->
+                            <tr>
+                                <th>Generation</th>
+                                <td>
+                                    {{row.gen}}
+                                </td>
+                            </tr>
+                            <!-- HEIGHT -->
+                            <tr>
+                                <th>Height</th>
+                                <td>
+                                    {{row.height}} decimeters(dm)
+                                </td>
+                            </tr>
+                            <!-- WEIGHT -->
+                            <tr>
+                                <th>Weight</th>
+                                <td>
+                                    {{row.weight}} hectograms(hg)
+                                </td>
+                            </tr>
+                            <!-- CAPTURE RATE -->
+                            <tr>
+                                <th>Capture Rate</th>
+                                <td>
+                                    {{row.capture_rate}}
+                                </td>
+                            </tr>
+                            <!-- GENDER RATE -->
+                            <tr>
+                                <th>Gender</th>
+                                <td>
+                                    {{row.gender_rate}}
+                                </td>
+                            </tr>
+                    <!-- <p><img src="../../static/pokewiki/pokedetailimg/{{row.f_name}}.jpg"></p>
+                    <p style ="font-family:Trebuchet MS"> Dex ID No. : {{row.dex_id}} </p>
+                    <p style ="font-family:Comic Sans MS"> Type: {{row.type1}} {{row.type2}}</p>
+                    <p style ="font-family:Comic Sans MS"> Generation : {{row.gen}} </p>
+                    <p style ="font-family:Comic Sans MS">Height : {{row.height}} decimeters(dm)</p>
+                    <p style ="font-family:Comic Sans MS">Weight : {{row.weight}} hectograms(hg)</p>
+                    <p style ="font-family:Comic Sans MS"> Capture Rate: {{row.capture_rate }}</p>
+                    <p style ="font-family:Comic Sans MS"> Gender Rate: {{row.gender_rate }}</p> -->
+
+                    <!-- STAT TABLE-->
+                    <table style = "background: #6FFEF6; border-radius: 10px; -moz-border-radius:10px;
+                    -webkit-border-radius:10; -khtml-border-radius:10px; -icab-border-radius:10px;
+                    -o-border-radius:10px; border:3px solid #05A89F; white-space:nowrap" id="stattable">
+                    <!--/////////////////////////////////////////////////////// CAPTION-->
+                        <caption style ="color:black; caption-side:top; text-align:center;
+                        background:#40ece2; border-radius: 10px; -moz-border-radius:10px;
+                        -webkit-border-radius:10; -khtml-border-radius:10px; -icab-border-radius:10px;
+                        -o-border-radius:10px; border:3px solid #05A89F; white-space:nowrap; font-family: Comic Sans MS">
+                        Base Stats For {{row.f_name}}</caption>
+                        <tbody>
+                            <!--
+                            RED HEX #E57474, #BC3838
+
+
+                            -->
+                            <!--/////////////////////////////////////////////HP STAT BAR-->
+                            <tr style = "background: #E57474; text-align:center">
                                 <th style="width:150px">
                                     <div style="float:left">
-                                        <span style="color:#000;font-family: Comic Sans MS;">Sp.Attack:</span>
+                                        <span style="color:#000;font-family: Comic Sans MS;">HP:</span>
                                     </div>
                                     <div style="float:right; color:black; font-family: Comic Sans MS;">
-                                        {{row.spatk}}
+                                        {{row.hp}}
                                     </div>
                                 </th>
                                 <td style="width:255px">
-                                    <div class="statbar" style="background-color:#0492C2;
-                                    width:calc(100%*{{row.spatk}}/255); height:20px"></div>
+                                    <div class="statbar" style="background-color:#BC3838;
+                                    width:calc(100%*{{row.hp}}/255); height:20px"></div>
                                 </td>
-                                <!-- ////////////////////////////////////SPDEF STAT BAR-->
-                                <tr style = "background: #A7DB8D; text-align:center">
+                                <!--/////////////////////////////////////////ATK STAT BAR-->
+                                <tr style = "background: #FFB380; text-align:center">
                                     <th style="width:150px">
                                         <div style="float:left">
-                                            <span style="color:#000; font-family: Comic Sans MS;">Sp.Defense:</span>
+                                            <span style="color:#000;font-family: Comic Sans MS;">Attack:</span>
                                         </div>
                                         <div style="float:right; color:black; font-family: Comic Sans MS;">
-                                            {{row.spdf}}
+                                            {{row.atk}}
                                         </div>
                                     </th>
                                     <td style="width:255px">
-                                        <div class="statbar" style="background-color:#78C850;
-                                        width:calc(100%*{{row.spdf}}/255); height:20px"></div>
+                                        <div class="statbar" style="background-color:#FF822e;
+                                        width:calc(100%*{{row.atk}}/255); height:20px"></div>
                                     </td>
-                                    <!-- ////////////////////////////////////SPEED STAT BAR-->
-                                    <tr style = "background: #F4C2C2; text-align:center">
+                                    <!-- ////////////////////////////////////DEF STAT BAR-->
+                                    <tr style = "background: #FAE078; text-align:center">
                                         <th style="width:150px">
                                             <div style="float:left">
-                                                <span style="color:#000;font-family: Comic Sans MS;">Speed:</span>
+                                                <span style="color:#000;font-family: Comic Sans MS;">Defense:</span>
                                             </div>
-                                            <div style="float:right; color:black; font-family: Comic Sans MS;">
-                                                {{row.spd}}
+                                            <div style="float:right; color:black;font-family: Comic Sans MS;">
+                                                {{row.df}}
                                             </div>
                                         </th>
                                         <td style="width:255px">
-                                            <div class="statbar" style="background-color:#E17F93;
-                                            width:calc(100%*{{row.spd}}/255); height:20px"></div>
+                                            <div class="statbar" style="background-color:#F8D030;
+                                            width:calc(100%*{{row.df}}/255); height:20px"></div>
                                         </td>
-                                        <!-- ////////////////////////////////////TOTAL STAT BAR-->
-                                        <!-- PINK HEX #E17F93  #F4C2C2
-                                             GREEN HEX #78C850 #A7DB8D
-                                             PURPLE HEX #A45EE5 #BD93D3
-                                             BLUE HEX #0492C2 #62C5DA
-                                             YELLOW HEX #F8D030 #FAE078
-                                             ORANGE HEX #FF822E #FFB380
-                                             RED HEX #BC3838 #E57474
-                                         -->
-                                        <tr style = "background: #BD93D3; text-align:center">
+                                    <!-- ////////////////////////////////////SPATK STAT BAR-->
+                                    <tr style = "background: #62C5DA; text-align:center">
+                                        <th style="width:150px">
+                                            <div style="float:left">
+                                                <span style="color:#000;font-family: Comic Sans MS;">Sp.Attack:</span>
+                                            </div>
+                                            <div style="float:right; color:black; font-family: Comic Sans MS;">
+                                                {{row.spatk}}
+                                            </div>
+                                        </th>
+                                        <td style="width:255px">
+                                            <div class="statbar" style="background-color:#0492C2;
+                                            width:calc(100%*{{row.spatk}}/255); height:20px"></div>
+                                        </td>
+                                        <!-- ////////////////////////////////////SPDEF STAT BAR-->
+                                        <tr style = "background: #A7DB8D; text-align:center">
                                             <th style="width:150px">
                                                 <div style="float:left">
-                                                    <span style="color:#000; font-family: Comic Sans MS;">Total:</span>
+                                                    <span style="color:#000; font-family: Comic Sans MS;">Sp.Defense:</span>
                                                 </div>
-                                                <div style="float:right; font-family: Comic Sans MS; color:black;">
-                                                    {{row.hp|add:row.atk|add:row.df|add:row.spatk|add:row.spdf|add:row.spd}}
+                                                <div style="float:right; color:black; font-family: Comic Sans MS;">
+                                                    {{row.spdf}}
                                                 </div>
                                             </th>
                                             <td style="width:255px">
-                                                <div class="statbar" style="background-color:#A45EE5;
-                                                width:calc(100%*{{row.hp|add:row.atk|add:row.df|add:row.spatk|add:row.spdf|add:row.spd}}
-                                            </div>/1530); height:20px"></div>
+                                                <div class="statbar" style="background-color:#78C850;
+                                                width:calc(100%*{{row.spdf}}/255); height:20px"></div>
                                             </td>
-                </tbody>
-            </table>
-            </div>
-            </div>
+                                            <!-- ////////////////////////////////////SPEED STAT BAR-->
+                                            <tr style = "background: #F4C2C2; text-align:center">
+                                                <th style="width:150px">
+                                                    <div style="float:left">
+                                                        <span style="color:#000;font-family: Comic Sans MS;">Speed:</span>
+                                                    </div>
+                                                    <div style="float:right; color:black; font-family: Comic Sans MS;">
+                                                        {{row.spd}}
+                                                    </div>
+                                                </th>
+                                                <td style="width:255px">
+                                                    <div class="statbar" style="background-color:#E17F93;
+                                                    width:calc(100%*{{row.spd}}/255); height:20px"></div>
+                                                </td>
+                                                <!-- ////////////////////////////////////TOTAL STAT BAR-->
+                                                <!-- PINK HEX #E17F93  #F4C2C2
+                                                     GREEN HEX #78C850 #A7DB8D
+                                                     PURPLE HEX #A45EE5 #BD93D3
+                                                     BLUE HEX #0492C2 #62C5DA
+                                                     YELLOW HEX #F8D030 #FAE078
+                                                     ORANGE HEX #FF822E #FFB380
+                                                     RED HEX #BC3838 #E57474
+                                                 -->
+                                                <tr style = "background: #BD93D3; text-align:center">
+                                                    <th style="width:150px">
+                                                        <div style="float:left">
+                                                            <span style="color:#000; font-family: Comic Sans MS;">Total:</span>
+                                                        </div>
+                                                        <div style="float:right; font-family: Comic Sans MS; color:black;">
+                                                            {{row.hp|add:row.atk|add:row.df|add:row.spatk|add:row.spdf|add:row.spd}}
+                                                        </div>
+                                                    </th>
+                                                    <td style="width:255px">
+                                                        <div class="statbar" style="background-color:#A45EE5;
+                                                        width:calc(100%*{{row.hp|add:row.atk|add:row.df|add:row.spatk|add:row.spdf|add:row.spd}}
+                                                    </div>/1530); height:20px"></div>
+                                                    </td>
+                                            </tbody>
+                                        </table>
+                                    </div>
+            <div class = "box-cell box3">
             <h2 style = "font-family: Comic Sans MS"> Learnable Moves </h2>
             <div class="table-wrapper-scroll-y my-custom-scrollbar" >
             <table class="table table-hover" id="myTable">
@@ -239,7 +243,12 @@
             </tbody>
             </table>
             </div>
+        </div>
+        </div>
+    </div>
+    </div>
     </body>
+
 
         {% endfor %}
 {% endblock content %}

@@ -64,21 +64,6 @@
       font-family: "Comic Sans MS", cursive, sans-serif;
       color : black;
   }
-  #box1{
-      float:left;
-      width:330px;
-      height:200px;
-  }
-  #box2{
-      float:left;
-      width:330px;
-      height:200px;
-  }
-  #box3{
-        float:right;
-        width:330px;
-        height:200px;
-    }
   #homepg_txt{
       margin-top: 0px;
   }
@@ -183,13 +168,32 @@
   .team-body{
     display: none;
   }
-  element.style{
+  /*test*/
+  .pokedetails .box{
+      width:1200px;
+      margin:60px;
+      display:table;
   }
-/*side by side elems in detail pg*/
-  /* .container{
-      width: 1000px;
-      height:200px;
-      padding-top:10px;
-      padding-left:5px;
-      padding-right:5px;
-  } */
+  .pokedetails .box .box-row{
+      display:table-row;
+      margin: 20px;
+  }
+  .pokedetails .box .box-cell{
+      display:table-cell;
+      width:33%;
+      padding:10px;
+  }
+  .container .box .box-cell.box1{
+      text-align:justify;
+      position:absolute;
+      left: 20px;
+  }
+  .container .box .box-cell.box2{
+      text-align:justify;
+      position:absolute;
+      left:400px;
+  }
+  .container .box .box-cell.box3{
+      text-align:justify;
+      width: 500px;
+  }

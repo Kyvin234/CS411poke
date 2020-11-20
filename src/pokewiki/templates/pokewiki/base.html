@@ -39,6 +39,10 @@
                 </div>
                 <!-- Navbar Right Side -->
                 <div class="navbar-nav">
+                    <a class="nav-item nav-link" href="{% url 'forum' %}">
+                        <!-- <img src="{% static 'pokewiki/icons/myteam-logo.png' %}" width="80" height"30"> -->
+                        forum
+                    </a>
                     {% if user.is_authenticated %}
                         <a class="nav-item nav-link" href="{% url 'team' %}">
                             <img src="{% static 'pokewiki/icons/myteam-logo.png' %}" width="80" height"30">

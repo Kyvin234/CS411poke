@@ -30,6 +30,18 @@ def register(request):
     else:
         form = UserCreationForm()
     return render(request, 'users/register.html', {'form': form})
+
+# forum list view
+class forum_lview(ListView):
+    model = team_table
+    template_name = 'users/forum.html'
+    context_object_name = 'team_lists'
+    def get_queryset(self):
+        qs = super().get_queryset() 
+        return qs.raw("""   SELECT *
+                            FROM users_team_table
+                        """)
+    
 # user profile form
 @login_required
 def profile(request):
@@ -134,6 +146,7 @@ class team_uview(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
             return True
         else:
             return False
+
 
 # ajax requests
 def get_pokeinfo(request):

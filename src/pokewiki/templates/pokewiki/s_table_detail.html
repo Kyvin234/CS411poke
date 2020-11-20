@@ -6,12 +6,13 @@
 
 {% block content %}
     <body id="pokedex">
-    <div class = "pokedetails">
-        <div class = "box">
-            <div class = "box-row">
-                <div class="box-cell box1">
-                {% for row in pokemon_detail %}
-                    <h1 style ="font-family:Comic Sans MS">{{row.f_name}}</h1>
+        {% for row in pokemon_detail %}
+        <hr style="height:2px;border-width:0;color:black;background-color:gray"></hr>
+    <div class = "pokedetails" id = "{{row.f_name}}0">
+        <div class = "box" id = "{{row.f_name}}2">
+            <div class = "box-row" id = "{{row.f_name}}3">
+                <div class="box-cell box1" id = "{{row.f_name}}4">
+                    <h1 style ="font-family:Trebuchet MS">{{row.f_name}}</h1>
                     {% for a in pokemon_ability %}
                         {% if a.f_name == row.f_name %}
                             {% if a.is_hidden == 0 %}
@@ -23,12 +24,8 @@
                     {% endfor %}
                     <p><img src="../../static/pokewiki/pokedetailimg/{{row.f_name}}.jpg"></p>
                 </div>
-                <div class = " box-cell box2">
-                    <caption style ="color:black; caption-side:top; text-align:center;
-                    background:#40ece2; border-radius: 10px; -moz-border-radius:10px;
-                    -webkit-border-radius:10; -khtml-border-radius:10px; -icab-border-radius:10px;
-                    -o-border-radius:10px; border:3px solid #05A89F; white-space:nowrap; font-family:Arial">
-                    Pokédex Data</caption>
+                <div class = " box-cell box2" id = "{{row.f_name}}5">
+                    <h3 style = "font-family: Trebuchet MS"> Pokémon Data </h3>
                     <hr style ="width:50%, text-align:left; margin-left:0">
                     <table class = "info-table" id="info-table">
                         <tbody>
@@ -105,8 +102,8 @@
                         <caption style ="color:black; caption-side:top; text-align:center;
                         background:#40ece2; border-radius: 10px; -moz-border-radius:10px;
                         -webkit-border-radius:10; -khtml-border-radius:10px; -icab-border-radius:10px;
-                        -o-border-radius:10px; border:3px solid #05A89F; white-space:nowrap; font-family: Comic Sans MS">
-                        Base Stats For {{row.f_name}}</caption>
+                        -o-border-radius:10px; border:3px solid #05A89F; white-space:nowrap; font-family: Trebuchet MS">
+                        Base Stats for {{row.f_name}}</caption>
                         <tbody>
                             <!--
                             RED HEX #E57474, #BC3838
@@ -223,8 +220,8 @@
                                             </tbody>
                                         </table>
                                     </div>
-            <div class = "box-cell box3">
-            <h2 style = "font-family: Comic Sans MS"> Learnable Moves </h2>
+            <div class = "box-cell box3" id = "{{row.f_name}}6">
+            <h2 style = "font-family: Trebuchet MS"> Learnable Moves </h2>
             <div class="table-wrapper-scroll-y my-custom-scrollbar" >
             <table class="table table-hover" id="myTable">
             <thead>

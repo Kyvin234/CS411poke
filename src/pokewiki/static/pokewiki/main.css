@@ -71,7 +71,7 @@
       margin-top: 90px;
   }
   #pokedex{
-      margin-top: 80px;
+      margin-top: 0px;
       /* float: left; */
       /* background-image: url("icons/kantoquad1.png"); background-repeat: no-repeat;background-position: top center;margin-left:auto;margin-right:auto;background-position: 0px 66px;background-size: cover; */
   }
@@ -168,10 +168,10 @@
   .team-body{
     display: none;
   }
-  /*test*/
+  /*detail pg*/
   .pokedetails .box{
-      width:1200px;
-      margin:60px;
+      width:1190px;
+      margin:80px;
       display:table;
   }
   .pokedetails .box .box-row{
@@ -182,18 +182,20 @@
       display:table-cell;
       width:33%;
       padding:10px;
+      margin-bottom: 10px;
   }
-  .container .box .box-cell.box1{
+  .pokedetails .box .box-cell.box1{
       text-align:justify;
       position:absolute;
       left: 20px;
   }
-  .container .box .box-cell.box2{
+  .pokedetails .box .box-cell.box2{
       text-align:justify;
       position:absolute;
       left:400px;
   }
-  .container .box .box-cell.box3{
+  .pokedetails .box .box-cell.box3{
       text-align:justify;
       width: 500px;
+
   }

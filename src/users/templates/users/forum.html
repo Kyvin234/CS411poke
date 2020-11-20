@@ -1,0 +1,82 @@
+{% extends "pokewiki/base.html" %}
+{% block content %}
+    <div class="content-section">
+        <h1> Forum </h1>
+    </div>
+    {% for row in team_lists %}
+        <!-- <h3> {{row.}} </h3> -->
+        <div class="content-section">
+            <table class="table table-hover" id="myTable">
+                <thead>
+                    <tr class = "header">
+                        <td>{{row.team_name}}</td>
+                        {% for key,value in row.team_comp.items %}
+                            {% if value.name %}
+                                <td><img src="../static/pokewiki/pokemon-icon/{{value.name}}.png" alt="N/A"></td>
+                            {% endif %}
+                        {% endfor %}
+                    </tr>
+                </thead>
+                <tbody class='team-body'>
+                    <tr>
+                        <td>name</td>
+                        {% for key,value in row.team_comp.items %}
+                            <td>{{value.name}}</td>
+                        {% endfor %}
+                    </tr>
+                    <tr>
+                        <td>nature</td>
+                        {% for key,value in row.team_comp.items %}
+                            <td>{{value.nature}}</td>
+                        {% endfor %}
+                    </tr>
+                    <tr>
+                        <td>ability</td>
+                        {% for key,value in row.team_comp.items %}
+                            <td>{{value.ability}}</td>
+                        {% endfor %}
+                    </tr>
+                    <tr>
+                        <td>item</td>
+                        {% for key,value in row.team_comp.items %}
+                            {% if value.item %}
+                                <td><img src="../static/pokewiki/item-icon/{{value.item}}.png" alt="N/A"></td>
+                            {% endif %}
+                        {% endfor %}
+                    </tr>
+                    <tr>
+                        <td>move</td>
+                    </tr>
+                    <tr>
+                        <td>EVs</td>
+                        {% for key,value in row.team_comp.items %}
+                            <td>{{value.EV}}</td>
+                        {% endfor %}
+                    </tr>
+                    <tr>
+                        <td>IVs</td>
+                        {% for key,value in row.team_comp.items %}
+                            <td>{{value.IV}}</td>
+                        {% endfor %}
+                    </tr>
+                    <tr>
+                        <td>description</td>
+                        <td colspan="4"><p>{{row.description}}</p></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    {% endfor %}
+{% endblock content %}
+{% block extra_js %}
+    <script> 
+        var main = function() 
+        {
+            $("thead").on("click", function() 
+            {
+                $(this).parents("table").find("tbody").toggle();
+            });
+        }
+        $(document).ready(main);
+    </script>  
+{% endblock extra_js %}

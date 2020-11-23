@@ -82,9 +82,6 @@
             series.links.template.strokeWidth = 5;
             // series.minRadius = 30;
             // series.maxRadius = 30;
-            series.dataFields.fixed = "fixed";
-            series.nodes.template.propertyFields.x = "50px";
-            series.nodes.template.propertyFields.y = "50px";
 
             // Add labels
             series.nodes.template.label.text = "{name}";
@@ -727,8 +724,7 @@
                     var spreads = [];
                     var items = [];
                     for(let t in poke_dict[p].teammates){
-                        data.push({"name": t, "value": poke_dict[p].teammates[t].slice(1,2)})
-                        teammates.push(t);
+                        teammates.push({"name": t, "value": poke_dict[p].teammates[t].slice(1,2)});
                     }
                     for(let m in poke_dict[p].moves){
                         moves.push({"name": m});
@@ -745,8 +741,8 @@
                     data.push({
                         "name": poke_dict[p].pokemon,
                         "value": 10,
-                        "link": teammates,
                         "children": [
+                            {"name": "teammates", "value": 5, "children": teammates},
                             {"name": "moves", "value": 5, "children": moves},
                             {"name": "abilities", "value": 5, "children": abilities},
                             {"name": "spreads", "value": 5, "children": spreads},

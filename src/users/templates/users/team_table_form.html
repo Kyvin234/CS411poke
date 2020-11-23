@@ -1,7 +1,12 @@
 {% extends "pokewiki/base.html" %}
 {% load static %}
-
 {% load crispy_forms_tags %}
+{% block title%}
+    <script src="//cdn.amcharts.com/lib/4/core.js"></script>
+    <script src="//cdn.amcharts.com/lib/4/charts.js"></script>
+    <script src="//cdn.amcharts.com/lib/4/themes/animated.js"></script>
+    <script src="//cdn.amcharts.com/lib/4/plugins/forceDirected.js"></script>
+{% endblock %}
 {% block content %}
     <div class="content-section">
         <form method="POST">
@@ -18,69 +23,6 @@
                             {{ form.description|as_crispy_field }}
                         </div>
                     </div>
-                    <!-- add pokemon graph-->
-                    <!-- <script src="//cdn.amcharts.com/lib/4/core.js"></script>
-                    <script src="//cdn.amcharts.com/lib/4/charts.js"></script>
-                    <script src="//cdn.amcharts.com/lib/4/themes/animated.js"></script>
-                    <script src="//cdn.amcharts.com/lib/4/plugins/forceDirected.js"></script> -->
-                    <!-- <div id="chartdiv">
-                        <script>
-                            am4core.useTheme(am4themes_animated);
-                            // Create chart
-                            var chart = am4core.create("chartdiv", am4plugins_forceDirected.ForceDirectedTree);
-                            // Create series
-                            var series = chart.series.push(new am4plugins_forceDirected.ForceDirectedSeries())
-                            // Set data
-                            series.data = [{
-                              "name": "Tyranitar",
-                              "value": 400,
-                              "link":["Garchomp"]
-                            }, {
-                              "name": "Garchomp",
-                              "value":400,
-                              "link":["Pikachu"],
-                              // "children": [{
-                              //   "name": "B1", "value": 135
-                              // },
-                            }, {
-                              "name": "Pikachu",
-                              "value":400,
-                              "link":["Garchomp","Tyranitar"],
-                            }, {
-                              "name": "Charizard",
-                              "value":400,
-                              "link":["Garchomp", "Pikachu"]
-                            }, {
-                              "name": "Blastoise",
-                              "value":400,
-                              "link":["Garchomp"],
-                            }];
-                            // Set up data fields
-                            series.dataFields.value = "value";
-                            series.dataFields.name = "name";
-                            series.dataFields.children = "children";
-                            series.dataFields.id = "name";
-                            series.dataFields.linkWith = "link";
-                            series.links.template.strokeWidth = 5;
-                            // series.minRadius = 30;
-                            // series.maxRadius = 30;
-                            // Add labels
-                            series.nodes.template.label.text = "{name}";
-                            series.fontSize = 10;
-                            series.minRadius = 15;
-                            series.maxRadius = 40;
-                            series.centerStrength = 0.5;
-                            chart.zoomable = true;
-                            series.nodes.template.events.on("hit", function(event) {
-                              if (event.target.isActive) {
-                                chart.zoomToDataItem(event.target.dataItem, 3, true)
-                              }
-                              else {
-                                chart.zoomOut();
-                              }
-                            });
-                        </script>
-                    </div> -->
                     <div class="form-row" style="display:none">
                         <div class="form-group col-md-11 mb-0" >
                             {{ form.team_comp|as_crispy_field }}
@@ -94,6 +36,71 @@
                     </div>
                 </fieldset>
         </form>
+        <!-- add pokemon graph-->
+        <div id="chartdiv">
+        <script>
+            am4core.useTheme(am4themes_animated);
+            // Create chart
+            var chart = am4core.create("chartdiv", am4plugins_forceDirected.ForceDirectedTree);
+            // Create series
+            var series = chart.series.push(new am4plugins_forceDirected.ForceDirectedSeries());
+            // var data = '{{pokemon_team_detail.items}}';
+            {%for l, k in pokemon_team_detail.items%}
+                    {% for row in k%}
+                        console.log(JSON.parse("{{ row|escapejs }}"));
+                    {%endfor%}
+            {%endfor%}
+            // Set data
+            series.data = [{
+                "name": "Tyranitar",
+                "value": 400,
+                "link":["Garchomp"]
+            }, {
+                "name": "Garchomp",
+                "value":400,
+                "link":["Pikachu"],
+                // "children": [{
+                //   "name": "B1", "value": 135
+                // },
+            }, {
+                "name": "Pikachu",
+                "value":400,
+                "link":["Garchomp","Tyranitar"],
+            }, {
+                "name": "Charizard",
+                "value":400,
+                "link":["Garchomp", "Pikachu"]
+            }, {
+                "name": "Blastoise",
+                "value":400,
+                "link":["Garchomp"],
+            }];
+            // Set up data fields
+            series.dataFields.value = "value";
+            series.dataFields.name = "name";
+            series.dataFields.children = "children";
+            series.dataFields.id = "name";
+            series.dataFields.linkWith = "link";
+            series.links.template.strokeWidth = 5;
+            // series.minRadius = 30;
+            // series.maxRadius = 30;
+            // Add labels
+            series.nodes.template.label.text = "{name}";
+            series.fontSize = 10;
+            series.minRadius = 15;
+            series.maxRadius = 40;
+            series.centerStrength = 0.5;
+            chart.zoomable = true;
+            series.nodes.template.events.on("hit", function(event) {
+                if (event.target.isActive) {
+                chart.zoomToDataItem(event.target.dataItem, 3, true)
+                }
+                else {
+                chart.zoomOut();
+                }
+            });
+        </script>
+        </div> 
         <!-- team member 1 -->
         <div class="square" id="1" onclick="select_member(1)" ondblclick="delete_member(1)" >
             <div class="team_picker">
@@ -354,7 +361,7 @@
         <div class = "searchbar mt-sm-2 mr-2">
             <input type = "text" class = "form-control" onkeyup = "log_filter()" id="search" placeholder = "Search for a Pokémon..."/>
         </div>
-        <div id="pi_select" >
+        <!-- <div id="pi_select" >
             <button onclick="pi_toggle()">toggle</button>
             <p id="pokemon_field" >
                 {%for l, k in pokemon_team_detail.items%}
@@ -368,13 +375,13 @@
                     <td> <img id='{{entry.i_name}}'src="../../static/pokewiki/item-icon/{{entry.i_name}}.png" onclick="select_item(this.id)"loading=lazy></td>
                 {% endfor %}
             </p>
-        </div>
+        </div> -->
     </div>
 {% endblock content %}
 
 {% block extra_js %}
     <!-- User Interface in javascript -->
-    <script async>
+    <!-- <script async>
         //pokemon selector
         var select = 0;
         var cur_bar = 0; //0 pokemon filter, 1 item filter
@@ -713,5 +720,5 @@
             }
             document.getElementById("search").value = "";
         }
-    </script>
+    </script> -->
 {% endblock extra_js %}

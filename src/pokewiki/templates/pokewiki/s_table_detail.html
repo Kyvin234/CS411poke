@@ -16,12 +16,13 @@
                     {% for a in pokemon_ability %}
                         {% if a.f_name == row.f_name %}
                             {% if a.is_hidden == 0 %}
-                                <br><a href="{% url 'ability-detail' a.a_id %}" style ="font-family:Comic Sans MS">{{a.a_name}}</a>
+                                <a href="{% url 'ability-detail' a.a_id %}" style ="font-family:Comic Sans MS">{{a.a_name}}<br></a>
                             {% else %}
-                                <a href="{% url 'ability-detail' a.a_id %}" style ="font-family:Comic Sans MS">{{a.a_name}}(hidden ability)</a>
+                                <a href="{% url 'ability-detail' a.a_id %}" style ="font-family:Comic Sans MS">{{a.a_name}}(hidden)</a>
                             {% endif %}
                         {% endif %}
                     {% endfor %}
+                    <br>
                     <p><img src="../../static/pokewiki/pokedetailimg/{{row.f_name}}.jpg"></p>
                 </div>
                 <div class = " box-cell box2" id = "{{row.f_name}}5">
@@ -85,14 +86,6 @@
                                     {{row.gender_rate}}
                                 </td>
                             </tr>
-                    <!-- <p><img src="../../static/pokewiki/pokedetailimg/{{row.f_name}}.jpg"></p>
-                    <p style ="font-family:Trebuchet MS"> Dex ID No. : {{row.dex_id}} </p>
-                    <p style ="font-family:Comic Sans MS"> Type: {{row.type1}} {{row.type2}}</p>
-                    <p style ="font-family:Comic Sans MS"> Generation : {{row.gen}} </p>
-                    <p style ="font-family:Comic Sans MS">Height : {{row.height}} decimeters(dm)</p>
-                    <p style ="font-family:Comic Sans MS">Weight : {{row.weight}} hectograms(hg)</p>
-                    <p style ="font-family:Comic Sans MS"> Capture Rate: {{row.capture_rate }}</p>
-                    <p style ="font-family:Comic Sans MS"> Gender Rate: {{row.gender_rate }}</p> -->
 
                     <!-- STAT TABLE-->
                     <table style = "background: #6FFEF6; border-radius: 10px; -moz-border-radius:10px;
@@ -234,6 +227,8 @@
                     {% if m.f_name_id == row.f_name%}
                         <tr>
                             <td><a href="{% url 'move-detail' m.m_name_id %}" style = "font-family: Comic Sans MS">{{m.m_name_id}}</a></td>
+                            <td> <img src="../../static/pokewiki/type-icon/{{m.types}}.png" height=24px width=24px loading=lazy> </td>
+                            <td> <img src="../../static/pokewiki/move-icon/{{m.dmg_class}}.png"loading=lazy> </td>
                         </tr>
                     {% endif %}
                 {% endfor %}

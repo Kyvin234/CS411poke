@@ -11,6 +11,7 @@ from django.contrib.auth.decorators import login_required
 from django.urls import reverse_lazy
 from .forms import teamform
 import json
+from bson import json_util
 import pymongo
 
 
@@ -74,8 +75,13 @@ class team_cview(LoginRequiredMixin, CreateView):
         context['item_info'] = dictfetchall(cursor)
         # pokemon detail(mongodb team data)
         mycol = mydb['gen7ou']
-        x = list(mycol.find().sort("dex_id"))
-        context['pokemon_team_detail'] = {'pokemon_team_detail' : x}
+        # x = json.dumps([doc for doc in ])
+        c = mycol.find().sort("dex_id")
+        json_docs = []
+        for doc in c:
+            json_doc = json.dumps(doc, default=json_util.default)
+            json_docs.append(json_doc)
+        context['pokemon_team_detail'] = {'pokemon_team_detail' : json_docs}
         return context
     
     def form_valid(self, form):

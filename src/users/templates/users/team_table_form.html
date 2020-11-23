@@ -74,7 +74,7 @@
             {%endfor%}
 
 
-
+            console.log(poke_dict)
             // Set up data fields
             series.dataFields.value = "value";
             series.dataFields.name = "name";
@@ -90,10 +90,20 @@
 
             // Add labels
             series.nodes.template.label.text = "{name}";
-            series.fontSize = 10;
+            series.fontSize = 8;
             series.minRadius = 15;
             series.maxRadius = 40;
             series.centerStrength = 0.5;
+
+            //icons
+            // series.nodes.template.circle.disabled = true;
+            // series.nodes.template.outerCircle.disabled = true;
+            var icon = series.nodes.template.createChild(am4core.Image);
+            icon.propertyFields.href = "image";
+            icon.horizontalCenter = "middle";
+            icon.verticalCenter = "middle";
+            icon.width = 40;
+            icon.height = 40;
             // chart.zoomable = true;
             // series.nodes.template.events.on("hit", function(event) {
             //     if (event.target.isActive) {
@@ -714,7 +724,7 @@
         }
     </script> -->
     <script>
-        function team_filter(){
+                function team_filter(){
             var input;
             var data = [];
             series.data = [];
@@ -729,48 +739,54 @@
                     var spreads = [];
                     var items = [];
                     for(let t in poke_dict[p].teammates){
-                        data.push({"name": t, "value": poke_dict[p].teammates[t].slice(1,2)})
-                        teammates.push(t);
+                        teammates.push({"image" : "../../static/pokewiki/pokemon-icon/".concat(t.toLowerCase()).concat(".png"), "value": parseInt(poke_dict[p].teammates[t].slice(1,2))});
                     }
                     for(let m in poke_dict[p].moves){
-                        moves.push({"name": m});
+                        moves.push({"name": m, "value":parseInt(poke_dict[p].moves[m].slice(1,2))});
                     }
                     for(let a in poke_dict[p].abilities){
-                        abilities.push({"name": a});
+                        abilities.push({"name": a, "value":parseInt(poke_dict[p].abilities[a].slice(1,2))});
                     }
                     for(let s in poke_dict[p].spreads){
-                        spreads.push({"name": s});
+                        spreads.push({"name": s, "value":poke_dict[p].spreads[s]});
                     }
                     for(let i in poke_dict[p].items){
-                        items.push({"name": i});
+                        items.push({"name": i, "value":parseInt(poke_dict[p].items[i].slice(1,2))});
                     }
                     data.push({
-                        "name": poke_dict[p].pokemon,
+                        "image": "../../static/pokewiki/pokemon-icon/".concat(poke_dict[p].pokemon).concat(".png"),
                         fixed: true,
                         x: am4core.percent(50),
                         y: am4core.percent(50),
                         "value": 10,
                         "link": teammates,
                         "children": [
-                            {"name": "moves", fixed: true,
-                            x: am4core.percent(70),
-                            y: am4core.percent(30), "value": 5, "children": moves},
+                            {"name": "moves", 
+                            fixed: true,
+                            x: am4core.percent(50),
+                            y: am4core.percent(20), "value": 5, "children": moves},
                             {"name": "abilities",  fixed: true,
-                            x: am4core.percent(30),
-                            y: am4core.percent(70),"value": 5, "children": abilities},
+                            x: am4core.percent(25),
+                            y: am4core.percent(35),"value": 5, "children": abilities},
                             {"name": "spreads",  fixed: true,
-                            x: am4core.percent(70),
-                            y: am4core.percent(70),"value": 5, "children": spreads},
+                            x: am4core.percent(75),
+                            y: am4core.percent(35),"value": 5, "children": spreads},
                             {"name": "items",  fixed: true,
+                            x: am4core.percent(70),
+                            y: am4core.percent(70),"value": 5, "children": items},
+                            {"name": "teammates",  fixed: true,
                             x: am4core.percent(30),
-                            y: am4core.percent(30),"value": 5, "children": items}
+                            y: am4core.percent(70),"value": 5, "children": teammates},
+                            
                             ]
                     });
                 }
             }
             series.data = data;
-            networkSeries.nodes.template.propertyFields.x = "x";
-            networkSeries.nodes.template.propertyFields.y = "y";
+            series.nodes.template.propertyFields.x = "x";
+            series.nodes.template.propertyFields.y = "y";
+
         }
     </script>
 {% endblock extra_js %}
+

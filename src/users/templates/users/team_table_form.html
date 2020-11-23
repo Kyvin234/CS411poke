@@ -36,45 +36,43 @@
                     </div>
                 </fieldset>
         </form>
+
+        <!-- rule constraints -->
+        <div>
+            <small style="display: inline;"> RULEs: </small>
+            <br>
+            <small style="display: inline;" id="rule1"> No more than ONE megas in the team</small>
+            <br>
+            <small style="display: inline;" id="rule2"> No two pokemons have two the same national dex number</small>
+        </div>
+
+        <!-- pokemon selecting field -->
+        <!-- search bar -->
+        <div class = "searchbar mt-sm-2 mr-2">
+            <input type = "text" class = "form-control" onkeyup = "team_filter()" id="search" placeholder = "Search for a Pokémon..."/>
+        </div>
+
         <!-- add pokemon graph-->
         <div id="chartdiv">
-        <script>
+        <script async>
             am4core.useTheme(am4themes_animated);
+
             // Create chart
             var chart = am4core.create("chartdiv", am4plugins_forceDirected.ForceDirectedTree);
+
             // Create series
             var series = chart.series.push(new am4plugins_forceDirected.ForceDirectedSeries());
-            // var data = '{{pokemon_team_detail.items}}';
+            series.data = []
+
+            // Initialize pokemon dictionary
+            poke_dict = {}
             {%for l, k in pokemon_team_detail.items%}
-                    {% for row in k%}
-                        console.log(JSON.parse("{{ row|escapejs }}"));
-                    {%endfor%}
+                {% for row in k%}
+                    var poke_detail = JSON.parse("{{ row|escapejs }}");
+                    poke_dict[poke_detail.pokemon] = poke_detail;
+                {%endfor%}
             {%endfor%}
-            // Set data
-            series.data = [{
-                "name": "Tyranitar",
-                "value": 400,
-                "link":["Garchomp"]
-            }, {
-                "name": "Garchomp",
-                "value":400,
-                "link":["Pikachu"],
-                // "children": [{
-                //   "name": "B1", "value": 135
-                // },
-            }, {
-                "name": "Pikachu",
-                "value":400,
-                "link":["Garchomp","Tyranitar"],
-            }, {
-                "name": "Charizard",
-                "value":400,
-                "link":["Garchomp", "Pikachu"]
-            }, {
-                "name": "Blastoise",
-                "value":400,
-                "link":["Garchomp"],
-            }];
+
             // Set up data fields
             series.dataFields.value = "value";
             series.dataFields.name = "name";
@@ -84,6 +82,10 @@
             series.links.template.strokeWidth = 5;
             // series.minRadius = 30;
             // series.maxRadius = 30;
+            series.dataFields.fixed = "fixed";
+            series.nodes.template.propertyFields.x = "50px";
+            series.nodes.template.propertyFields.y = "50px";
+
             // Add labels
             series.nodes.template.label.text = "{name}";
             series.fontSize = 10;
@@ -100,7 +102,8 @@
                 }
             });
         </script>
-        </div> 
+        </div>
+
         <!-- team member 1 -->
         <div class="square" id="1" onclick="select_member(1)" ondblclick="delete_member(1)" >
             <div class="team_picker">
@@ -347,19 +350,6 @@
                     </div>
                 </div>     
             </div>
-        </div>
-        <!-- rule constraints -->
-        <div>
-            <small style="display: inline;"> RULEs: </small>
-            <br>
-            <small style="display: inline;" id="rule1"> No more than ONE megas in the team</small>
-            <br>
-            <small style="display: inline;" id="rule2"> No two pokemons have two the same national dex number</small>
-        </div>
-        <!-- pokemon selecting field -->
-        <!-- search bar -->
-        <div class = "searchbar mt-sm-2 mr-2">
-            <input type = "text" class = "form-control" onkeyup = "log_filter()" id="search" placeholder = "Search for a Pokémon..."/>
         </div>
         <!-- <div id="pi_select" >
             <button onclick="pi_toggle()">toggle</button>
@@ -721,4 +711,51 @@
             document.getElementById("search").value = "";
         }
     </script> -->
+    <script>
+        function team_filter(){
+            var input;
+            var data = [];
+            series.data = [];
+            // Get typed string
+            input = document.getElementById("search").value.toLowerCase();
+            // Loop through dict
+            for(let p in poke_dict){
+                if(p === input) {
+                    var teammates = [];
+                    var moves = [];
+                    var abilities = [];
+                    var spreads = [];
+                    var items = [];
+                    for(let t in poke_dict[p].teammates){
+                        data.push({"name": t, "value": poke_dict[p].teammates[t].slice(1,2)})
+                        teammates.push(t);
+                    }
+                    for(let m in poke_dict[p].moves){
+                        moves.push({"name": m});
+                    }
+                    for(let a in poke_dict[p].abilities){
+                        abilities.push({"name": a});
+                    }
+                    for(let s in poke_dict[p].spreads){
+                        spreads.push({"name": s});
+                    }
+                    for(let i in poke_dict[p].items){
+                        items.push({"name": i});
+                    }
+                    data.push({
+                        "name": poke_dict[p].pokemon,
+                        "value": 10,
+                        "link": teammates,
+                        "children": [
+                            {"name": "moves", "value": 5, "children": moves},
+                            {"name": "abilities", "value": 5, "children": abilities},
+                            {"name": "spreads", "value": 5, "children": spreads},
+                            {"name": "items", "value": 5, "children": items}
+                            ]
+                    });
+                }
+            }
+            series.data = data;
+        }
+    </script>
 {% endblock extra_js %}

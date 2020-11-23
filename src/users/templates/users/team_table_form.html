@@ -73,6 +73,8 @@
                 {%endfor%}
             {%endfor%}
 
+
+
             // Set up data fields
             series.dataFields.value = "value";
             series.dataFields.name = "name";
@@ -82,6 +84,9 @@
             series.links.template.strokeWidth = 5;
             // series.minRadius = 30;
             // series.maxRadius = 30;
+            series.dataFields.fixed = "fixed";
+            series.nodes.template.propertyFields.x = "x";
+            series.nodes.template.propertyFields.y = "y";
 
             // Add labels
             series.nodes.template.label.text = "{name}";
@@ -89,15 +94,15 @@
             series.minRadius = 15;
             series.maxRadius = 40;
             series.centerStrength = 0.5;
-            chart.zoomable = true;
-            series.nodes.template.events.on("hit", function(event) {
-                if (event.target.isActive) {
-                chart.zoomToDataItem(event.target.dataItem, 3, true)
-                }
-                else {
-                chart.zoomOut();
-                }
-            });
+            // chart.zoomable = true;
+            // series.nodes.template.events.on("hit", function(event) {
+            //     if (event.target.isActive) {
+            //     chart.zoomToDataItem(event.target.dataItem, 3, true)
+            //     }
+            //     else {
+            //     chart.zoomOut();
+            //     }
+            // });
         </script>
         </div>
 
@@ -185,7 +190,7 @@
         </div>
         <!-- team member 3 -->
         <div class="square" id="3" onclick="select_member(3)" ondblclick="delete_member(3)">
-            <div class="team_picker">   
+            <div class="team_picker">
 
                 <div class="input-group input-group-sm mb-3">
                     <!-- pokemon name -->
@@ -222,7 +227,7 @@
                         </div>
                         <input readonly id="is3" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
                     </div>
-                </div>           
+                </div>
             </div>
         </div>
         <!-- team member 4 -->
@@ -309,7 +314,7 @@
         </div>
         <!-- team member 6 -->
         <div class="square" id="6" onclick="select_member(6)" ondblclick="delete_member(6)">
-            <div class="team_picker">         
+            <div class="team_picker">
                 <div class="input-group input-group-sm mb-3">
                     <!-- pokemon name -->
                     <form method="POST">
@@ -345,7 +350,7 @@
                         </div>
                         <input readonly id="is6" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
                     </div>
-                </div>     
+                </div>
             </div>
         </div>
         <!-- <div id="pi_select" >
@@ -378,7 +383,7 @@
         const valid    = "green";
         const invalid  = "red";
         //team json information
-        var team_dict = 
+        var team_dict =
         {
                 "p1": {"id" : 0, "name" : "", "nature" : "", "ability" : "", "IV" : "", "EV" : "", "item" : ""},
                 "p2": {"id" : 0, "name" : "", "nature" : "", "ability" : "", "IV" : "", "EV" : "", "item" : ""},
@@ -470,7 +475,7 @@
                 select = select_id;
                 tm = document.getElementById(select);
                 tm.style.backgroundColor = active;
-                
+
             }
         }
         /*
@@ -501,9 +506,9 @@
             }
         }
         /*
-            Function to search a pokemon from the field 
+            Function to search a pokemon from the field
         */
-        function log_filter() 
+        function log_filter()
         {
 
             var es;
@@ -517,16 +522,16 @@
             filter = input.value.toUpperCase();
             // console.log(es)
             l = es.length;
-            for (i = 0; i < l; i++) 
+            for (i = 0; i < l; i++)
             {
-                if(es[i]) 
+                if(es[i])
                 {
                     txtValue = es[i].id;
-                    if (txtValue.toUpperCase().indexOf(filter) > -1) 
+                    if (txtValue.toUpperCase().indexOf(filter) > -1)
                     {
                         es[i].style.display = "";
-                        
-                    } else 
+
+                    } else
                     {
                         es[i].style.display = "none";
                     }
@@ -540,7 +545,7 @@
         */
         function valid_check()
         {
-            //check based on the applied rule    
+            //check based on the applied rule
             gen7_ou_check();
         }
         /*
@@ -561,7 +566,7 @@
             }
             //check number of megas in the team
             let checker = document.getElementById("rule1");
-            if(mega_count > 1) 
+            if(mega_count > 1)
             {
                 checker.style.color = invalid;
             }
@@ -581,7 +586,7 @@
         /*
             function to check if an array has a duplicate
         */
-        function hasDuplicates(array) 
+        function hasDuplicates(array)
         {
             return (new Set(array)).size !== array.length;
         }
@@ -606,8 +611,8 @@
                     let l = data["ability"].length;
                     for(i = 0; i<l; i++)
                     {
-                        optionText = data["ability"][i]["a_name"]; 
-                        optionValue = data["ability"][i]["a_name"]; 
+                        optionText = data["ability"][i]["a_name"];
+                        optionValue = data["ability"][i]["a_name"];
                         $('#as'.concat(select.toString())).append(`<option value="${optionValue}"> ${optionText} </option>`);
                     }
                 },
@@ -724,7 +729,8 @@
                     var spreads = [];
                     var items = [];
                     for(let t in poke_dict[p].teammates){
-                        teammates.push({"name": t, "value": poke_dict[p].teammates[t].slice(1,2)});
+                        data.push({"name": t, "value": poke_dict[p].teammates[t].slice(1,2)})
+                        teammates.push(t);
                     }
                     for(let m in poke_dict[p].moves){
                         moves.push({"name": m});
@@ -740,18 +746,31 @@
                     }
                     data.push({
                         "name": poke_dict[p].pokemon,
+                        fixed: true,
+                        x: am4core.percent(50),
+                        y: am4core.percent(50),
                         "value": 10,
+                        "link": teammates,
                         "children": [
-                            {"name": "teammates", "value": 5, "children": teammates},
-                            {"name": "moves", "value": 5, "children": moves},
-                            {"name": "abilities", "value": 5, "children": abilities},
-                            {"name": "spreads", "value": 5, "children": spreads},
-                            {"name": "items", "value": 5, "children": items}
+                            {"name": "moves", fixed: true,
+                            x: am4core.percent(70),
+                            y: am4core.percent(30), "value": 5, "children": moves},
+                            {"name": "abilities",  fixed: true,
+                            x: am4core.percent(30),
+                            y: am4core.percent(70),"value": 5, "children": abilities},
+                            {"name": "spreads",  fixed: true,
+                            x: am4core.percent(70),
+                            y: am4core.percent(70),"value": 5, "children": spreads},
+                            {"name": "items",  fixed: true,
+                            x: am4core.percent(30),
+                            y: am4core.percent(30),"value": 5, "children": items}
                             ]
                     });
                 }
             }
             series.data = data;
+            networkSeries.nodes.template.propertyFields.x = "x";
+            networkSeries.nodes.template.propertyFields.y = "y";
         }
     </script>
 {% endblock extra_js %}

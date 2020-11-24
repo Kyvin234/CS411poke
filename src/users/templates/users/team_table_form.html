@@ -52,77 +52,74 @@
         <div class = "searchbar mt-sm-2 mr-2">
             <input type = "text" class = "form-control" onkeyup = "team_filter()" id="search" placeholder = "Search for a Pokémon..."/>
         </div> -->
+        <div class="input-group mb-3" >
+            <div class="autocomplete" style="width:110vh">
+                <input id="mySearch" type="text" name="myPokemon" placeholder="Search for Pokémon..." class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" onkeyup="team_filter()">
+            </div>
+        </div>
 
-        <form autocomplete="off" action="/action_page.php">
-          <div class="autocomplete" style="width:1000px;">
-            <input id="mySearch" type="text" name="myPokemon" placeholder="Pokémon">
-          </div>
-          <input type="submit">
-        </form>
 
 
         <!-- add pokemon graph-->
         <div id="chartdiv">
-        <script async>
-            am4core.useTheme(am4themes_animated);
+            <script async>
+                am4core.useTheme(am4themes_animated);
 
-            // Create chart
-            var chart = am4core.create("chartdiv", am4plugins_forceDirected.ForceDirectedTree);
+                // Create chart
+                var chart = am4core.create("chartdiv", am4plugins_forceDirected.ForceDirectedTree);
 
-            // Create series
-            var series = chart.series.push(new am4plugins_forceDirected.ForceDirectedSeries());
-            series.data = []
+                // Create series
+                var series = chart.series.push(new am4plugins_forceDirected.ForceDirectedSeries());
+                series.data = []
 
-            // Initialize pokemon dictionary
-            poke_dict = {}
-            {%for l, k in pokemon_team_detail.items%}
-                {% for row in k%}
-                    var poke_detail = JSON.parse("{{ row|escapejs }}");
-                    poke_dict[poke_detail.pokemon] = poke_detail;
+                // Initialize pokemon dictionary
+                poke_dict = {}
+                {%for l, k in pokemon_team_detail.items%}
+                    {% for row in k%}
+                        var poke_detail = JSON.parse("{{ row|escapejs }}");
+                        poke_dict[poke_detail.pokemon] = poke_detail;
+                    {%endfor%}
                 {%endfor%}
-            {%endfor%}
 
+                // Set up data fields
+                series.dataFields.value = "value";
+                series.dataFields.name = "name";
+                series.dataFields.children = "children";
+                series.dataFields.id = "name";
+                series.dataFields.linkWith = "link";
+                series.links.template.strokeWidth = 5;
+                // series.minRadius = 30;
+                // series.maxRadius = 30;
+                series.dataFields.fixed = "fixed";
+                series.nodes.template.propertyFields.x = "x";
+                series.nodes.template.propertyFields.y = "y";
 
-            console.log(poke_dict)
-            // Set up data fields
-            series.dataFields.value = "value";
-            series.dataFields.name = "name";
-            series.dataFields.children = "children";
-            series.dataFields.id = "name";
-            series.dataFields.linkWith = "link";
-            series.links.template.strokeWidth = 5;
-            // series.minRadius = 30;
-            // series.maxRadius = 30;
-            series.dataFields.fixed = "fixed";
-            series.nodes.template.propertyFields.x = "x";
-            series.nodes.template.propertyFields.y = "y";
+                // Add labels
+                series.nodes.template.label.text = "{name}";
+                series.fontSize = 8;
+                series.minRadius = 15;
+                series.maxRadius = 40;
+                series.centerStrength = 0.5;
 
-            // Add labels
-            series.nodes.template.label.text = "{name}";
-            series.fontSize = 8;
-            series.minRadius = 15;
-            series.maxRadius = 40;
-            series.centerStrength = 0.5;
-
-            //icons
-            // series.nodes.template.circle.disabled = true;
-            // series.nodes.template.outerCircle.disabled = true;
-            var icon = series.nodes.template.createChild(am4core.Image);
-            icon.propertyFields.href = "image";
-            icon.horizontalCenter = "middle";
-            icon.verticalCenter = "middle";
-            icon.width = 40;
-            icon.height = 40;
-            // chart.zoomable = true;
-            // series.nodes.template.events.on("hit", function(event) {
-            //     if (event.target.isActive) {
-            //     chart.zoomToDataItem(event.target.dataItem, 3, true)
-            //     }
-            //     else {
-            //     chart.zoomOut();
-            //     }
-            // });
-        </script>
+                //icons
+                // series.nodes.template.circle.disabled = true;
+                // series.nodes.template.outerCircle.disabled = true;
+                var icon = series.nodes.template.createChild(am4core.Image);
+                icon.propertyFields.href = "image";
+                icon.horizontalCenter = "middle";
+                icon.verticalCenter = "middle";
+                icon.width = 40;
+                icon.height = 40;
+                chart.zoomable = true;
+                series.nodes.template.events.on("hit", function(event) {
+                    if (event.target.isActive) {
+                    chart.zoomToDataItem(event.target.dataItem, 3, true)
+                    }
+                    else {
+                    chart.zoomOut();
+                    }
+                });
+            </script>
         </div>
 
         <!-- team member 1 -->
@@ -373,14 +370,6 @@
             </div>
         </div>
         <!-- <div id="pi_select" >
-            <button onclick="pi_toggle()">toggle</button>
-            <p id="pokemon_field" >
-                {%for l, k in pokemon_team_detail.items%}
-                    {% for row in k%}
-                        <img loading="lazy" id='{{row.pokemon|lower}}' alt='{{row.dex_id}}' src="../../static/pokewiki/pokemon-icon/{{row.pokemon|lower}}.png" onclick="select_poke('{{row.pokemon|lower}}', '{{row.dex_id}}')" >
-                    {%endfor%}
-                {%endfor%}
-            </p>
             <p id="item_field" >
                 {% for entry in item_info%}
                     <td> <img id='{{entry.i_name}}'src="../../static/pokewiki/item-icon/{{entry.i_name}}.png" onclick="select_item(this.id)"loading=lazy></td>
@@ -732,18 +721,23 @@
             document.getElementById("search").value = "";
         }
     </script> -->
+    <!-- script to handle autocomplete -->
     <script async >
-    $(document).ready(function()
-    {
-        $('.mdb-select').materialSelect();
-    });
+    
+    //push names, auto complete search select
+    var poker = [];
+    for(let p in poke_dict){
+        poker.push(poke_dict[p].pokemon);
+    }
+
+    ottocomplete(document.getElementById("mySearch"), poker);
     function team_filter()
     {
             var input;
             //reset graph
             series.data = [];
             // Get typed string
-            input = document.getElementById("search").value.toLowerCase();
+            input = document.getElementById("mySearch").value.toLowerCase();
             //add the pokemon to the graph
             add_to_graph(input);
     }
@@ -753,37 +747,41 @@
     function add_to_graph(input)
     {
         var data = [];
-        for(let p in poke_dict)
+        if(poke_dict[input] === undefined)
         {
-            if(p === input)
-            {
+            return;
+        }
+        else
+        {
+            // if(p === input)
+            // {
                 var teammates = [];
                 var moves = [];
                 var abilities = [];
                 var spreads = [];
                 var items = [];
-                for(let t in poke_dict[p].teammates)
+                for(let t in poke_dict[input].teammates)
                 {
-                    teammates.push({"image" : "../../static/pokewiki/pokemon-icon/".concat(t.toLowerCase()).concat(".png"), "value": parseInt(poke_dict[p].teammates[t].slice(1,2))});
+                    teammates.push({"image" : "../../static/pokewiki/pokemon-icon/".concat(t.toLowerCase()).concat(".png"), "value": parseInt(poke_dict[input].teammates[t].slice(1,2))});
                 }
-                for(let m in poke_dict[p].moves)
+                for(let m in poke_dict[input].moves)
                 {
-                    moves.push({"name": m, "value":parseInt(poke_dict[p].moves[m].slice(1,2))});
+                    moves.push({"name": m, "value":parseInt(poke_dict[input].moves[m].slice(1,2))});
                 }
-                for(let a in poke_dict[p].abilities)
+                for(let a in poke_dict[input].abilities)
                 {
-                    abilities.push({"name": a, "value":parseInt(poke_dict[p].abilities[a].slice(1,2))});
+                    abilities.push({"name": a, "value":parseInt(poke_dict[input].abilities[a].slice(1,2))});
                 }
-                for(let s in poke_dict[p].spreads)
+                for(let s in poke_dict[input].spreads)
                 {
-                    spreads.push({"name": s, "value":poke_dict[p].spreads[s]});
+                    spreads.push({"name": s, "value":poke_dict[input].spreads[s]});
                 }
-                for(let i in poke_dict[p].items)
+                for(let i in poke_dict[input].items)
                 {
-                    items.push({"name": i, "value":parseInt(poke_dict[p].items[i].slice(1,2))});
+                    items.push({"name": i, "value":parseInt(poke_dict[input].items[i].slice(1,2))});
                 }
                 data.push({
-                    "image": "../../static/pokewiki/pokemon-icon/".concat(poke_dict[p].pokemon).concat(".png"),
+                    "image": "../../static/pokewiki/pokemon-icon/".concat(poke_dict[input].pokemon).concat(".png"),
                     fixed: true,
                     x: am4core.percent(50),
                     y: am4core.percent(50),
@@ -829,7 +827,7 @@
                         },
                     ]
                 });
-            }
+            // }
         }
         series.data = data;
         series.nodes.template.propertyFields.x = "x";
@@ -862,6 +860,8 @@
               b.addEventListener("click", function(e) {
                   inp.value = this.getElementsByTagName("input")[0].value;
                   closeAllLists();
+                  //filter the table and append
+                  team_filter();
               });
               a.appendChild(b);
             }
@@ -913,14 +913,5 @@
           closeAllLists(e.target);
       });
     }
-
-    //push names
-    var poker = [];
-    for(let p in poke_dict){
-        poker.push(poke_dict[p].pokemon);
-    }
-
-ottocomplete(document.getElementById("mySearch"), poker);
-
     </script>
 {% endblock extra_js %}

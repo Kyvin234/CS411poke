@@ -27,7 +27,6 @@
                 <tr>
                     <td class = 'poke_font'>{{entry.m_id}}</td>
                     <td class = 'poke_font'><a href="{% url 'move-detail' entry.m_name %}">{{entry.m_name}}</a></td>
-                    {% comment %} <td id = 'poke_font'><button type = 'button'; class = 'button'>{{entry.types}}</button></td> {% endcomment %}
                     <td> <img src="../static/pokewiki/type-icon/{{entry.types}}.png" alt={{entry.types}} height=24px width=24px loading=lazy> </td>
                     <td class = 'poke_font'> <img src="../static/pokewiki/move-icon/{{entry.dmg_class}}.png" alt={{entry.dmg_class}} loading=lazy> {{entry.dmg_class}}</td>
                     <td class = 'poke_font'>{{entry.gen}}</td>
@@ -39,7 +38,7 @@
 </body>
 {% endblock content %}
 {% block extra_js %}
-<script >
+<script async>
     function filter() {
       var input, filter, table, tr, td, i, txtValue;
       input = document.getElementById("myInput");

@@ -19,7 +19,7 @@
     display: block;
     }
   h1, h2, h3, h4, h5, h6 {
-    color: #444444;
+    color: black;
   }
   th {
     color : dimgray;
@@ -72,8 +72,6 @@
   }
   #pokedex{
       margin-top: 0px;
-      /* float: left; */
-      /* background-image: url("icons/kantoquad1.png"); background-repeat: no-repeat;background-position: top center;margin-left:auto;margin-right:auto;background-position: 0px 66px;background-size: cover; */
   }
   #abidex{
       margin-top:80px;
@@ -199,3 +197,12 @@
       width: 500px;
 
   }
+  .description{
+    max-width: 60vh;
+    height: auto;
+    border: 2px solid dimgray;
+    padding: 5px;
+    border-radius: 5px;
+  }
+  .box             { display: -webkit-flex; display: -ms-flexbox; display: flex; overflow: hidden;}
+  .box .column     { flex: 1;  margin-right: 10px; padding: 15px; border: 2px solid dimgray;border-radius: 5px;}

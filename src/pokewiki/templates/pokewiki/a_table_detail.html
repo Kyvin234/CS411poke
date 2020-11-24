@@ -1,26 +1,40 @@
 {% extends "pokewiki/base.html" %}
 
 {% block title %}
-    <title style = "font-family: Comic Sans MS">{{object.a_name}}</title>
+    <title>{{object.a_name|title}}</title>
 {% endblock title %}
 
 {% block content %}
     <body id="abidex_pg">
-        <h1> {{object.a_name}} </h1>
-        <p style = "font-family: Comic Sans MS"> {{object.description}} </p>
+        <h1> {{object.a_name|title}} </h1>
+        <hr>
+        <p class="description" style = "font-family: Comic Sans MS"> {{object.description}} </p>
+        <br>
         {% for count in p_with_a|slice:":1" %}
             <h2>  There are {{count.count}} Pokemon with this ability: </h2>
         {% endfor %}
-        {% for row in p_with_a %}
-            <h1> {{row.f_name_id}}  </h1>
-            <a href="{% url 'pokemon-detail' row.s_name_id %}" style = "font-family: Comic Sans MS">
-                {{row.s_name_id}}
-            </a>
-            {% if row.is_hidden == 1 %}
-                <p style = "font-family: Comic Sans MS"> (hidden ability) </p>
-            {% else %}
-                <p style = "font-family: Comic Sans MS"> (normal ability)</p>
-            {% endif %}
-        {% endfor %}
+        <hr>
+        <table class="table table-hover" id="myTable">
+            <thead>
+                <tr class = "header">
+                    <th scope="col">Name</th>
+                    <th scope="col">Icon</th>
+                    <th scope="col">Hidden</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in p_with_a %}
+                    <tr>
+                        <td> <a href="{% url 'pokemon-detail' row.s_name_id %}" style = "font-family: Comic Sans MS">{{row.s_name_id}}</a> </td>
+                        <td> <img src="../../static/pokewiki/pokemon-icon/{{row.f_name_id}}.png" loading=lazy></td>
+                        {% if row.is_hidden == 1 %}
+                            <td class = 'poke_font'> Yes </td>  
+                        {% else %}
+                            <td class = 'poke_font'> No </td>
+                        {% endif %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     </body>
 {% endblock content %}

@@ -1,25 +1,73 @@
 {% extends "pokewiki/base.html" %}
 
 {% block title %}
-    <title>{{object.m_name}}</title>
+    <title>{{object.m_name|title}}</title>
 {% endblock title %}
 
 {% block content %}
     <body id="movedex_pg">
-        <h1> {{object.m_name}} </h1>
-        <p style= "font-family: Comic Sans MS"> {{object.effect}} </p>
+        <h1> {{object.m_name|title}} </h1>
+        <hr>
+        <div class="box">
+            <div class="column"><p style= "font-family: Comic Sans MS">
+                Type : <img src="../../static/pokewiki/type-icon/{{object.types}}.png" height=24px width=24px> {{object.types}}
+                <br> 
+                Damage Class: <img src="../static/pokewiki/move-icon/{{object.dmg_class}}.png"> {{object.types}}
+                <br>
+                Priority: {{object.priority}}
+                <br>
+                PP : {{object.pp}}
+                <br>
+                Power : {{object.power}}
+                <br>
+                {% if object.accuracy %}
+                    Accuracy : {{object.accuracy}}
+                {% else %}
+                    Accuracy : N/A
+                {% endif %}
+            </p></div>
+            <div class="column"><p style= "font-family: Comic Sans MS"> 
+                Effect :
+                <br>
+                {{object.effect}} 
+            </p></div>
+        </div>
+        <!-- <div>
+            <p style= "font-family: Comic Sans MS" class="description">
+                Type : <img src="../../static/pokewiki/type-icon/{{object.types}}.png" height=24px width=24px> {{object.types}}
+                <br> 
+                Damage Class: <img src="../static/pokewiki/move-icon/{{object.dmg_class}}.png"> {{object.types}}
+                <br>
+                Priority: {{object.priority}}
+                <br>
+                PP : {{object.pp}}
+                <br>
+                Power : {{object.power}}
+                <br>
+                {% if object.accuracy %}
+                    Accuracy : {{object.accuracy}}
+                {% else %}
+                    Accuracy : N/A
+                {% endif %}
+            </p>
+            <p style= "font-family: Comic Sans MS" class="description"> 
+                Effect :
+                <br>
+                {{object.effect}} 
+            </p>
+        </div> -->
+        <br>
         {% for count in p_with_m|slice:":1" %}
-            <h2 style="text-align:center">  There are {{count.count}} Pokémon that can learn this move. </h2>
+            <h2>  There are {{count.count}} Pokémon that can learn this move. </h2>
         {% endfor %}
+        <hr>
         <table class="table table-hover" id="myTable">
             <thead>
                 <tr class = "header">
                     <th scope="col">#</th>
                     <th scope="col">Icon</th>
                     <th scope="col">Name</th>
-                    <th scope="col">Form</th>
                     <th scope="col">Types</th>
-                    <th scope="col">Generation</th>
                 </tr>
             </thead>
             <tbody>
@@ -27,13 +75,10 @@
                     <tr>
                         <td style="font-family: Comic Sans MS">{{entry.dex_id}}</td>
                         <td><img src="../static/pokewiki/pokemon-icon/{{entry.f_name}}.png"></td>
-                        <td><a href="{% url 'pokemon-detail' entry.s_name %}" style= "font-family: Comic Sans MS">{{entry.s_name}}</a></td>
                         <td>
-                            {% if entry.f_name != entry.s_name %}
-                                <a href="{% url 'pokemon-detail' entry.s_name %}" style= "font-family: Comic Sans MS">{{entry.f_name}}</a>
-                                {% if 'mega' in entry.f_name %}
-                                    <img src="../static/pokewiki/icons/megastone.png" height=24px width=24px>
-                                {% endif %}
+                            <a href="{% url 'pokemon-detail' entry.s_name %}" style= "font-family: Comic Sans MS">{{entry.f_name}}</a>
+                            {% if 'mega' in entry.f_name %}
+                                <img src="../static/pokewiki/icons/megastone.png" height=24px width=24px>
                             {% endif %}
                         </td>
                         <td><img src="../static/pokewiki/type-icon/{{entry.type1}}.png" alt={{entry.type1}} height=24px width=24px>
@@ -41,7 +86,6 @@
                                 <img src="../static/pokewiki/type-icon/{{entry.type2}}.png" alt={{entry.type2}} height=24px width=24px>
                             {% endif %}
                         </td>
-                        <td style="font-family: Comic Sans MS">{{entry.gen}}</td>
                     </tr>
                 {% endfor %}
             </tbody>

@@ -1,3 +1,4 @@
+
   .my-custom-scrollbar {
     position: relative;
     height: 75vh;
@@ -95,7 +96,6 @@
     background-attachment:fixed;margin-top:80px;background-image: url("icons/cubonewallpaper.png");background-repeat: no-repeat;background-position: top center;margin-left:auto;margin-right:auto;background-position: 0px 66px;background-size: cover;
   }
   .square {
-    float:left;
     position: relative;
     width: 30%;
     padding-bottom : 25%;
@@ -103,6 +103,8 @@
     background-color:#e6eff3;
     overflow:hidden;
     border-radius: 5%;
+    display:inline-block;
+    float:left;
   }
 
   .team_picker {
@@ -206,3 +208,24 @@
   }
   .box             { display: -webkit-flex; display: -ms-flexbox; display: flex; overflow: hidden;}
   .box .column     { flex: 1;  margin-right: 10px; padding: 15px; border: 2px solid dimgray;border-radius: 5px;}
+
+  .suggest{
+      width:100%;
+  }
+
+  .suggest .sugList{
+      padding-left:40px;
+  }
+
+ .suggest .sugList .pokemon_entry{
+      line-height:40px;
+      height:60px;
+      vertical-align:top;
+      background:#f2f2f2;
+      padding-right:30px;
+      border-radius:10px;
+      border:1px solid #d9d9d9;
+      margin-right:10px;
+      margin-top:10px;
+      white-space:nowrap;
+  }

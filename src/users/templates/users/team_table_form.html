@@ -113,6 +113,99 @@
             </script>
         </div>
 
+        <!-- dropdown bar for suggestions -->
+<div class = "suggest" id = "poke0">
+    <div style = "font-size: 18px; text-transform:capitalize; margin-bottom:10px;"> Recommended Pokémon
+    </div>
+    <!-- LIST -->
+    <ul class = "sugList" style = "margin-bottom:0px; padding-left:0!important;">
+
+        <!-- ENTRY 1 -->
+        <div class = "pokemon_entry" style="display:inline-block; margin-bottom:20px;" id = "1">
+            <div class = "pokeimg" style="display:inline-block; width:50px; text-align:center">
+                <p><img src = ../../static/pokewiki/pokemon-icon/abra.png></p>
+            </div>
+            <div class = "pokename" style = "font-size:14px; padding-left:10px; display:inline-block;">
+                Abra
+            <span style="margin-left:12px;">
+                <span style="margin-left:-10px;">Psychic</span>
+            </span>
+            <span class = "btn btn-outline-secondary" type="button" onclick="add_search_pokemon()">Add</span>
+            </div>
+        </div>
+
+        <!-- ENTRY 2 -->
+        <div class = "pokemon_entry" style="display:inline-block; margin-bottom:20px;" id = "2">
+            <div class = "pokeimg" style="display:inline-block; width:50px; text-align:center">
+                <p><img src = ../../static/pokewiki/pokemon-icon/abra.png></p>
+            </div>
+            <div class = "pokename" style = "font-size:14px; padding-left:10px; display:inline-block;">
+                Abra
+            <span style="margin-left:12px;">
+                <span style="margin-left:-10px;">Psychic</span>
+            </span>
+            <span class = "btn btn-outline-secondary" type="button" onclick="add_search_pokemon()">Add</span>
+            </div>
+        </div>
+
+        <!-- ENTRY 3 -->
+        <div class = "pokemon_entry" style="display:inline-block; margin-bottom:20px;" id = "3">
+            <div class = "pokeimg" style="display:inline-block; width:50px; text-align:center">
+                <p><img src = ../../static/pokewiki/pokemon-icon/abra.png></p>
+            </div>
+            <div class = "pokename" style = "font-size:14px; padding-left:10px; display:inline-block;">
+                Abra
+            <span style="margin-left:12px;">
+                <span style="margin-left:-10px;">Psychic</span>
+            </span>
+            <span class = "btn btn-outline-secondary" type="button" onclick="add_search_pokemon()">Add</span>
+            </div>
+        </div>
+
+        <!-- ENTRY 4 -->
+        <div class = "pokemon_entry" style="display:inline-block; margin-bottom:20px;" id = "4">
+            <div class = "pokeimg" style="display:inline-block; width:50px; text-align:center">
+                <p><img src = ../../static/pokewiki/pokemon-icon/abra.png></p>
+            </div>
+            <div class = "pokename" style = "font-size:14px; padding-left:10px; display:inline-block;">
+                Abra
+            <span style="margin-left:12px;">
+                <span style="margin-left:-10px;">Psychic</span>
+            </span>
+            <span class = "btn btn-outline-secondary" type="button" onclick="add_search_pokemon()">Add</span>
+            </div>
+        </div>
+
+        <!-- ENTRY 5 -->
+        <div class = "pokemon_entry" style="display:inline-block; margin-bottom:20px;" id = "5">
+            <div class = "pokeimg" style="display:inline-block; width:50px; text-align:center">
+                <p><img src = ../../static/pokewiki/pokemon-icon/abra.png></p>
+            </div>
+            <div class = "pokename" style = "font-size:14px; padding-left:10px; display:inline-block;">
+                Abra
+            <span style="margin-left:12px;">
+                <span style="margin-left:-10px;">Psychic</span>
+            </span>
+            <span class = "btn btn-outline-secondary" type="button" onclick="add_search_pokemon()">Add</span>
+            </div>
+        </div>
+
+        <!-- ENTRY 6 -->
+        <div class = "pokemon_entry" style="display:inline-block; margin-bottom:20px;" id = "6">
+            <div class = "pokeimg" style="display:inline-block; width:50px; text-align:center">
+                <p><img src = ../../static/pokewiki/pokemon-icon/abra.png></p>
+            </div>
+            <div class = "pokename" style = "font-size:14px; padding-left:10px; display:inline-block;">
+                Abra
+            <span style="margin-left:12px;">
+                <span style="margin-left:-10px;">Psychic</span>
+            </span>
+            <span class = "btn btn-outline-secondary" type="button" onclick="add_search_pokemon()">Add</span>
+            </div>
+        </div>
+
+        <hr style="height:2px;border-width:0;color:black;background-color:gray"></hr>
+
         <!-- team member 1 -->
         <div class="square" id="1">
             <div class="team_picker">
@@ -600,7 +693,7 @@
 
     <!-- script to handle autocomplete -->
     <script async >
-    
+
     //push names, auto complete search select
     var poker = [];
     for(let p in poke_dict){

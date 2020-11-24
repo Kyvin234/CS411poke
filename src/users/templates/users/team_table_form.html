@@ -48,11 +48,19 @@
 
         <!-- pokemon selecting field -->
         <!-- search bar -->
-        <label class="mdb-main-label">Label example</label>
+        <!-- <label class="mdb-main-label">Label example</label>
         <div class = "searchbar mt-sm-2 mr-2">
             <input type = "text" class = "form-control" onkeyup = "team_filter()" id="search" placeholder = "Search for a Pokémon..."/>
-        </div>
-        
+        </div> -->
+
+        <form autocomplete="off" action="/action_page.php">
+          <div class="autocomplete" style="width:1000px;">
+            <input id="mySearch" type="text" name="myPokemon" placeholder="Pokémon">
+          </div>
+          <input type="submit">
+        </form>
+
+
         <!-- add pokemon graph-->
         <div id="chartdiv">
         <script async>
@@ -725,7 +733,7 @@
         }
     </script> -->
     <script async >
-    $(document).ready(function() 
+    $(document).ready(function()
     {
         $('.mdb-select').materialSelect();
     });
@@ -747,7 +755,7 @@
         var data = [];
         for(let p in poke_dict)
         {
-            if(p === input) 
+            if(p === input)
             {
                 var teammates = [];
                 var moves = [];
@@ -781,42 +789,42 @@
                     y: am4core.percent(50),
                     "value": 20,
                     "link": teammates,
-                    "children": 
+                    "children":
                     [
-                        {   
-                            "name": "moves", 
+                        {
+                            "name": "moves",
                             fixed: true,
                             x: am4core.percent(50),
-                            y: am4core.percent(20), "value": 10, 
+                            y: am4core.percent(20), "value": 10,
                             "children": moves
                         },
                         {
-                            "name": "abilities",  
+                            "name": "abilities",
                             fixed: true,
                             x: am4core.percent(25),
-                            y: am4core.percent(35),"value": 10, 
+                            y: am4core.percent(35),"value": 10,
                             "children": abilities
                         },
-                        {   
-                            "name": "spreads",  
+                        {
+                            "name": "spreads",
                             fixed: true,
                             x: am4core.percent(75),
-                            y: am4core.percent(35),"value": 10, 
+                            y: am4core.percent(35),"value": 10,
                             "children": spreads
                         },
-                        {   
-                            "name": "items",  
+                        {
+                            "name": "items",
                             fixed: true,
                             x: am4core.percent(70),
                             y: am4core.percent(70),
-                            "value": 10, 
+                            "value": 10,
                             "children": items
                         },
                         {
-                            "name": "teammates",  
+                            "name": "teammates",
                             fixed: true,
                             x: am4core.percent(30),
-                            y: am4core.percent(70),"value": 10, 
+                            y: am4core.percent(70),"value": 10,
                             "children": teammates
                         },
                     ]
@@ -827,6 +835,92 @@
         series.nodes.template.propertyFields.x = "x";
         series.nodes.template.propertyFields.y = "y";
     }
+
+    /*OTTO COMPLETE =============================================================*/
+
+    function ottocomplete(inp, arr) {
+     /* text field input element and an array of possible pokemon*/
+      var currentFocus;
+
+      inp.addEventListener("input", function(e) {
+          var a, b, i, val = this.value;
+          closeAllLists();
+          if (!val) { return false;}
+          currentFocus = -1;
+
+          a = document.createElement("DIV");
+          a.setAttribute("id", this.id + "autocomplete-list");
+          a.setAttribute("class", "autocomplete-items");
+          this.parentNode.appendChild(a);
+
+          for (i = 0; i < arr.length; i++) {
+            if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
+              b = document.createElement("DIV");
+              b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
+              b.innerHTML += arr[i].substr(val.length);
+              b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
+              b.addEventListener("click", function(e) {
+                  inp.value = this.getElementsByTagName("input")[0].value;
+                  closeAllLists();
+              });
+              a.appendChild(b);
+            }
+          }
+      });
+
+      inp.addEventListener("keydown", function(e) {
+          var x = document.getElementById(this.id + "autocomplete-list");
+          if (x) x = x.getElementsByTagName("div");
+          if (e.keyCode == 40) {
+            /*DOWN*/
+            currentFocus++;
+            addActive(x);
+          } else if (e.keyCode == 38) { //up
+            /*UP*/
+            currentFocus--;
+            addActive(x);
+          } else if (e.keyCode == 13) {
+            e.preventDefault();
+            if (currentFocus > -1) {
+              if (x) x[currentFocus].click();
+            }
+          }
+      });
+
+      function addActive(x) {
+        if (!x) return false;
+        removeActive(x);
+        if (currentFocus >= x.length) currentFocus = 0;
+        if (currentFocus < 0) currentFocus = (x.length - 1);
+        x[currentFocus].classList.add("autocomplete-active");
+      }
+
+      function removeActive(x) {
+        for (var i = 0; i < x.length; i++) {
+          x[i].classList.remove("autocomplete-active");
+        }
+      }
+
+      function closeAllLists(elmnt) {
+        var x = document.getElementsByClassName("autocomplete-items");
+        for (var i = 0; i < x.length; i++) {
+          if (elmnt != x[i] && elmnt != inp) {
+            x[i].parentNode.removeChild(x[i]);
+          }
+        }
+      }
+      document.addEventListener("click", function (e) {
+          closeAllLists(e.target);
+      });
+    }
+
+    //push names
+    var poker = [];
+    for(let p in poke_dict){
+        poker.push(poke_dict[p].pokemon);
+    }
+
+ottocomplete(document.getElementById("mySearch"), poker);
+
     </script>
 {% endblock extra_js %}
-

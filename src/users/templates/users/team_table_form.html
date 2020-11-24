@@ -9,7 +9,7 @@
 {% endblock %}
 {% block content %}
     <div class="content-section">
-        <form method="POST">
+        <form method="POST" id="team_form">
             {% csrf_token %}
             <fieldset class="form-group">
                 <legend class="border-bottom mb-4">Team</legend>
@@ -27,12 +27,6 @@
                         <div class="form-group col-md-11 mb-0" >
                             {{ form.team_comp|as_crispy_field }}
                         </div>
-                        <small class="text-muted">
-                            <p>pick your Pokemon from below</p>
-                        </small>
-                    </div>
-                    <div class="form-group">
-                        <button class="btn btn-outline-info" type="submit">Create</button>
                     </div>
                 </fieldset>
         </form>
@@ -48,17 +42,14 @@
 
         <!-- pokemon selecting field -->
         <!-- search bar -->
-        <!-- <label class="mdb-main-label">Label example</label>
-        <div class = "searchbar mt-sm-2 mr-2">
-            <input type = "text" class = "form-control" onkeyup = "team_filter()" id="search" placeholder = "Search for a Pokémon..."/>
-        </div> -->
         <div class="input-group mb-3" >
-            <div class="autocomplete" style="width:110vh">
+            <div class="autocomplete" style="width:104.5vh">
                 <input id="mySearch" type="text" name="myPokemon" placeholder="Search for Pokémon..." class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" onkeyup="team_filter()">
             </div>
+            <div class="input-group-append">
+                <button class="btn btn-outline-secondary" type="button" onclick="add_search_pokemon()">Add</button>
+            </div>
         </div>
-
-
 
         <!-- add pokemon graph-->
         <div id="chartdiv">
@@ -123,7 +114,7 @@
         </div>
 
         <!-- team member 1 -->
-        <div class="square" id="1" onclick="select_member(1)" ondblclick="delete_member(1)" >
+        <div class="square" id="1">
             <div class="team_picker">
                 <div class="input-group input-group-sm mb-3">
                     <!-- pokemon name -->
@@ -160,11 +151,17 @@
                         </div>
                         <input readonly id="is1" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
                     </div>
+                    <!-- remove -->
+                    <div class="input-group mb-3">
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary" type="button" onclick="remove_pokemon('p1')">Remove</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
         <!-- team member 2 -->
-        <div class="square" id="2" onclick="select_member(2)" ondblclick="delete_member(2)">
+        <div class="square" id="2">
             <div class="team_picker">
                 <div class="input-group input-group-sm mb-3">
                     <!-- pokemon name -->
@@ -201,11 +198,17 @@
                         </div>
                         <input readonly id="is2" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
                     </div>
+                    <!-- remove -->
+                    <div class="input-group mb-3">
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary" type="button" onclick="remove_pokemon('p2')">Remove</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
         <!-- team member 3 -->
-        <div class="square" id="3" onclick="select_member(3)" ondblclick="delete_member(3)">
+        <div class="square" id="3">
             <div class="team_picker">
 
                 <div class="input-group input-group-sm mb-3">
@@ -243,11 +246,17 @@
                         </div>
                         <input readonly id="is3" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
                     </div>
+                    <!-- remove -->
+                    <div class="input-group mb-3">
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary" type="button" onclick="remove_pokemon('p3')">Remove</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
         <!-- team member 4 -->
-        <div class="square" id="4" onclick="select_member(4)" ondblclick="delete_member(4)">
+        <div class="square" id="4">
             <div class="team_picker">
                 <div class="input-group input-group-sm mb-3">
                     <!-- pokemon name -->
@@ -284,11 +293,17 @@
                         </div>
                         <input readonly id="is4" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
                     </div>
+                    <!-- remove -->
+                    <div class="input-group mb-3">
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary" type="button" onclick="remove_pokemon('p4')">Remove</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
         <!-- team member 5 -->
-        <div class="square" id="5" onclick="select_member(5)" ondblclick="delete_member(5)">
+        <div class="square" id="5">
             <div class="team_picker">
                 <div class="input-group input-group-sm mb-3">
                     <!-- pokemon name -->
@@ -325,11 +340,17 @@
                         </div>
                         <input readonly id="is5" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
                     </div>
+                    <!-- remove -->
+                    <div class="input-group mb-3">
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary" type="button" onclick="remove_pokemon('p5')">Remove</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
         <!-- team member 6 -->
-        <div class="square" id="6" onclick="select_member(6)" ondblclick="delete_member(6)">
+        <div class="square" id="6">
             <div class="team_picker">
                 <div class="input-group input-group-sm mb-3">
                     <!-- pokemon name -->
@@ -366,6 +387,12 @@
                         </div>
                         <input readonly id="is6" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
                     </div>
+                    <!-- remove -->
+                    <div class="input-group mb-3">
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary" type="button" onclick="remove_pokemon('p6')">Remove</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -376,12 +403,15 @@
                 {% endfor %}
             </p>
         </div> -->
+        <div class="form-group">
+            <center><input type="submit" form="team_form"/></center>
+        </div>
     </div>
 {% endblock content %}
 
 {% block extra_js %}
     <!-- User Interface in javascript -->
-    <!-- <script async>
+    <script async>
         //pokemon selector
         var select = 0;
         var cur_bar = 0; //0 pokemon filter, 1 item filter
@@ -434,7 +464,7 @@
         /*
             Function to pick a pokemon from the field and append it to the team
         */
-        function select_poke(pokename, dex_id)
+        /* function select_poke(pokename, dex_id)
         {
             if(select > 0)
             {
@@ -451,7 +481,7 @@
                 //generate json data for the team
                 document.getElementById("id_team_comp").innerHTML = JSON.stringify(team_dict);
             }
-        }
+        } */
         /*
             Function to pick an item from the field and append it to the team
         */
@@ -486,6 +516,7 @@
 
             }
         }
+
         /*
             Function to delete a pokemon from the list when double-clicked
         */
@@ -499,7 +530,7 @@
                 //set background to be unselected color
                 tm.style.background = inactive;
                 //clear the value
-                mif.value = "";
+                mi.value = "";
                 //set the team_dict
                 team_dict[di]["name"]     = "";
                 team_dict[di]["id"]       = "";
@@ -513,39 +544,7 @@
                 valid_check();
             }
         }
-        /*
-            Function to search a pokemon from the field
-        */
-        function log_filter()
-        {
 
-            var es;
-            if(cur_bar == 0)
-                es = document.getElementById("pokemon_field").children;
-            else
-                es = document.getElementById("item_field").children;
-
-            var input, filter, i, l, txtValue;
-            input = document.getElementById("search");
-            filter = input.value.toUpperCase();
-            // console.log(es)
-            l = es.length;
-            for (i = 0; i < l; i++)
-            {
-                if(es[i])
-                {
-                    txtValue = es[i].id;
-                    if (txtValue.toUpperCase().indexOf(filter) > -1)
-                    {
-                        es[i].style.display = "";
-
-                    } else
-                    {
-                        es[i].style.display = "none";
-                    }
-                }
-            }
-        }
         /*
             function to check if the team is valid
             -if it's valid, the status becomes green and the button is enabled to create a team
@@ -720,7 +719,7 @@
             }
             document.getElementById("search").value = "";
         }
-    </script> -->
+    </script>
     <!-- script to handle autocomplete -->
     <script async >
     
@@ -832,6 +831,39 @@
         series.data = data;
         series.nodes.template.propertyFields.x = "x";
         series.nodes.template.propertyFields.y = "y";
+    }
+
+    /* Add searched pokemon to your team list */
+
+    function add_search_pokemon(){
+        var i, key;
+        for(i = 1; i < 7; i++){
+            key = "p" + i;
+            if(team_dict[key].id === 0 && poke_dict[document.getElementById("mySearch").value.toLowerCase()] != undefined){
+                pokemon_obj = poke_dict[document.getElementById("mySearch").value.toLowerCase()];
+                //append name to the list
+                document.getElementById("tm".concat(i.toString())).value = pokemon_obj.pokemon;
+                //append the pokemon to dict
+                team_dict[key]["name"] = pokemon_obj.pokemon;
+                team_dict[key]["id"] = pokemon_obj.dex_id;
+                //get pokemon detail
+                get_pokeinfo(pokemon_obj.pokemon, i);
+                //check if the team is valid
+                valid_check();
+                //generate json data for the team
+                document.getElementById("id_team_comp").innerHTML = JSON.stringify(team_dict);
+                break;
+            }
+        }
+    }
+
+    /* Remove pokemon from your team list */
+
+    function remove_pokemon(index){
+        team_dict[index] = {"id" : 0, "name" : "", "nature" : "", "ability" : "", "IV" : "", "EV" : "", "item" : ""};
+        document.getElementById("tm".concat(index[1])).value = "";
+        clear_select(index[1]);
+        valid_check();
     }
 
     /*OTTO COMPLETE =============================================================*/

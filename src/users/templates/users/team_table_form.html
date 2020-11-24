@@ -101,15 +101,15 @@
                 icon.verticalCenter = "middle";
                 icon.width = 40;
                 icon.height = 40;
-                chart.zoomable = true;
-                series.nodes.template.events.on("hit", function(event) {
-                    if (event.target.isActive) {
-                    chart.zoomToDataItem(event.target.dataItem, 3, true)
-                    }
-                    else {
-                    chart.zoomOut();
-                    }
-                });
+                // chart.zoomable = true;
+                // series.nodes.template.events.on("hit", function(event) {
+                //     if (event.target.isActive) {
+                //     chart.zoomToDataItem(event.target.dataItem, 3, true)
+                //     }
+                //     else {
+                //     chart.zoomOut();
+                //     }
+                // });
             </script>
         </div>
 
@@ -396,13 +396,7 @@
                 </div>
             </div>
         </div>
-        <!-- <div id="pi_select" >
-            <p id="item_field" >
-                {% for entry in item_info%}
-                    <td> <img id='{{entry.i_name}}'src="../../static/pokewiki/item-icon/{{entry.i_name}}.png" onclick="select_item(this.id)"loading=lazy></td>
-                {% endfor %}
-            </p>
-        </div> -->
+        <!-- create button -->
         <div class="form-group">
             <center><input type="submit" form="team_form"/></center>
         </div>
@@ -456,21 +450,6 @@
             //check if the team is valid
             valid_check();
         };
-
-        /*
-            Function to pick an item from the field and append it to the team
-        */
-        // function select_item(itemname)
-        // {
-        //     if(select > 0)
-        //     {
-        //         document.getElementById("is".concat(select.toString())).value = itemname;
-        //         //append the item to dict
-        //         team_dict["p".concat(select.toString())]["item"] = itemname;
-        //         //generate json data for the team
-        //         document.getElementById("id_team_comp").innerHTML = JSON.stringify(team_dict);
-        //     }
-        // }
         /*
             function to check if the team is valid
             -if it's valid, the status becomes green and the button is enabled to create a team
@@ -614,6 +593,9 @@
             $('#ns'.concat(select_id.toString())).append(`<option value="quirky">  quirky</option>`);
         }
     </script>
+
+
+
     <!-- script to handle autocomplete -->
     <script async >
     
@@ -647,81 +629,78 @@
         }
         else
         {
-            // if(p === input)
-            // {
-                var teammates = [];
-                var moves = [];
-                var abilities = [];
-                var spreads = [];
-                var items = [];
-                for(let t in poke_dict[input].teammates)
-                {
-                    teammates.push({"image" : "../../static/pokewiki/pokemon-icon/".concat(t.toLowerCase()).concat(".png"), "value": parseInt(poke_dict[input].teammates[t].slice(1,2))});
-                }
-                for(let m in poke_dict[input].moves)
-                {
-                    moves.push({"name": m, "value":parseInt(poke_dict[input].moves[m].slice(1,2))});
-                }
-                for(let a in poke_dict[input].abilities)
-                {
-                    abilities.push({"name": a, "value":parseInt(poke_dict[input].abilities[a].slice(1,2))});
-                }
-                for(let s in poke_dict[input].spreads)
-                {
-                    spreads.push({"name": s, "value":poke_dict[input].spreads[s]});
-                }
-                for(let i in poke_dict[input].items)
-                {
-                    items.push({"name": i, "value":parseInt(poke_dict[input].items[i].slice(1,2))});
-                }
-                data.push({
-                    "image": "../../static/pokewiki/pokemon-icon/".concat(poke_dict[input].pokemon).concat(".png"),
-                    fixed: true,
-                    x: am4core.percent(50),
-                    y: am4core.percent(50),
-                    "value": 20,
-                    "link": teammates,
-                    "children":
-                    [
-                        {
-                            "name": "moves",
-                            fixed: true,
-                            x: am4core.percent(50),
-                            y: am4core.percent(20), "value": 10,
-                            "children": moves
-                        },
-                        {
-                            "name": "abilities",
-                            fixed: true,
-                            x: am4core.percent(25),
-                            y: am4core.percent(35),"value": 10,
-                            "children": abilities
-                        },
-                        {
-                            "name": "spreads",
-                            fixed: true,
-                            x: am4core.percent(75),
-                            y: am4core.percent(35),"value": 10,
-                            "children": spreads
-                        },
-                        {
-                            "name": "items",
-                            fixed: true,
-                            x: am4core.percent(70),
-                            y: am4core.percent(70),
-                            "value": 10,
-                            "children": items
-                        },
-                        {
-                            "name": "teammates",
-                            fixed: true,
-                            x: am4core.percent(30),
-                            y: am4core.percent(70),"value": 10,
-                            "children": teammates
-                        },
-                    ]
-                });
-            // }
+            var teammates = [];
+            var moves = [];
+            var abilities = [];
+            var spreads = [];
+            var items = [];
+            for(let t in poke_dict[input].teammates)
+            {
+                teammates.push({"image" : "../../static/pokewiki/pokemon-icon/".concat(t.toLowerCase()).concat(".png"), "value": parseInt(poke_dict[input].teammates[t].slice(1,2))});
+            }
+            for(let m in poke_dict[input].moves)
+            {
+                moves.push({"name": m, "value":parseInt(poke_dict[input].moves[m].slice(1,2))});
+            }
+            for(let a in poke_dict[input].abilities)
+            {
+                abilities.push({"name": a, "value":parseInt(poke_dict[input].abilities[a].slice(1,2))});
+            }
+            for(let s in poke_dict[input].spreads)
+            {
+                spreads.push({"name": s, "value":poke_dict[input].spreads[s]});
+            }
+            for(let i in poke_dict[input].items)
+            {
+                items.push({"name": i, "value":parseInt(poke_dict[input].items[i].slice(1,2))});
+            }
+            data.push({
+                "image": "../../static/pokewiki/pokemon-icon/".concat(poke_dict[input].pokemon).concat(".png"),
+                fixed: true,
+                x: am4core.percent(50),
+                y: am4core.percent(50),
+                "value": 20,
+                "link": teammates,
+                "children":
+                [
+                    {
+                        "name": "moves",
+                        fixed: true,
+                        x: am4core.percent(50),
+                        y: am4core.percent(20), "value": 10,
+                        "children": moves
+                    },
+                    {
+                        "name": "abilities",
+                        fixed: true,
+                        x: am4core.percent(25),
+                        y: am4core.percent(35),"value": 10,
+                        "children": abilities
+                    },
+                    {
+                        "name": "spreads",
+                        fixed: true,
+                        x: am4core.percent(75),
+                        y: am4core.percent(35),"value": 10,
+                        "children": spreads
+                    },
+                    {
+                        "name": "items",
+                        fixed: true,
+                        x: am4core.percent(70),
+                        y: am4core.percent(70),
+                        "value": 10,
+                        "children": items
+                    },
+                    {
+                        "name": "teammates",
+                        fixed: true,
+                        x: am4core.percent(30),
+                        y: am4core.percent(70),"value": 10,
+                        "children": teammates
+                    },
+                ]
+            });
         }
         series.data = data;
         series.nodes.template.propertyFields.x = "x";

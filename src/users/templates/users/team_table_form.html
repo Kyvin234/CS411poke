@@ -449,6 +449,8 @@
             {% endif %}
             //check if the team is valid
             valid_check();
+            //load recommended pokemon
+            recommend();
         };
         /*
             function to check if the team is valid
@@ -726,6 +728,8 @@
                 valid_check();
                 //generate json data for the team
                 document.getElementById("id_team_comp").innerHTML = JSON.stringify(team_dict);
+                //recommend pokemon
+                recommend();
                 break;
             }
         }
@@ -739,6 +743,45 @@
         clear_select(index[1]);
         valid_check();
         document.getElementById("id_team_comp").innerHTML = JSON.stringify(team_dict);
+        //recommend pokemon
+        recommend();
+    }
+
+    var recommend_list = [];
+
+    /* Recommendation */
+
+    function recommend(){
+        var i;
+        var cur_team = [];
+
+        // Check if user team is full
+        for(i = 1; i < 7; i++){
+            var key = 'p'+i;
+            if(team_dict[key]["id"] != 0) cur_team.push(team_dict[key]["name"]);
+        }
+
+        // If all spaces are full, do not recommend any pokemon
+        if(cur_team.length == 0) recommend_list = [];
+        // Otherwise find most compatible teammates
+        else{
+            teammate_dict = {};
+            for(let p in cur_team){
+                for(let t in poke_dict[cur_team[p]].teammates){
+                    if(t in teammate_dict) teammate_dict[t] += poke_dict[cur_team[p]].teammates[t];
+                    else teammate_dict[t] = poke_dict[cur_team[p]].teammates[t];
+                }
+            }
+            // Set the recommend list to array
+            recommend_list = Object.keys(teammate_dict).map(function(key) {
+                return [key, parseFloat(teammate_dict[key].slice(1,-2))];
+            });
+            // Sort the array based on the second element
+            recommend_list.sort(function(first, second) {
+                return second[1] - first[1];
+            });
+            recommend_list = recommend_list.slice(0,6);
+        }
     }
 
     /*OTTO COMPLETE =============================================================*/

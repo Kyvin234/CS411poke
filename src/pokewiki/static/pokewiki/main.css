@@ -62,7 +62,7 @@
     height: 60vh;
   }
   #poke_font{
-      font-family: "Comic Sans MS", cursive, sans-serif;
+      font-family: "Fira Sans","Trebuchet MS",Ubuntu,Helvetica,Arial,sans-serif
       color : black;
   }
   #homepg_txt{

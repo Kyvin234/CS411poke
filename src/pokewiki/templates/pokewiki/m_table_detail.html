@@ -1,17 +1,17 @@
 {% extends "pokewiki/base.html" %}
 
 {% block title %}
-    <title>{{object.m_name|title}}</title>
+    <title style = "font-family:Trebuchet MS">{{object.m_name|title}}</title>
 {% endblock title %}
 
 {% block content %}
     <body id="movedex_pg">
-        <h1> {{object.m_name|title}} </h1>
+        <h1 style = "font-family: Trebuchet MS"> {{object.m_name|title}} </h1>
         <hr>
         <div class="box">
             <div class="column"><p style= "font-family: Comic Sans MS">
                 Type : <img src="../../static/pokewiki/type-icon/{{object.types}}.png" height=24px width=24px> {{object.types}}
-                <br> 
+                <br>
                 Damage Class: <img src="../static/pokewiki/move-icon/{{object.dmg_class}}.png"> {{object.types}}
                 <br>
                 Priority: {{object.priority}}
@@ -26,16 +26,16 @@
                     Accuracy : N/A
                 {% endif %}
             </p></div>
-            <div class="column"><p style= "font-family: Comic Sans MS"> 
+            <div class="column"><p style= "font-family: Comic Sans MS">
                 Effect :
                 <br>
-                {{object.effect}} 
+                {{object.effect}}
             </p></div>
         </div>
         <!-- <div>
             <p style= "font-family: Comic Sans MS" class="description">
                 Type : <img src="../../static/pokewiki/type-icon/{{object.types}}.png" height=24px width=24px> {{object.types}}
-                <br> 
+                <br>
                 Damage Class: <img src="../static/pokewiki/move-icon/{{object.dmg_class}}.png"> {{object.types}}
                 <br>
                 Priority: {{object.priority}}
@@ -50,10 +50,10 @@
                     Accuracy : N/A
                 {% endif %}
             </p>
-            <p style= "font-family: Comic Sans MS" class="description"> 
+            <p style= "font-family: Comic Sans MS" class="description">
                 Effect :
                 <br>
-                {{object.effect}} 
+                {{object.effect}}
             </p>
         </div> -->
         <br>

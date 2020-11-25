@@ -3,12 +3,20 @@
 {% block title %}
     <title>{{object.i_name}}</title>
 {% endblock title %}
-
+<hr>
 {% block content %}
-    <body id="abidex_pg">
-        <h1> Item : {{object.i_name}} </h1>
-        <h2> Item ID: {{object.i_id}} </h2>
-        <h3> Category : {{object.category}} </h3>
-        <p>  Effect : {{object.effect}}</p>
+    <body id="itemdex_pg">
+        <h1 style = "font-size:50px; font-family: Trebuchet MS"> Item : {{object.i_name}}
+            (<img src="../static/pokewiki/item-icon/{{object.i_name}}.png" height=70px width=70px>)
+        </h1>
+        <div class="box">
+            <div class="column"><p style= "font-size:20px; font-family: Trebuchet MS">
+                Item ID: <strong>{{object.i_id}}</strong>
+                <br>
+                Category : <strong>{{object.category}}</strong>
+                <br>
+                Effect : {{object.effect}}
+            </p></div>
+        </div>
     </body>
 {% endblock content %}

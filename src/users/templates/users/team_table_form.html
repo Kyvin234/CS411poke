@@ -114,11 +114,12 @@
             </script>
         </div>
 
-        <!-- dropdown bar for suggestions -->
+    <!-- dropdown bar for suggestions -->
     <div class = "suggest" id = "poke0">
         <div style = "font-size: 18px; text-transform:capitalize; margin-bottom:10px;"> 
             Recommended Pokémon
         </div>
+
     <!-- LIST -->
         <ul class = "sugList" style = "margin-bottom:0px; padding-left:0!important;">
             <!-- ENTRY 1 -->
@@ -826,7 +827,6 @@
     }
 
     var recommend_list = [];
-    var candidate_dict = {};
 
     /* Recommendation */
 
@@ -839,6 +839,7 @@
             var key = 'p'+i;
             if(team_dict[key]["id"] != 0) cur_team.push(team_dict[key]["name"]);
         }
+        var candidate_dict = {};
         // console.log(recommend_list);
         // If all spaces are full, do not recommend any pokemon
         // if(cur_team.length == 6) recommend_list = [];
@@ -856,17 +857,17 @@
                     break;
             }
         }
-        //eles find other compatible pokemons
+        // else find other compatible pokemons
         else
         {
-            //push all the teammates
-            for(let p in cur_team) //for every pokemon in the current team
+            // push all the teammates
+            for(let p in cur_team) // for every pokemon in the current team
             {
-                for(let t in poke_dict[cur_team[p]].teammates) //for each recommended teammate of pokemon in the current team
+                for(let t in poke_dict[cur_team[p]].teammates) // for each recommended teammate of pokemon in the current team
                 {
                     if(cur_team.includes(t.toLowerCase()) == true)
                     {
-                        delete candidate_dict[t.toLowerCase()];
+                        delete candidate_dict[t];
                         continue;
                     }
                     if(t in candidate_dict) 
@@ -875,18 +876,7 @@
                         candidate_dict[t] = parseFloat(poke_dict[cur_team[p]].teammates[t].slice(1,-2));
                 }
             }
-            // console.log(candidate_dict);
-            //find shortest path if any
-            // if(cur_team.length > 1)
-            // {
-
-            // }
-            //type check
-
-            //usage check
-
             //sort
-                // Set the recommend list to array
             recommend_list = Object.keys(candidate_dict).map(function(key) {
                 return [key, candidate_dict[key]];
             });
@@ -980,10 +970,10 @@
 
 
     /* RECOMMENDATION BAR ====================================================*/
+
     function add_recommend_pokemon(id)
     {
         pokename = document.getElementById("sp"+id).innerText.toLowerCase();
-        delete candidate_dict[pokename];
         // console.log(candidate_dict);
         for(i = 1; i < 7; i++){
             key = "p" + i;
@@ -1004,6 +994,8 @@
                 document.getElementById("id_team_comp").innerHTML = JSON.stringify(team_dict);
                 //recommend pokemon
                 recommend();
+                //display the recently added pokemon
+                add_to_graph(pokename);
                 break;
             }
         }

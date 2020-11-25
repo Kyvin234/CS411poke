@@ -98,9 +98,9 @@
   .square {
     position: relative;
     width: 30%;
-    padding-bottom : 25%;
+    padding-bottom : 335px;
     margin:1.66%;
-    background-color:#e6eff3;
+    background-color: #e6eff3;
     overflow:hidden;
     border-radius: 5%;
     display:inline-block;

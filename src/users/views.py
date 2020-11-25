@@ -153,23 +153,28 @@ class team_uview(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
         else:
             return False
 
-
 # ajax requests
 def get_pokeinfo(request):
     pokemon = request.POST.get("pokemon")
     cursor = connection.cursor()
     cursor.execute(
-        
-            """ SELECT a_name
-                FROM pokewiki_f_table AS pf 
-                        JOIN pokewiki_a_relation AS ar ON ar.f_name_id = pf.f_name
-                        NATURAL JOIN pokewiki_a_table
-                WHERE f_name = %s
-            """, (pokemon, )
+        """ SELECT a_name
+            FROM pokewiki_f_table AS pf 
+                    JOIN pokewiki_a_relation AS ar ON ar.f_name_id = pf.f_name
+                    NATURAL JOIN pokewiki_a_table
+            WHERE f_name = %s
+        """, (pokemon, )
     )
-    ability =  dictfetchall(cursor)
+    ability = dictfetchall(cursor)
+    cursor.execute('''
+                    SELECT m_name
+                    FROM pokewiki_m_relation AS pr join pokewiki_m_table AS pt ON pr.m_name_id = pt.m_name
+                    WHERE f_name_id = %s
+                        ''', (pokemon,))
+    move = dictfetchall(cursor)
     data = {
-        "ability" : ability,
+        "ability": ability,
+        "move": move
     } 
     return JsonResponse(data)
 

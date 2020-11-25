@@ -222,6 +222,15 @@
                             <option value="" disabled selected>Select Nature</option>
                         </select>
                     </div>
+                    <!-- pokemon moves -->
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text"  >Move</label>
+                        </div>
+                        <select class="custom-select" id="ms1" onchange="select_mov(this.value, 1)">
+                            <option value="" disabled selected>Select Move</option>
+                        </select>
+                    </div>
                     <!-- pokemon item -->
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
@@ -267,6 +276,15 @@
                         </div>
                         <select class="custom-select" id="ns2" onchange="select_nat(this.value, 2)">
                             <option value="" disabled selected>Select Nature</option>
+                        </select>
+                    </div>
+                    <!-- pokemon moves -->
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text"  >Move</label>
+                        </div>
+                        <select class="custom-select" id="ms2" onchange="select_mov(this.value, 2)">
+                            <option value="" disabled selected>Select Move</option>
                         </select>
                     </div>
                     <!-- pokemon item -->
@@ -317,6 +335,15 @@
                             <option value="" disabled selected>Select Nature</option>
                         </select>
                     </div>
+                    <!-- pokemon moves -->
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text"  >Move</label>
+                        </div>
+                        <select class="custom-select" id="ms3" onchange="select_mov(this.value, 3)">
+                            <option value="" disabled selected>Select Move</option>
+                        </select>
+                    </div>
                     <!-- pokemon item -->
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
@@ -362,6 +389,15 @@
                         </div>
                         <select class="custom-select" id="ns4" onchange="select_nat(this.value, 4)">
                             <option value="" disabled selected>Select Nature</option>
+                        </select>
+                    </div>
+                    <!-- pokemon moves -->
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text"  >Move</label>
+                        </div>
+                        <select class="custom-select" id="ms4" onchange="select_mov(this.value, 4)">
+                            <option value="" disabled selected>Select Move</option>
                         </select>
                     </div>
                     <!-- pokemon item -->
@@ -411,6 +447,15 @@
                             <option value="" disabled selected>Select Nature</option>
                         </select>
                     </div>
+                    <!-- pokemon moves -->
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text"  >Move</label>
+                        </div>
+                        <select class="custom-select" id="ms5" onchange="select_mov(this.value, 5)">
+                            <option value="" disabled selected>Select Move</option>
+                        </select>
+                    </div>
                     <!-- pokemon item -->
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
@@ -458,6 +503,15 @@
                             <option value="" disabled selected>Select Nature</option>
                         </select>
                     </div>
+                    <!-- pokemon moves -->
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text"  >Move</label>
+                        </div>
+                        <select class="custom-select" id="ms6" onchange="select_mov(this.value, 6)">
+                            <option value="" disabled selected>Select Move</option>
+                        </select>
+                    </div>
                     <!-- pokemon item -->
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
@@ -492,12 +546,12 @@
         //team json information
         var team_dict =
         {
-                "p1": {"id" : 0, "name" : "", "nature" : "", "ability" : "", "IV" : "", "EV" : "", "item" : ""},
-                "p2": {"id" : 0, "name" : "", "nature" : "", "ability" : "", "IV" : "", "EV" : "", "item" : ""},
-                "p3": {"id" : 0, "name" : "", "nature" : "", "ability" : "", "IV" : "", "EV" : "", "item" : ""},
-                "p4": {"id" : 0, "name" : "", "nature" : "", "ability" : "", "IV" : "", "EV" : "", "item" : ""},
-                "p5": {"id" : 0, "name" : "", "nature" : "", "ability" : "", "IV" : "", "EV" : "", "item" : ""},
-                "p6": {"id" : 0, "name" : "", "nature" : "", "ability" : "", "IV" : "", "EV" : "", "item" : ""},
+                "p1": {"id" : 0, "name" : "", "nature" : "", "ability" : "", "move" : [], "IV" : "", "EV" : "", "item" : ""},
+                "p2": {"id" : 0, "name" : "", "nature" : "", "ability" : "", "move" : [], "IV" : "", "EV" : "", "item" : ""},
+                "p3": {"id" : 0, "name" : "", "nature" : "", "ability" : "", "move" : [], "IV" : "", "EV" : "", "item" : ""},
+                "p4": {"id" : 0, "name" : "", "nature" : "", "ability" : "", "move" : [], "IV" : "", "EV" : "", "item" : ""},
+                "p5": {"id" : 0, "name" : "", "nature" : "", "ability" : "", "move" : [], "IV" : "", "EV" : "", "item" : ""},
+                "p6": {"id" : 0, "name" : "", "nature" : "", "ability" : "", "move" : [], "IV" : "", "EV" : "", "item" : ""},
         };
         /*
             load the contents if updating
@@ -599,11 +653,18 @@
                     //append options to select
                     let i;
                     let l = data["ability"].length;
+                    let k = data["move"].length;
                     for(i = 0; i<l; i++)
                     {
                         optionText = data["ability"][i]["a_name"];
                         optionValue = data["ability"][i]["a_name"];
                         $('#as'.concat(select.toString())).append(`<option value="${optionValue}"> ${optionText} </option>`);
+                    }
+                    for(i = 0; i<k; i++)
+                    {
+                        optionText = data["move"][i]["m_name"];
+                        optionValue = data["move"][i]["m_name"];
+                        $('#ms'.concat(select.toString())).append(`<option value="${optionValue}"> ${optionText} </option>`);
                     }
                 },
                 error: function(xhr){
@@ -627,6 +688,15 @@
         function select_nat(value, id)
         {
             team_dict["p".concat(id.toString())]["nature"] = value;
+            //generate json data for the team
+            document.getElementById("id_team_comp").innerHTML = JSON.stringify(team_dict);
+        }
+        /*
+            function that handles move select
+        */
+        function select_mov(value, id)
+        {
+            team_dict["p".concat(id.toString())]["move"].push(value);
             //generate json data for the team
             document.getElementById("id_team_comp").innerHTML = JSON.stringify(team_dict);
         }
@@ -816,7 +886,7 @@
     /* Remove pokemon from your team list */
 
     function remove_pokemon(index){
-        team_dict[index] = {"id" : 0, "name" : "", "nature" : "", "ability" : "", "IV" : "", "EV" : "", "item" : ""};
+        team_dict[index] = {"id" : 0, "name" : "", "nature" : "", "ability" : "", "move": [], "IV" : "", "EV" : "", "item" : ""};
         document.getElementById("tm".concat(index[1])).value = "";
         clear_select(index[1]);
         valid_check();
@@ -867,7 +937,6 @@
                 {
                     if(cur_team.includes(t.toLowerCase()) == true)
                     {
-                        delete candidate_dict[t];
                         continue;
                     }
                     if(t in candidate_dict) 
@@ -880,7 +949,7 @@
             recommend_list = Object.keys(candidate_dict).map(function(key) {
                 return [key, candidate_dict[key]];
             });
-                // Sort the array based on the second element
+            // Sort the array based on the second element
             recommend_list.sort(function(first, second) {
                 return second[1] - first[1];
             });     

@@ -76,7 +76,7 @@ class team_cview(LoginRequiredMixin, CreateView):
         # pokemon detail(mongodb team data)
         mycol = mydb['gen7ou']
         # x = json.dumps([doc for doc in ])
-        c = mycol.find().sort("dex_id")
+        c = mycol.find().sort("usage", -1)
         json_docs = []
         for doc in c:
             json_doc = json.dumps(doc, default=json_util.default)
@@ -122,7 +122,7 @@ class team_uview(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     success_url = reverse_lazy('team')
     def get_context_data(self, **kwargs):
         mycol = mydb['gen7ou']
-        x = list(mycol.find().sort("dex_id"))
+        x = list(mycol.find().sort("usage"))
         # user's team info
         context = super().get_context_data(**kwargs)
         # cursor = connection.cursor()

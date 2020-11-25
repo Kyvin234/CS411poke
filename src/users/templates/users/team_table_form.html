@@ -68,6 +68,7 @@
                 {%for l, k in pokemon_team_detail.items%}
                     {% for row in k%}
                         var poke_detail = JSON.parse("{{ row|escapejs }}");
+                        // console.log(poke_detail);
                         poke_dict[poke_detail.pokemon] = poke_detail;
                     {%endfor%}
                 {%endfor%}
@@ -114,79 +115,78 @@
         </div>
 
         <!-- dropdown bar for suggestions -->
-<div class = "suggest" id = "poke0">
-    <div style = "font-size: 18px; text-transform:capitalize; margin-bottom:10px;"> 
-        Recommended Pokémon
-    </div>
+    <div class = "suggest" id = "poke0">
+        <div style = "font-size: 18px; text-transform:capitalize; margin-bottom:10px;"> 
+            Recommended Pokémon
+        </div>
     <!-- LIST -->
-    <ul class = "sugList" style = "margin-bottom:0px; padding-left:0!important;">
+        <ul class = "sugList" style = "margin-bottom:0px; padding-left:0!important;">
+            <!-- ENTRY 1 -->
+            <div class = "pokemon_entry" style="display:inline-block; margin-bottom:20px;" id = "rec1">
+                <div id = "img1" class = "pokeimg" style="display:inline-block; width:50px; text-align:center">
+                </div>
+                <div class = "pokename" id = "sp1" style = "font-size:14px; padding-left:10px; display:inline-block;">
+                </div>
+                <div class = "pokename" style = "font-size:14px; padding-left:10px; display:inline-block;">
+                    <span class = "btn btn-outline-secondary" type="button" onclick="add_recommend_pokemon(1)">Add</span>
+                </div>
+            </div>
 
-        <!-- ENTRY 1 -->
-        <div class = "pokemon_entry" style="display:inline-block; margin-bottom:20px;" id = "rec1">
-            <div id = "img1" class = "pokeimg" style="display:inline-block; width:50px; text-align:center">
+            <!-- ENTRY 2 -->
+            <div  class = "pokemon_entry" style="display:inline-block; margin-bottom:20px;" id = "rec2">
+                <div id = "img2" class = "pokeimg" style="display:inline-block; width:50px; text-align:center">
+                </div>
+                <div class = "pokename" id = "sp2" style = "font-size:14px; padding-left:10px; display:inline-block;">
+                </div>
+                <div class = "pokename" style = "font-size:14px; padding-left:10px; display:inline-block;">
+                    <span class = "btn btn-outline-secondary" type="button" onclick="add_recommend_pokemon(2)">Add</span>
+                </div>
             </div>
-            <div class = "pokename" id = "sp1" style = "font-size:14px; padding-left:10px; display:inline-block;">
-            </div>
-            <div class = "pokename" style = "font-size:14px; padding-left:10px; display:inline-block;">
-                <span class = "btn btn-outline-secondary" type="button" onclick="add_recommend_pokemon(1)">Add</span>
-            </div>
-        </div>
 
-        <!-- ENTRY 2 -->
-        <div  class = "pokemon_entry" style="display:inline-block; margin-bottom:20px;" id = "rec2">
-            <div id = "img2" class = "pokeimg" style="display:inline-block; width:50px; text-align:center">
+            <!-- ENTRY 3 -->
+            <div  class = "pokemon_entry" style="display:inline-block; margin-bottom:20px;" id = "rec3">
+                <div id = "img3" class = "pokeimg" style="display:inline-block; width:50px; text-align:center">
+                </div>
+                <div class = "pokename" id = "sp3" style = "font-size:14px; padding-left:10px; display:inline-block;">
+                </div>
+                <div class = "pokename" style = "font-size:14px; padding-left:10px; display:inline-block;">
+                    <span class = "btn btn-outline-secondary" type="button" onclick="add_recommend_pokemon(3)">Add</span>
+                </div>
             </div>
-            <div class = "pokename" id = "sp2" style = "font-size:14px; padding-left:10px; display:inline-block;">
-            </div>
-            <div class = "pokename" style = "font-size:14px; padding-left:10px; display:inline-block;">
-                <span class = "btn btn-outline-secondary" type="button" onclick="add_recommend_pokemon(2)">Add</span>
-            </div>
-        </div>
 
-        <!-- ENTRY 3 -->
-        <div  class = "pokemon_entry" style="display:inline-block; margin-bottom:20px;" id = "rec3">
-            <div id = "img3" class = "pokeimg" style="display:inline-block; width:50px; text-align:center">
+            <!-- ENTRY 4 -->
+            <div class = "pokemon_entry" style="display:inline-block; margin-bottom:20px;" id = "rec4">
+                <div id = "img4" class = "pokeimg" style="display:inline-block; width:50px; text-align:center">
+                </div>
+                <div class = "pokename" id = "sp4" style = "font-size:14px; padding-left:10px; display:inline-block;">
+                </div>
+                <div class = "pokename" style = "font-size:14px; padding-left:10px; display:inline-block;">
+                    <span class = "btn btn-outline-secondary" type="button" onclick="add_recommend_pokemon(4)">Add</span>
+                </div>
             </div>
-            <div class = "pokename" id = "sp3" style = "font-size:14px; padding-left:10px; display:inline-block;">
-            </div>
-            <div class = "pokename" style = "font-size:14px; padding-left:10px; display:inline-block;">
-                <span class = "btn btn-outline-secondary" type="button" onclick="add_recommend_pokemon(3)">Add</span>
-            </div>
-        </div>
 
-        <!-- ENTRY 4 -->
-        <div class = "pokemon_entry" style="display:inline-block; margin-bottom:20px;" id = "rec4">
-            <div id = "img4" class = "pokeimg" style="display:inline-block; width:50px; text-align:center">
+            <!-- ENTRY 5 -->
+            <div class = "pokemon_entry" style="display:inline-block; margin-bottom:20px;" id = "rec5">
+                <div id = "img5" class = "pokeimg" style="display:inline-block; width:50px; text-align:center">
+                </div>
+                <div id = "sp5" class = "pokename" style = "font-size:14px; padding-left:10px; display:inline-block;">
+                </div>
+                <div class = "pokename" style = "font-size:14px; padding-left:10px; display:inline-block;">
+                    <span class = "btn btn-outline-secondary" type="button" onclick="add_recommend_pokemon(5)">Add</span>
+                </div>
             </div>
-            <div class = "pokename" id = "sp4" style = "font-size:14px; padding-left:10px; display:inline-block;">
-            </div>
-            <div class = "pokename" style = "font-size:14px; padding-left:10px; display:inline-block;">
-                <span class = "btn btn-outline-secondary" type="button" onclick="add_recommend_pokemon(4)">Add</span>
-            </div>
-        </div>
 
-        <!-- ENTRY 5 -->
-        <div class = "pokemon_entry" style="display:inline-block; margin-bottom:20px;" id = "rec5">
-            <div id = "img5" class = "pokeimg" style="display:inline-block; width:50px; text-align:center">
+            <!-- ENTRY 6 -->
+            <div class = "pokemon_entry" style="display:inline-block; margin-bottom:20px;" id = "rec6">
+                <div id = "img6" class = "pokeimg" style="display:inline-block; width:50px; text-align:center">
+                </div>
+                <div id = "sp6" class = "pokename" style = "font-size:14px; padding-left:10px; display:inline-block;">
+                </div>
+                <div class = "pokename" style = "font-size:14px; padding-left:10px; display:inline-block;">
+                    <span class = "btn btn-outline-secondary" type="button" onclick="add_recommend_pokemon(6)">Add</span>
+                </div>
             </div>
-            <div id = "sp5" class = "pokename" style = "font-size:14px; padding-left:10px; display:inline-block;">
-            </div>
-            <div class = "pokename" style = "font-size:14px; padding-left:10px; display:inline-block;">
-                <span class = "btn btn-outline-secondary" type="button" onclick="add_recommend_pokemon(5)">Add</span>
-            </div>
-        </div>
-
-        <!-- ENTRY 6 -->
-        <div class = "pokemon_entry" style="display:inline-block; margin-bottom:20px;" id = "rec6">
-            <div id = "img6" class = "pokeimg" style="display:inline-block; width:50px; text-align:center">
-            </div>
-            <div id = "sp6" class = "pokename" style = "font-size:14px; padding-left:10px; display:inline-block;">
-            </div>
-            <div class = "pokename" style = "font-size:14px; padding-left:10px; display:inline-block;">
-                <span class = "btn btn-outline-secondary" type="button" onclick="add_recommend_pokemon(6)">Add</span>
-            </div>
-        </div>
-
+        </ul>
         <hr style="height:2px;border-width:0;color:black;background-color:gray"></hr>
 
 
@@ -826,6 +826,7 @@
     }
 
     var recommend_list = [];
+    var candidate_dict = {};
 
     /* Recommendation */
 
@@ -838,27 +839,61 @@
             var key = 'p'+i;
             if(team_dict[key]["id"] != 0) cur_team.push(team_dict[key]["name"]);
         }
-
+        // console.log(recommend_list);
         // If all spaces are full, do not recommend any pokemon
-        if(cur_team.length == 0) recommend_list = [];
-        // Otherwise find most compatible teammates
-        else{
-            teammate_dict = {};
-            for(let p in cur_team){
-                for(let t in poke_dict[cur_team[p]].teammates){
-                    if(t in teammate_dict) teammate_dict[t] += poke_dict[cur_team[p]].teammates[t];
-                    else teammate_dict[t] = poke_dict[cur_team[p]].teammates[t];
+        // if(cur_team.length == 6) recommend_list = [];
+        // if the team is empty, recommend top 6 used pokemons
+        if (cur_team.length == 0)
+        {
+            let i = 0;
+            //reset recommend list
+            recommend_list = [];
+            for(let k in poke_dict)
+            {
+                recommend_list.push([k, parseFloat(poke_dict[k].usage.slice(1,-2))]);
+                i++;
+                if(i == 6)
+                    break;
+            }
+        }
+        //eles find other compatible pokemons
+        else
+        {
+            //push all the teammates
+            for(let p in cur_team) //for every pokemon in the current team
+            {
+                for(let t in poke_dict[cur_team[p]].teammates) //for each recommended teammate of pokemon in the current team
+                {
+                    if(cur_team.includes(t.toLowerCase()) == true)
+                    {
+                        delete candidate_dict[t.toLowerCase()];
+                        continue;
+                    }
+                    if(t in candidate_dict) 
+                        candidate_dict[t] += parseFloat(poke_dict[cur_team[p]].teammates[t].slice(1,-2));
+                    else if(cur_team.includes(t.toLowerCase()) == false)
+                        candidate_dict[t] = parseFloat(poke_dict[cur_team[p]].teammates[t].slice(1,-2));
                 }
             }
-            // Set the recommend list to array
-            recommend_list = Object.keys(teammate_dict).map(function(key) {
-                return [key, parseFloat(teammate_dict[key].slice(1,-2))];
+            // console.log(candidate_dict);
+            //find shortest path if any
+            // if(cur_team.length > 1)
+            // {
+
+            // }
+            //type check
+
+            //usage check
+
+            //sort
+                // Set the recommend list to array
+            recommend_list = Object.keys(candidate_dict).map(function(key) {
+                return [key, candidate_dict[key]];
             });
-            // Sort the array based on the second element
+                // Sort the array based on the second element
             recommend_list.sort(function(first, second) {
                 return second[1] - first[1];
-            });
-            recommend_list = recommend_list.slice(0,6);
+            });     
         }
         update_recommend();
     }
@@ -948,16 +983,19 @@
     function add_recommend_pokemon(id)
     {
         pokename = document.getElementById("sp"+id).innerText.toLowerCase();
+        delete candidate_dict[pokename];
+        // console.log(candidate_dict);
         for(i = 1; i < 7; i++){
             key = "p" + i;
-            if(team_dict[key].id === 0 && poke_dict[document.getElementById("mySearch").value.toLowerCase()] != undefined)
+            if(team_dict[key].id === 0 && poke_dict[pokename] != undefined)
             {
+                // console.log(pokename);
                 //append name to the list
                 document.getElementById("tm".concat(i.toString())).value = pokename;
                 //append the pokemon to dict
                 team_dict[key]["name"] = pokename;
                 team_dict[key]["id"] = poke_dict[pokename].dex_id;
-                console.log(team_dict);
+                // console.log(team_dict);
                 //get pokemon detail
                 get_pokeinfo(pokename, i);
                 //check if the team is valid
@@ -983,7 +1021,7 @@
         else
         {
             var i;
-            for(i = 1; i <= recommend_list.length; i++)
+            for(i = 1; i <= 6; i++)
             {
                 var img = document.createElement("img");
                 document.getElementById("sp" + i).innerText = recommend_list[i-1][0];

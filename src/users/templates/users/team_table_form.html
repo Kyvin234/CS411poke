@@ -31,14 +31,6 @@
                 </fieldset>
         </form>
 
-        <!-- rule constraints -->
-        <div>
-            <small style="display: inline;"> RULEs: </small>
-            <br>
-            <small style="display: inline;" id="rule1"> No more than ONE megas in the team</small>
-            <br>
-            <small style="display: inline;" id="rule2"> No two pokemons have two the same national dex number</small>
-        </div>
 
         <!-- pokemon selecting field -->
         <!-- search bar -->
@@ -53,65 +45,6 @@
 
         <!-- add pokemon graph-->
         <div id="chartdiv">
-            <script async>
-                am4core.useTheme(am4themes_animated);
-
-                // Create chart
-                var chart = am4core.create("chartdiv", am4plugins_forceDirected.ForceDirectedTree);
-
-                // Create series
-                var series = chart.series.push(new am4plugins_forceDirected.ForceDirectedSeries());
-                series.data = []
-
-                // Initialize pokemon dictionary
-                poke_dict = {}
-                {%for l, k in pokemon_team_detail.items%}
-                    {% for row in k%}
-                        var poke_detail = JSON.parse("{{ row|escapejs }}");
-                        // console.log(poke_detail);
-                        poke_dict[poke_detail.pokemon] = poke_detail;
-                    {%endfor%}
-                {%endfor%}
-
-                // Set up data fields
-                series.dataFields.value = "value";
-                series.dataFields.name = "name";
-                series.dataFields.children = "children";
-                series.dataFields.id = "name";
-                series.dataFields.linkWith = "link";
-                series.links.template.strokeWidth = 5;
-                // series.minRadius = 30;
-                // series.maxRadius = 30;
-                series.dataFields.fixed = "fixed";
-                series.nodes.template.propertyFields.x = "x";
-                series.nodes.template.propertyFields.y = "y";
-
-                // Add labels
-                series.nodes.template.label.text = "{name}";
-                series.fontSize = 8;
-                series.minRadius = 15;
-                series.maxRadius = 40;
-                series.centerStrength = 0.5;
-
-                //icons
-                // series.nodes.template.circle.disabled = true;
-                // series.nodes.template.outerCircle.disabled = true;
-                var icon = series.nodes.template.createChild(am4core.Image);
-                icon.propertyFields.href = "image";
-                icon.horizontalCenter = "middle";
-                icon.verticalCenter = "middle";
-                icon.width = 40;
-                icon.height = 40;
-                // chart.zoomable = true;
-                // series.nodes.template.events.on("hit", function(event) {
-                //     if (event.target.isActive) {
-                //     chart.zoomToDataItem(event.target.dataItem, 3, true)
-                //     }
-                //     else {
-                //     chart.zoomOut();
-                //     }
-                // });
-            </script>
         </div>
 
     <!-- dropdown bar for suggestions -->
@@ -236,7 +169,14 @@
                         <div class="input-group-prepend">
                             <label class="input-group-text"  >Item</label>
                         </div>
-                        <input readonly id="is1" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+                        <select class="custom-select" id="is1" onchange="select_it(this.value, 1)">
+                            <option value="" disabled selected>Select Item</option>
+                            {% for row in item_info%}
+                                {% for l,k in row.items%}
+                                    <option value={{k}}>{{k}}</option> 
+                                {%endfor%}
+                            {%endfor%}
+                        </select>
                     </div>
                     <!-- remove -->
                     <div class="input-group mb-3">
@@ -292,7 +232,14 @@
                         <div class="input-group-prepend">
                             <label class="input-group-text"  >Item</label>
                         </div>
-                        <input readonly id="is2" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+                        <select class="custom-select" id="is2" onchange="select_it(this.value, 2)">
+                            <option value="" disabled selected>Select Item</option>
+                            {% for row in item_info%}
+                                {% for l,k in row.items%}
+                                    <option value={{k}}>{{k}}</option> 
+                                {%endfor%}
+                            {%endfor%}
+                        </select>
                     </div>
                     <!-- remove -->
                     <div class="input-group mb-3">
@@ -349,7 +296,14 @@
                         <div class="input-group-prepend">
                             <label class="input-group-text"  >Item</label>
                         </div>
-                        <input readonly id="is3" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+                        <select class="custom-select" id="is3" onchange="select_it(this.value, 3)">
+                            <option value="" disabled selected>Select Item</option>
+                            {% for row in item_info%}
+                                {% for l,k in row.items%}
+                                    <option value={{k}}>{{k}}</option> 
+                                {%endfor%}
+                            {%endfor%}
+                        </select>
                     </div>
                     <!-- remove -->
                     <div class="input-group mb-3">
@@ -405,7 +359,14 @@
                         <div class="input-group-prepend">
                             <label class="input-group-text"  >Item</label>
                         </div>
-                        <input readonly id="is4" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+                        <select class="custom-select" id="is4" onchange="select_nat(this.value, 4)">
+                            <option value="" disabled selected>Select Item</option>
+                            {% for row in item_info%}
+                                {% for l,k in row.items%}
+                                    <option value={{k}}>{{k}}</option> 
+                                {%endfor%}
+                            {%endfor%}
+                        </select>                    
                     </div>
                     <!-- remove -->
                     <div class="input-group mb-3">
@@ -461,7 +422,14 @@
                         <div class="input-group-prepend">
                             <label class="input-group-text">Item</label>
                         </div>
-                        <input readonly id="is5" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+                        <select class="custom-select" id="is5" onchange="select_nat(this.value, 5)">
+                            <option value="" disabled selected>Select Item</option>
+                            {% for row in item_info%}
+                                {% for l,k in row.items%}
+                                    <option value={{k}}>{{k}}</option> 
+                                {%endfor%}
+                            {%endfor%}
+                        </select>
                     </div>
                     <!-- remove -->
                     <div class="input-group mb-3">
@@ -517,7 +485,14 @@
                         <div class="input-group-prepend">
                             <label class="input-group-text"  >Item</label>
                         </div>
-                        <input readonly id="is6" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+                        <select class="custom-select" id="is6" onchange="select_nat(this.value, 6)">
+                            <option value="" disabled selected>Select Item</option>
+                            {% for row in item_info%}
+                                {% for l,k in row.items%}
+                                    <option value={{k}}>{{k}}</option> 
+                                {%endfor%}
+                            {%endfor%}
+                        </select>
                     </div>
                     <!-- remove -->
                     <div class="input-group mb-3">
@@ -528,6 +503,14 @@
                 </div>
             </div>
         </div>
+        <!-- rule constraints -->
+        <div>
+            <small style="display: inline;"> RULEs: </small>
+            <br>
+            <small style="display: inline;" id="rule1"> No more than ONE megas in the team</small>
+            <br>
+            <small style="display: inline;" id="rule2"> No two pokemons have two the same national dex number</small>
+        </div>
         <!-- create button -->
         <div class="form-group">
             <center><input type="submit" form="team_form"/></center>
@@ -536,6 +519,65 @@
 {% endblock content %}
 
 {% block extra_js %}
+    <script async>
+        am4core.useTheme(am4themes_animated);
+
+        // Create chart
+        var chart = am4core.create("chartdiv", am4plugins_forceDirected.ForceDirectedTree);
+
+        // Create series
+        var series = chart.series.push(new am4plugins_forceDirected.ForceDirectedSeries());
+        series.data = []
+
+        // Initialize pokemon dictionary
+        poke_dict = {}
+        {%for l, k in pokemon_team_detail.items%}
+            {% for row in k%}
+                var poke_detail = JSON.parse("{{ row|escapejs }}");
+                // console.log(poke_detail);
+                poke_dict[poke_detail.pokemon] = poke_detail;
+            {%endfor%}
+        {%endfor%}
+
+        // Set up data fields
+        series.dataFields.value = "value";
+        series.dataFields.name = "name";
+        series.dataFields.children = "children";
+        series.dataFields.id = "name";
+        series.dataFields.linkWith = "link";
+        series.links.template.strokeWidth = 5;
+        // series.minRadius = 30;
+        // series.maxRadius = 30;
+        series.dataFields.fixed = "fixed";
+        series.nodes.template.propertyFields.x = "x";
+        series.nodes.template.propertyFields.y = "y";
+
+        // Add labels
+        series.nodes.template.label.text = "{name}";
+        series.fontSize = 8;
+        series.minRadius = 15;
+        series.maxRadius = 40;
+        series.centerStrength = 0.5;
+
+        //icons
+        // series.nodes.template.circle.disabled = true;
+        // series.nodes.template.outerCircle.disabled = true;
+        var icon = series.nodes.template.createChild(am4core.Image);
+        icon.propertyFields.href = "image";
+        icon.horizontalCenter = "middle";
+        icon.verticalCenter = "middle";
+        icon.width = 40;
+        icon.height = 40;
+        // chart.zoomable = true;
+        // series.nodes.template.events.on("hit", function(event) {
+        //     if (event.target.isActive) {
+        //     chart.zoomToDataItem(event.target.dataItem, 3, true)
+        //     }
+        //     else {
+        //     chart.zoomOut();
+        //     }
+        // });
+    </script>
     <!-- User Interface in javascript -->
     <script async>
         //active, valid, invalid colors for selected team member
@@ -565,14 +607,14 @@
                 let i, pn, an, nn;
                 for(i = 1; i <= 6; i++)
                 {
-                    pn = team_dict["p".concat(i.toString())]["name"];
-                    an  = team_dict["p".concat(i.toString())]["ability"];
-                    nn  = team_dict["p".concat(i.toString())]["nature"];
+                    pn = team_dict["p"+i]["name"];
+                    an  = team_dict["p"+i]["ability"];
+                    nn  = team_dict["p"+i]["nature"];
                     get_pokeinfo(pokename, i);
                     nature_init(i);
-                    document.getElementById("tm".concat(i.toString())).value = pn;
-                    document.getElementById("as".concat(i.toString())).value = an;
-                    document.getElementById("ns".concat(i.toString())).value = nn;
+                    document.getElementById("tm"+i).value = pn;
+                    document.getElementById("as"+i).value = an;
+                    document.getElementById("ns"+i).value = nn;
                 }
 
             {% else %}
@@ -658,13 +700,13 @@
                     {
                         optionText = data["ability"][i]["a_name"];
                         optionValue = data["ability"][i]["a_name"];
-                        $('#as'.concat(select.toString())).append(`<option value="${optionValue}"> ${optionText} </option>`);
+                        $('#as'+select).append(`<option value="${optionValue}"> ${optionText} </option>`);
                     }
                     for(i = 0; i<k; i++)
                     {
                         optionText = data["move"][i]["m_name"];
                         optionValue = data["move"][i]["m_name"];
-                        $('#ms'.concat(select.toString())).append(`<option value="${optionValue}"> ${optionText} </option>`);
+                        $('#ms'+select).append(`<option value="${optionValue}"> ${optionText} </option>`);
                     }
                 },
                 error: function(xhr){
@@ -678,7 +720,7 @@
         */
         function select_abi(value, id)
         {
-            team_dict["p".concat(id.toString())]["ability"] = value;
+            team_dict["p"+id]["ability"] = value;
             //generate json data for the team
             document.getElementById("id_team_comp").innerHTML = JSON.stringify(team_dict);
         }
@@ -687,7 +729,7 @@
         */
         function select_nat(value, id)
         {
-            team_dict["p".concat(id.toString())]["nature"] = value;
+            team_dict["p"+id]["nature"] = value;
             //generate json data for the team
             document.getElementById("id_team_comp").innerHTML = JSON.stringify(team_dict);
         }
@@ -696,7 +738,13 @@
         */
         function select_mov(value, id)
         {
-            team_dict["p".concat(id.toString())]["move"].push(value);
+            team_dict["p"+id]["move"].push(value);
+            //generate json data for the team
+            document.getElementById("id_team_comp").innerHTML = JSON.stringify(team_dict);
+        }
+        function select_it(value, id)
+        {
+            team_dict["p"+id]["item"] = value;
             //generate json data for the team
             document.getElementById("id_team_comp").innerHTML = JSON.stringify(team_dict);
         }
@@ -706,41 +754,43 @@
         function clear_select(index)
         {
             var idx = index.toString();
-            $('#as'.concat(idx)).find('option').not(':first').remove();
-            $('#as'.concat(idx)).val("");
-            $('#ns'.concat(idx)).val("");
-            $('#is'.concat(idx)).val("");
+            $('#as'+idx).find('option').not(':first').remove();
+            $('#as'+idx).val("");
+            $('#ms'+idx).find('option').not(':first').remove();
+            $('#ms'+idx).val("");
+            $('#ns'+idx).val("");
+            $('#is'+idx).val("");
         }
         /*
             function that initializes natures options
         */
         function nature_init(select_id)
         {
-            $('#ns'.concat(select_id.toString())).append(`<option value="adamant"> Adamant Attack+ Sp.Atk- </option>`);
-            $('#ns'.concat(select_id.toString())).append(`<option value="bashful">  bashful</option>`);
-            $('#ns'.concat(select_id.toString())).append(`<option value="hardy"> hardy </option>`);
-            $('#ns'.concat(select_id.toString())).append(`<option value="lonely">  lonely</option>`);
-            $('#ns'.concat(select_id.toString())).append(`<option value="brave">  brave</option>`);
-            $('#ns'.concat(select_id.toString())).append(`<option value="naughty"> naughty </option>`);
-            $('#ns'.concat(select_id.toString())).append(`<option value="bold"> bold </option>`);
-            $('#ns'.concat(select_id.toString())).append(`<option value="docile">  docile</option>`);
-            $('#ns'.concat(select_id.toString())).append(`<option value="relaxed"> relaxed </option>`);
-            $('#ns'.concat(select_id.toString())).append(`<option value="impish"> impish </option>`);
-            $('#ns'.concat(select_id.toString())).append(`<option value="lax">  lax</option>`);
-            $('#ns'.concat(select_id.toString())).append(`<option value="timid">  timid</option>`);
-            $('#ns'.concat(select_id.toString())).append(`<option value="hasty"> hasty </option>`);
-            $('#ns'.concat(select_id.toString())).append(`<option value="serious">  serious</option>`);
-            $('#ns'.concat(select_id.toString())).append(`<option value="jolly"> jolly </option>`);
-            $('#ns'.concat(select_id.toString())).append(`<option value="naive"> naive </option>`);
-            $('#ns'.concat(select_id.toString())).append(`<option value="modest"> modest </option>`);
-            $('#ns'.concat(select_id.toString())).append(`<option value="mild">  mild</option>`);
-            $('#ns'.concat(select_id.toString())).append(`<option value="quiet">  quiet</option>`);
-            $('#ns'.concat(select_id.toString())).append(`<option value="rash">  rash</option>`);
-            $('#ns'.concat(select_id.toString())).append(`<option value="calm">  calm</option>`);
-            $('#ns'.concat(select_id.toString())).append(`<option value="gentle"> gentle </option>`);
-            $('#ns'.concat(select_id.toString())).append(`<option value="sassysassy</option>`);
-            $('#ns'.concat(select_id.toString())).append(`<option value="careful">  careful</option>`);
-            $('#ns'.concat(select_id.toString())).append(`<option value="quirky">  quirky</option>`);
+            $('#ns'+select_id).append(`<option value="adamant"> Adamant Attack+ Sp.Atk- </option>`);
+            $('#ns'+select_id).append(`<option value="bashful">  bashful</option>`);
+            $('#ns'+select_id).append(`<option value="hardy"> hardy </option>`);
+            $('#ns'+select_id).append(`<option value="lonely">  lonely</option>`);
+            $('#ns'+select_id).append(`<option value="brave">  brave</option>`);
+            $('#ns'+select_id).append(`<option value="naughty"> naughty </option>`);
+            $('#ns'+select_id).append(`<option value="bold"> bold </option>`);
+            $('#ns'+select_id).append(`<option value="docile">  docile</option>`);
+            $('#ns'+select_id).append(`<option value="relaxed"> relaxed </option>`);
+            $('#ns'+select_id).append(`<option value="impish"> impish </option>`);
+            $('#ns'+select_id).append(`<option value="lax">  lax</option>`);
+            $('#ns'+select_id).append(`<option value="timid">  timid</option>`);
+            $('#ns'+select_id).append(`<option value="hasty"> hasty </option>`);
+            $('#ns'+select_id).append(`<option value="serious">  serious</option>`);
+            $('#ns'+select_id).append(`<option value="jolly"> jolly </option>`);
+            $('#ns'+select_id).append(`<option value="naive"> naive </option>`);
+            $('#ns'+select_id).append(`<option value="modest"> modest </option>`);
+            $('#ns'+select_id).append(`<option value="mild">  mild</option>`);
+            $('#ns'+select_id).append(`<option value="quiet">  quiet</option>`);
+            $('#ns'+select_id).append(`<option value="rash">  rash</option>`);
+            $('#ns'+select_id).append(`<option value="calm">  calm</option>`);
+            $('#ns'+select_id).append(`<option value="gentle"> gentle </option>`);
+            $('#ns'+select_id).append(`<option value="sassysassy</option>`);
+            $('#ns'+select_id).append(`<option value="careful">  careful</option>`);
+            $('#ns'+select_id).append(`<option value="quirky">  quirky</option>`);
         }
     </script>
 
@@ -786,7 +836,7 @@
             var items = [];
             for(let t in poke_dict[input].teammates)
             {
-                teammates.push({"image" : "../../static/pokewiki/pokemon-icon/".concat(t.toLowerCase()).concat(".png"), "value": parseInt(poke_dict[input].teammates[t].slice(1,2))});
+                teammates.push({"image" : "../../static/pokewiki/pokemon-icon/"+t.toLowerCase()+".png", "value": parseInt(poke_dict[input].teammates[t].slice(1,2))});
             }
             for(let m in poke_dict[input].moves)
             {
@@ -805,7 +855,7 @@
                 items.push({"name": i, "value":parseInt(poke_dict[input].items[i].slice(1,2))});
             }
             data.push({
-                "image": "../../static/pokewiki/pokemon-icon/".concat(poke_dict[input].pokemon).concat(".png"),
+                "image": "../../static/pokewiki/pokemon-icon/"+poke_dict[input].pokemon+".png",
                 fixed: true,
                 x: am4core.percent(50),
                 y: am4core.percent(50),
@@ -866,7 +916,7 @@
             if(team_dict[key].id === 0 && poke_dict[document.getElementById("mySearch").value.toLowerCase()] != undefined){
                 pokemon_obj = poke_dict[document.getElementById("mySearch").value.toLowerCase()];
                 //append name to the list
-                document.getElementById("tm".concat(i.toString())).value = pokemon_obj.pokemon;
+                document.getElementById("tm"+i).value = pokemon_obj.pokemon;
                 //append the pokemon to dict
                 team_dict[key]["name"] = pokemon_obj.pokemon;
                 team_dict[key]["id"] = pokemon_obj.dex_id;
@@ -887,7 +937,7 @@
 
     function remove_pokemon(index){
         team_dict[index] = {"id" : 0, "name" : "", "nature" : "", "ability" : "", "move": [], "IV" : "", "EV" : "", "item" : ""};
-        document.getElementById("tm".concat(index[1])).value = "";
+        document.getElementById("tm"+index[1]).value = "";
         clear_select(index[1]);
         valid_check();
         document.getElementById("id_team_comp").innerHTML = JSON.stringify(team_dict);
@@ -1048,13 +1098,11 @@
             key = "p" + i;
             if(team_dict[key].id === 0 && poke_dict[pokename] != undefined)
             {
-                // console.log(pokename);
                 //append name to the list
-                document.getElementById("tm".concat(i.toString())).value = pokename;
+                document.getElementById("tm"+i).value = pokename;
                 //append the pokemon to dict
                 team_dict[key]["name"] = pokename;
                 team_dict[key]["id"] = poke_dict[pokename].dex_id;
-                // console.log(team_dict);
                 //get pokemon detail
                 get_pokeinfo(pokename, i);
                 //check if the team is valid
@@ -1086,11 +1134,12 @@
             {
                 var img = document.createElement("img");
                 document.getElementById("sp" + i).innerText = recommend_list[i-1][0];
-                img.src =  "../../static/pokewiki/pokemon-icon/".concat(recommend_list[i-1][0]).concat(".png");
+                img.src =  "../../static/pokewiki/pokemon-icon/"+recommend_list[i-1][0]+".png";
                 document.getElementById("img" + i).innerHTML = "";
                 document.getElementById("img" + i).appendChild(img);
             }
         } 
     }
     </script>
+
 {% endblock extra_js %}

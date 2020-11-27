@@ -1,1145 +1,858 @@
+
+
+
 {% extends "pokewiki/base.html" %}
 {% load static %}
 {% load crispy_forms_tags %}
 {% block title%}
-    <script src="//cdn.amcharts.com/lib/4/core.js"></script>
-    <script src="//cdn.amcharts.com/lib/4/charts.js"></script>
-    <script src="//cdn.amcharts.com/lib/4/themes/animated.js"></script>
-    <script src="//cdn.amcharts.com/lib/4/plugins/forceDirected.js"></script>
+   Team Builder
+   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
+   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
+ 
 {% endblock %}
 {% block content %}
-    <div class="content-section">
-        <form method="POST" id="team_form">
-            {% csrf_token %}
-            <fieldset class="form-group">
-                <legend class="border-bottom mb-4">Team</legend>
-                    <div class="form-row">
-                        <div class="form-group col-md-6 mb-0">
-                            {{ form.team_name|as_crispy_field }}
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group col-md-11 mb-0">
-                            {{ form.description|as_crispy_field }}
-                        </div>
-                    </div>
-                    <div class="form-row" style="display:none">
-                        <div class="form-group col-md-11 mb-0" >
-                            {{ form.team_comp|as_crispy_field }}
-                        </div>
-                    </div>
-                </fieldset>
-        </form>
-
-
-        <!-- pokemon selecting field -->
-        <!-- search bar -->
-        <div class="input-group mb-3" >
-            <div class="autocomplete" style="width:104.5vh">
-                <input id="mySearch" type="text" name="myPokemon" placeholder="Search for Pokémon..." class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" onkeyup="team_filter()">
-            </div>
-            <div class="input-group-append">
-                <button class="btn btn-outline-secondary" type="button" onclick="add_search_pokemon()">Add</button>
-            </div>
-        </div>
-
-        <!-- add pokemon graph-->
-        <div id="chartdiv">
-        </div>
-
-    <!-- dropdown bar for suggestions -->
-    <div class = "suggest" id = "poke0">
-        <div style = "font-size: 18px; text-transform:capitalize; margin-bottom:10px;">
-            Recommended Pokémon
-        </div>
-
-    <!-- LIST -->
-        <ul class = "sugList" style = "margin-bottom:0px; padding-left:0!important;">
-            <!-- ENTRY 1 -->
-            <div class = "pokemon_entry" style="display:inline-block; margin-bottom:20px;" id = "rec1">
-                <div id = "img1" class = "pokeimg" style="display:inline-block; width:50px; text-align:center">
-                </div>
-                <div class = "pokename" id = "sp1" style = "font-size:14px; padding-left:10px; display:inline-block;">
-                </div>
-                <div class = "pokename" style = "font-size:14px; padding-left:10px; display:inline-block;">
-                    <span class = "btn btn-outline-secondary" type="button" onclick="add_recommend_pokemon(1)">Add</span>
-                </div>
-            </div>
-
-            <!-- ENTRY 2 -->
-            <div  class = "pokemon_entry" style="display:inline-block; margin-bottom:20px;" id = "rec2">
-                <div id = "img2" class = "pokeimg" style="display:inline-block; width:50px; text-align:center">
-                </div>
-                <div class = "pokename" id = "sp2" style = "font-size:14px; padding-left:10px; display:inline-block;">
-                </div>
-                <div class = "pokename" style = "font-size:14px; padding-left:10px; display:inline-block;">
-                    <span class = "btn btn-outline-secondary" type="button" onclick="add_recommend_pokemon(2)">Add</span>
-                </div>
-            </div>
-
-            <!-- ENTRY 3 -->
-            <div  class = "pokemon_entry" style="display:inline-block; margin-bottom:20px;" id = "rec3">
-                <div id = "img3" class = "pokeimg" style="display:inline-block; width:50px; text-align:center">
-                </div>
-                <div class = "pokename" id = "sp3" style = "font-size:14px; padding-left:10px; display:inline-block;">
-                </div>
-                <div class = "pokename" style = "font-size:14px; padding-left:10px; display:inline-block;">
-                    <span class = "btn btn-outline-secondary" type="button" onclick="add_recommend_pokemon(3)">Add</span>
-                </div>
-            </div>
-
-            <!-- ENTRY 4 -->
-            <div class = "pokemon_entry" style="display:inline-block; margin-bottom:20px;" id = "rec4">
-                <div id = "img4" class = "pokeimg" style="display:inline-block; width:50px; text-align:center">
-                </div>
-                <div class = "pokename" id = "sp4" style = "font-size:14px; padding-left:10px; display:inline-block;">
-                </div>
-                <div class = "pokename" style = "font-size:14px; padding-left:10px; display:inline-block;">
-                    <span class = "btn btn-outline-secondary" type="button" onclick="add_recommend_pokemon(4)">Add</span>
-                </div>
-            </div>
-
-            <!-- ENTRY 5 -->
-            <div class = "pokemon_entry" style="display:inline-block; margin-bottom:20px;" id = "rec5">
-                <div id = "img5" class = "pokeimg" style="display:inline-block; width:50px; text-align:center">
-                </div>
-                <div id = "sp5" class = "pokename" style = "font-size:14px; padding-left:10px; display:inline-block;">
-                </div>
-                <div class = "pokename" style = "font-size:14px; padding-left:10px; display:inline-block;">
-                    <span class = "btn btn-outline-secondary" type="button" onclick="add_recommend_pokemon(5)">Add</span>
-                </div>
-            </div>
-
-            <!-- ENTRY 6 -->
-            <div class = "pokemon_entry" style="display:inline-block; margin-bottom:20px;" id = "rec6">
-                <div id = "img6" class = "pokeimg" style="display:inline-block; width:50px; text-align:center">
-                </div>
-                <div id = "sp6" class = "pokename" style = "font-size:14px; padding-left:10px; display:inline-block;">
-                </div>
-                <div class = "pokename" style = "font-size:14px; padding-left:10px; display:inline-block;">
-                    <span class = "btn btn-outline-secondary" type="button" onclick="add_recommend_pokemon(6)">Add</span>
-                </div>
-            </div>
-        </ul>
-        <hr style="height:2px;border-width:0;color:black;background-color:gray"></hr>
-
-
-        <!-- team member 1 -->
-        <div class="square" id="1">
-            <div class="team_picker">
-                <div class="input-group input-group-sm mb-3">
-                    <!-- pokemon name -->
-                    <form method="POST">
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text" id="inputGroup-sizing-default">Pokemon</span>
-                            </div>
-                            <input readonly id="tm1" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
-                        </div>
-                    </form>
-                    <!-- pokemon ability -->
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <label class="input-group-text"  >Ability</label>
-                        </div>
-                        <select class="custom-select" id="as1" onchange="select_abi(this.value, 1)">
-                            <option value="" disabled selected>Select Ability</option>
-                        </select>
-                    </div>
-                    <!-- pokemon nature -->
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <label class="input-group-text"  >Nature</label>
-                        </div>
-                        <select class="custom-select" id="ns1" onchange="select_nat(this.value, 1)">
-                            <option value="" disabled selected>Select Nature</option>
-                        </select>
-                    </div>
-                    <!-- pokemon moves -->
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <label class="input-group-text"  >Move</label>
-                        </div>
-                        <select class="custom-select" id="ms1" onchange="select_mov(this.value, 1)">
-                            <option value="" disabled selected>Select Move</option>
-                        </select>
-                    </div>
-                    <!-- pokemon item -->
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <label class="input-group-text"  >Item</label>
-                        </div>
-                        <select class="custom-select" id="is1" onchange="select_it(this.value, 1)">
-                            <option value="" disabled selected>Select Item</option>
-                            {% for row in item_info%}
-                                {% for l,k in row.items%}
-                                    <option value={{k}}>{{k}}</option>
-                                {%endfor%}
-                            {%endfor%}
-                        </select>
-                    </div>
-                    <!-- remove -->
-                    <div class="input-group mb-3">
-                        <div class="input-group-append">
-                            <button class="btn btn-outline-secondary" type="button" onclick="remove_pokemon('p1')">Remove</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- team member 2 -->
-        <div class="square" id="2">
-            <div class="team_picker">
-                <div class="input-group input-group-sm mb-3">
-                    <!-- pokemon name -->
-                    <form method="POST">
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text" id="inputGroup-sizing-default">Pokemon</span>
-                            </div>
-                            <input readonly id="tm2" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
-                        </div>
-                    </form>
-                    <!-- pokemon ability -->
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <label class="input-group-text"  >Ability</label>
-                        </div>
-                        <select class="custom-select" id="as2" onchange="select_abi(this.value, 2)">
-                            <option value="" disabled selected>Select Ability</option>
-                        </select>
-                    </div>
-                    <!-- pokemon nature -->
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <label class="input-group-text"  >Nature</label>
-                        </div>
-                        <select class="custom-select" id="ns2" onchange="select_nat(this.value, 2)">
-                            <option value="" disabled selected>Select Nature</option>
-                        </select>
-                    </div>
-                    <!-- pokemon moves -->
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <label class="input-group-text"  >Move</label>
-                        </div>
-                        <select class="custom-select" id="ms2" onchange="select_mov(this.value, 2)">
-                            <option value="" disabled selected>Select Move</option>
-                        </select>
-                    </div>
-                    <!-- pokemon item -->
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <label class="input-group-text"  >Item</label>
-                        </div>
-                        <select class="custom-select" id="is2" onchange="select_it(this.value, 2)">
-                            <option value="" disabled selected>Select Item</option>
-                            {% for row in item_info%}
-                                {% for l,k in row.items%}
-                                    <option value={{k}}>{{k}}</option>
-                                {%endfor%}
-                            {%endfor%}
-                        </select>
-                    </div>
-                    <!-- remove -->
-                    <div class="input-group mb-3">
-                        <div class="input-group-append">
-                            <button class="btn btn-outline-secondary" type="button" onclick="remove_pokemon('p2')">Remove</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- team member 3 -->
-        <div class="square" id="3">
-            <div class="team_picker">
-
-                <div class="input-group input-group-sm mb-3">
-                    <!-- pokemon name -->
-                    <form method="POST">
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text" id="inputGroup-sizing-default">Pokemon</span>
-                            </div>
-                            <input readonly id="tm3" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
-                        </div>
-                    </form>
-                    <!-- pokemon ability -->
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <label class="input-group-text"  >Ability</label>
-                        </div>
-                        <select class="custom-select" id="as3" onchange="select_abi(this.value, 3)">
-                            <option value="" disabled selected>Select Ability</option>
-                        </select>
-                    </div>
-                    <!-- pokemon nature -->
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <label class="input-group-text"  >Nature</label>
-                        </div>
-                        <select class="custom-select" id="ns3" onchange="select_nat(this.value, 3)">
-                            <option value="" disabled selected>Select Nature</option>
-                        </select>
-                    </div>
-                    <!-- pokemon moves -->
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <label class="input-group-text"  >Move</label>
-                        </div>
-                        <select class="custom-select" id="ms3" onchange="select_mov(this.value, 3)">
-                            <option value="" disabled selected>Select Move</option>
-                        </select>
-                    </div>
-                    <!-- pokemon item -->
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <label class="input-group-text"  >Item</label>
-                        </div>
-                        <select class="custom-select" id="is3" onchange="select_it(this.value, 3)">
-                            <option value="" disabled selected>Select Item</option>
-                            {% for row in item_info%}
-                                {% for l,k in row.items%}
-                                    <option value={{k}}>{{k}}</option>
-                                {%endfor%}
-                            {%endfor%}
-                        </select>
-                    </div>
-                    <!-- remove -->
-                    <div class="input-group mb-3">
-                        <div class="input-group-append">
-                            <button class="btn btn-outline-secondary" type="button" onclick="remove_pokemon('p3')">Remove</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- team member 4 -->
-        <div class="square" id="4">
-            <div class="team_picker">
-                <div class="input-group input-group-sm mb-3">
-                    <!-- pokemon name -->
-                    <form method="POST">
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text" id="inputGroup-sizing-default">Pokemon</span>
-                            </div>
-                            <input readonly id="tm4" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
-                        </div>
-                    </form>
-                    <!-- pokemon ability -->
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <label class="input-group-text" >Ability</label>
-                        </div>
-                        <select class="custom-select" id="as4" onchange="select_abi(this.value, 4)">
-                            <option value="" disabled selected>Select Ability</option>
-                        </select>
-                    </div>
-                    <!-- pokemon nature -->
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <label class="input-group-text"  >Nature</label>
-                        </div>
-                        <select class="custom-select" id="ns4" onchange="select_nat(this.value, 4)">
-                            <option value="" disabled selected>Select Nature</option>
-                        </select>
-                    </div>
-                    <!-- pokemon moves -->
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <label class="input-group-text"  >Move</label>
-                        </div>
-                        <select class="custom-select" id="ms4" onchange="select_mov(this.value, 4)">
-                            <option value="" disabled selected>Select Move</option>
-                        </select>
-                    </div>
-                    <!-- pokemon item -->
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <label class="input-group-text"  >Item</label>
-                        </div>
-                        <select class="custom-select" id="is4" onchange="select_nat(this.value, 4)">
-                            <option value="" disabled selected>Select Item</option>
-                            {% for row in item_info%}
-                                {% for l,k in row.items%}
-                                    <option value={{k}}>{{k}}</option>
-                                {%endfor%}
-                            {%endfor%}
-                        </select>
-                    </div>
-                    <!-- remove -->
-                    <div class="input-group mb-3">
-                        <div class="input-group-append">
-                            <button class="btn btn-outline-secondary" type="button" onclick="remove_pokemon('p4')">Remove</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- team member 5 -->
-        <div class="square" id="5">
-            <div class="team_picker">
-                <div class="input-group input-group-sm mb-3">
-                    <!-- pokemon name -->
-                    <form method="POST">
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text" id="inputGroup-sizing-default">Pokemon</span>
-                            </div>
-                            <input readonly id="tm5" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
-                        </div>
-                    </form>
-                    <!-- pokemon ability -->
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <label class="input-group-text"  >Ability</label>
-                        </div>
-                        <select class="custom-select" id="as5" onchange="select_abi(this.value, 5)">
-                            <option value="" disabled selected>Select Ability</option>
-                        </select>
-                    </div>
-                    <!-- pokemon nature -->
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <label class="input-group-text"  >Nature</label>
-                        </div>
-                        <select class="custom-select" id="ns5" onchange="select_nat(this.value, 5)">
-                            <option value="" disabled selected>Select Nature</option>
-                        </select>
-                    </div>
-                    <!-- pokemon moves -->
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <label class="input-group-text"  >Move</label>
-                        </div>
-                        <select class="custom-select" id="ms5" onchange="select_mov(this.value, 5)">
-                            <option value="" disabled selected>Select Move</option>
-                        </select>
-                    </div>
-                    <!-- pokemon item -->
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <label class="input-group-text">Item</label>
-                        </div>
-                        <select class="custom-select" id="is5" onchange="select_nat(this.value, 5)">
-                            <option value="" disabled selected>Select Item</option>
-                            {% for row in item_info%}
-                                {% for l,k in row.items%}
-                                    <option value={{k}}>{{k}}</option>
-                                {%endfor%}
-                            {%endfor%}
-                        </select>
-                    </div>
-                    <!-- remove -->
-                    <div class="input-group mb-3">
-                        <div class="input-group-append">
-                            <button class="btn btn-outline-secondary" type="button" onclick="remove_pokemon('p5')">Remove</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- team member 6 -->
-        <div class="square" id="6">
-            <div class="team_picker">
-                <div class="input-group input-group-sm mb-3">
-                    <!-- pokemon name -->
-                    <form method="POST">
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text" id="inputGroup-sizing-default">Pokemon</span>
-                            </div>
-                            <input readonly id="tm6" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
-                        </div>
-                    </form>
-                    <!-- pokemon ability -->
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <label class="input-group-text"  >Ability</label>
-                        </div>
-                        <select class="custom-select" id="as6" onchange="select_abi(this.value, 6)">
-                            <option value="" disabled selected>Select Ability</option>
-                        </select>
-                    </div>
-                    <!-- pokemon nature -->
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <label class="input-group-text"  >Nature</label>
-                        </div>
-                        <select class="custom-select" id="ns6" onchange="select_nat(this.value, 6)">
-                            <option value="" disabled selected>Select Nature</option>
-                        </select>
-                    </div>
-                    <!-- pokemon moves -->
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <label class="input-group-text"  >Move</label>
-                        </div>
-                        <select class="custom-select" id="ms6" onchange="select_mov(this.value, 6)">
-                            <option value="" disabled selected>Select Move</option>
-                        </select>
-                    </div>
-                    <!-- pokemon item -->
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <label class="input-group-text"  >Item</label>
-                        </div>
-                        <select class="custom-select" id="is6" onchange="select_nat(this.value, 6)">
-                            <option value="" disabled selected>Select Item</option>
-                            {% for row in item_info%}
-                                {% for l,k in row.items%}
-                                    <option value={{k}}>{{k}}</option>
-                                {%endfor%}
-                            {%endfor%}
-                        </select>
-                    </div>
-                    <!-- remove -->
-                    <div class="input-group mb-3">
-                        <div class="input-group-append">
-                            <button class="btn btn-outline-secondary" type="button" onclick="remove_pokemon('p6')">Remove</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- rule constraints -->
-        <div>
-            <small style="display: inline;"> RULEs: </small>
-            <br>
-            <small style="display: inline;" id="rule1"> No more than ONE megas in the team</small>
-            <br>
-            <small style="display: inline;" id="rule2"> No two pokemons have two the same national dex number</small>
-        </div>
-        <!-- create button -->
-        <div class="form-group">
-            <center><input type="submit" form="team_form"/></center>
-        </div>
-    </div>
+   <div class="content-section">
+       <form method="POST" id="team_form">
+           {% csrf_token %}
+           <fieldset class="form-group">
+               <legend class="border-bottom mb-4">Team</legend>
+                   <div class="form-row">
+                       <div class="form-group col-md-6 mb-0">
+                           {{ form.team_name|as_crispy_field }}
+                       </div>
+                   </div>
+                   <div class="form-row">
+                       <div class="form-group col-md-11 mb-0">
+                           {{ form.description|as_crispy_field }}
+                       </div>
+                   </div>
+                   <div class="form-row" style="display:none">
+                       <div class="form-group col-md-11 mb-0" >
+                           {{ form.team_comp|as_crispy_field }}
+                       </div>
+                   </div>
+               </fieldset>
+       </form>
+ 
+ 
+       <!-- pokemon selecting field -->
+       <!-- search bar -->
+       <div class="input-group mb-3" >
+           <div class="autocomplete" style="width:104.5vh">
+               <input id="mySearch" type="text" name="myPokemon" placeholder="Search for Pokémon..." class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" onkeyup="team_filter()">
+           </div>
+           <div class="input-group-append">
+               <button class="btn btn-outline-secondary" type="button" onclick="add_search_pokemon()">Add</button>
+           </div>
+       </div>
+ 
+       <!-- add pokemon graph-->
+       <div id="chartdiv">
+       </div>
+ 
+       <!-- dropdown bar for suggestions -->
+       <div class = "suggest" id = "poke0">
+           <div style = "font-size: 18px; text-transform:capitalize; margin-bottom:10px;">
+               Recommended Pokémon
+           </div>
+       <!-- LIST -->
+           <ul class = "sugList" style = "margin-bottom:0px; padding-left:0!important;">
+               {% for i in '123456'|make_list %}
+                   <div class = "pokemon_entry" style="display:inline-block; margin-bottom:20px;" id = "rec1">
+                       <div id = "img{{ forloop.counter }}" class = "pokeimg" style="display:inline-block; width:50px; text-align:center">
+                       </div>
+                       <div class = "pokename" id = "sp{{ forloop.counter }}" style = "font-size:14px; padding-left:10px; display:inline-block;">
+                       </div>
+                       <div class = "pokename" style = "font-size:14px; padding-left:10px; display:inline-block;">
+                           <span class = "btn btn-outline-secondary" type="button" onclick="add_recommend_pokemon({{ forloop.counter }})">Add</span>
+                       </div>
+                   </div>
+               {% endfor %}
+           </ul>
+       </div>
+       <!-- recommended pokemons -->
+      
+       <hr style="height:2px;border-width:0;color:black;background-color:gray"></hr>
+       <!-- teammember form picker -->
+       <div class="team" style="overflow:hidden;">
+           {% for i in '123456'|make_list %}
+           <div class="square" id="{{ forloop.counter }}">
+               <div class="team_picker">
+                   <div class="input-group input-group-sm mb-3">
+                       <!-- pokemon name & icon-->
+                       <div class="input-group mb-3">
+                           <form method="POST">
+                               <img id = "tmi{{ forloop.counter }}" src = "" style="margin-left: 80%;">
+                               <div class="input-group mb-3">
+                                   <input readonly id="tm{{ forloop.counter }}" type="text" class="form-control" placeholder="Pokemon" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+                               </div>
+                           </form>
+                       </div>
+                       <!-- pokemon moves -->
+                       <div class="input-group mb-3">
+                           <select class="selectpicker" multiple data-live-search="true" id="ms{{ forloop.counter }}" title="Choose Four Moves..." data-width="256px" data-max-options="4" data-container='#{{ forloop.counter }}' virtualScroll="50">
+                           </select>
+                       </div>
+                       <!-- pokemon ability & Nature -->
+                       <div class="input-group mb-3">
+                           <select class="custom-select" id="as{{ forloop.counter }}" onchange="select_abi(this.value, {{forloop.counter}})">
+                               <option value="" disabled selected>Ability</option>
+                           </select>
+                           <select class="custom-select" id="ns{{ forloop.counter }}" onchange="select_nat(this.value, {{ forloop.counter}})">
+                               <option value="" disabled selected>Nature</option>
+                           </select>
+                       </div>
+                       <!-- pokemon item -->
+                       <div class="input-group mb-3">
+                           <select class="custom-select" id="is{{ forloop.counter }}" onchange="select_it(this.value, {{ forloop.counter}})">
+                               <option value="" disabled selected>Item</option>
+                               {% for row in item_info%}
+                                   {% for l,k in row.items%}
+                                       <option value={{k}}>{{k}}</option>
+                                   {%endfor%}
+                               {%endfor%}
+                           </select>
+                       </div>
+                       <!-- ev -->
+                       <!-- <div class="input-group mb-3">
+                                <input id="ev{{ forloop.counter }}" type="text" class="form-control" placeholder="EV" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+                       </div> -->
+                       <!-- iv -->
+                       <!-- <div class="input-group mb-3">
+                            <input  id="iv{{ forloop.counter }}" type="text" class="form-control" placeholder="IV" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+                      </div> -->
+                       <!-- remove -->
+                       <div class="input-group mb-3">
+                           <div class="input-group-append">
+                               <button class="btn btn-outline-secondary" type="button" onclick="remove_pokemon('p{{ forloop.counter }}')">Remove</button>
+                           </div>
+                       </div>
+                   </div>
+               </div>
+           </div>
+       {% endfor %}
+       </div>
+       <!-- rule constraints -->
+       <div>
+           <small style="display: inline;"> RULEs: </small>
+           <br>
+           <small style="display: inline;" id="rule1"> No more than ONE megas in the team</small>
+           <br>
+           <small style="display: inline;" id="rule2"> No two pokemons have two the same national dex number</small>
+       </div>
+       <!-- create button -->
+       <div class="form-group">
+           <center><input type="submit" form="team_form"/></center>
+       </div>
+   </div>
 {% endblock content %}
-
+ 
 {% block extra_js %}
-    <script async>
-        am4core.useTheme(am4themes_animated);
+   <!-- graph representation  -->
+   <script src="//cdn.amcharts.com/lib/4/core.js"></script>
+   <script src="//cdn.amcharts.com/lib/4/charts.js"></script>
+   <script src="//cdn.amcharts.com/lib/4/themes/animated.js"></script>
+   <script src="//cdn.amcharts.com/lib/4/plugins/forceDirected.js"></script>
+   <script>
+       am4core.useTheme(am4themes_animated);
+ 
+       // Create chart
+       var chart = am4core.create("chartdiv", am4plugins_forceDirected.ForceDirectedTree);
+ 
+       // Create series
+       var series = chart.series.push(new am4plugins_forceDirected.ForceDirectedSeries());
+       series.data = []
+ 
+       // Initialize pokemon dictionary
+       poke_dict = {}
+       {%for l, k in pokemon_team_detail.items%}
+           {% for row in k%}
+               var poke_detail = JSON.parse("{{ row|escapejs }}");
+               poke_dict[poke_detail.pokemon] = poke_detail;
+           {%endfor%}
+       {%endfor%}
+ 
+       // Set up data fields
+       series.dataFields.value = "value";
+       series.dataFields.name = "name";
+       series.dataFields.children = "children";
+       series.dataFields.id = "name";
+       series.dataFields.linkWith = "link";
+       series.links.template.strokeWidth = 5;
+       // series.minRadius = 30;
+       // series.maxRadius = 30;
+       series.dataFields.fixed = "fixed";
+       series.nodes.template.propertyFields.x = "x";
+       series.nodes.template.propertyFields.y = "y";
+ 
+       // Add labels
+       series.nodes.template.label.text = "{name}";
+       series.fontSize = 8;
+       series.minRadius = 15;
+       series.maxRadius = 40;
+       series.centerStrength = 0.5;
+ 
+       //icons
+       // series.nodes.template.circle.disabled = true;
+       // series.nodes.template.outerCircle.disabled = true;
+       var icon = series.nodes.template.createChild(am4core.Image);
+       icon.propertyFields.href = "image";
+       icon.horizontalCenter = "middle";
+       icon.verticalCenter = "middle";
+       icon.width = 40;
+       icon.height = 40;
+       // chart.zoomable = true;
+       // series.nodes.template.events.on("hit", function(event) {
+       //     if (event.target.isActive) {
+       //     chart.zoomToDataItem(event.target.dataItem, 3, true)
+       //     }
+       //     else {
+       //     chart.zoomOut();
+       //     }
+       // });
+   </script>
+   <!-- User Interface in javascript -->
+   <script>
+       //active, valid, invalid colors for selected team member
+       const inactive = "#e6eff3";
+       const active   = "#9bd6f0";
+       const valid    = "green";
+       const invalid  = "red";
+       //team json information
+       var team_dict =
+       {
+               "p1": {"id" : 0, "name" : "", "nature" : "", "ability" : "", "move" : [],  "item" : ""},
+               "p2": {"id" : 0, "name" : "", "nature" : "", "ability" : "", "move" : [],  "item" : ""},
+               "p3": {"id" : 0, "name" : "", "nature" : "", "ability" : "", "move" : [],  "item" : ""},
+               "p4": {"id" : 0, "name" : "", "nature" : "", "ability" : "", "move" : [],  "item" : ""},
+               "p5": {"id" : 0, "name" : "", "nature" : "", "ability" : "", "move" : [],  "item" : ""},
+               "p6": {"id" : 0, "name" : "", "nature" : "", "ability" : "", "move" : [],  "item" : ""},
+       };
+       /*
+           load the contents if updating
+       */
+       window.onload = function()
+       {
+           //(using django to check if it's an updateview or a createview)
+           {% if object %}
+               //load from to-be-modified team
+               team_dict = JSON.parse(document.getElementById("id_team_comp").value);
+               var i;
+               for(i = 1; i <= 6; i++)
+               {
+                   get_pokeinfo(team_dict["p"+i]["name"], i);
+                   nature_init(i);
+                   document.getElementById("tm"+i).value = team_dict["p"+i]["name"];
+                   document.getElementById("as"+i).value = team_dict["p"+i]["ability"];
+                   document.getElementById("ns"+i).value = team_dict["p"+i]["nature"];
+                   document.getElementById("is"+i).value = team_dict["p"+i]["item"];
+               }
 
-        // Create chart
-        var chart = am4core.create("chartdiv", am4plugins_forceDirected.ForceDirectedTree);
+ 
+           {% else %}
+               for(i = 1; i <= 6; i++)
+                   nature_init(i);
+           {% endif %}
+           //check if the team is valid
+           valid_check();
+           //load recommended pokemon
+           recommend();
+       };
 
-        // Create series
-        var series = chart.series.push(new am4plugins_forceDirected.ForceDirectedSeries());
-        series.data = []
 
-        // Initialize pokemon dictionary
-        poke_dict = {}
-        {%for l, k in pokemon_team_detail.items%}
-            {% for row in k%}
-                var poke_detail = JSON.parse("{{ row|escapejs }}");
-                // console.log(poke_detail);
-                poke_dict[poke_detail.pokemon] = poke_detail;
-            {%endfor%}
-        {%endfor%}
-
-        // Set up data fields
-        series.dataFields.value = "value";
-        series.dataFields.name = "name";
-        series.dataFields.children = "children";
-        series.dataFields.id = "name";
-        series.dataFields.linkWith = "link";
-        series.links.template.strokeWidth = 5;
-        // series.minRadius = 30;
-        // series.maxRadius = 30;
-        series.dataFields.fixed = "fixed";
-        series.nodes.template.propertyFields.x = "x";
-        series.nodes.template.propertyFields.y = "y";
-
-        // Add labels
-        series.nodes.template.label.text = "{name}";
-        series.fontSize = 8;
-        series.minRadius = 15;
-        series.maxRadius = 40;
-        series.centerStrength = 0.5;
-
-        //icons
-        // series.nodes.template.circle.disabled = true;
-        // series.nodes.template.outerCircle.disabled = true;
-        var icon = series.nodes.template.createChild(am4core.Image);
-        icon.propertyFields.href = "image";
-        icon.horizontalCenter = "middle";
-        icon.verticalCenter = "middle";
-        icon.width = 40;
-        icon.height = 40;
-        // chart.zoomable = true;
-        // series.nodes.template.events.on("hit", function(event) {
-        //     if (event.target.isActive) {
-        //     chart.zoomToDataItem(event.target.dataItem, 3, true)
-        //     }
-        //     else {
-        //     chart.zoomOut();
-        //     }
-        // });
-    </script>
-    <!-- User Interface in javascript -->
-    <script async>
-        //active, valid, invalid colors for selected team member
-        const inactive = "#e6eff3";
-        const active   = "#9bd6f0";
-        const valid    = "green";
-        const invalid  = "red";
-        //team json information
-        var team_dict =
-        {
-                "p1": {"id" : 0, "name" : "", "nature" : "", "ability" : "", "move" : [], "IV" : "", "EV" : "", "item" : ""},
-                "p2": {"id" : 0, "name" : "", "nature" : "", "ability" : "", "move" : [], "IV" : "", "EV" : "", "item" : ""},
-                "p3": {"id" : 0, "name" : "", "nature" : "", "ability" : "", "move" : [], "IV" : "", "EV" : "", "item" : ""},
-                "p4": {"id" : 0, "name" : "", "nature" : "", "ability" : "", "move" : [], "IV" : "", "EV" : "", "item" : ""},
-                "p5": {"id" : 0, "name" : "", "nature" : "", "ability" : "", "move" : [], "IV" : "", "EV" : "", "item" : ""},
-                "p6": {"id" : 0, "name" : "", "nature" : "", "ability" : "", "move" : [], "IV" : "", "EV" : "", "item" : ""},
-        };
-        /*
-            load the contents if updating
-        */
-        window.onload = function()
-        {
-            //(using django to check if it's an updateview or a createview)
-            {% if object %}
-                //load from to-be-modified team
-                team_dict = JSON.parse(document.getElementById("id_team_comp").value);
-                let i, pn, an, nn;
-                for(i = 1; i <= 6; i++)
-                {
-                    pn = team_dict["p"+i]["name"];
-                    an  = team_dict["p"+i]["ability"];
-                    nn  = team_dict["p"+i]["nature"];
-                    get_pokeinfo(pokename, i);
-                    nature_init(i);
-                    document.getElementById("tm"+i).value = pn;
-                    document.getElementById("as"+i).value = an;
-                    document.getElementById("ns"+i).value = nn;
-                }
-
-            {% else %}
-                for(i = 1; i <= 6; i++)
-                    nature_init(i);
-            {% endif %}
-            //check if the team is valid
-            valid_check();
-            //load recommended pokemon
-            recommend();
-        };
-        /*
-            function to check if the team is valid
-            -if it's valid, the status becomes green and the button is enabled to create a team
-            -if it's invalid, the status becomes red and the button is disabled
-        */
-        function valid_check()
-        {
-            //check based on the applied rule
-            gen7_ou_check();
-        }
-        /*
-            team validator for gen7ou rule
-        */
-        function gen7_ou_check()
-        {
-            let array = []; //array for pokemon dex_id
-            let mega_count = 0; //mega_count
-            for(let key in team_dict)
+       /*
+           function to check if the team is valid
+           -if it's valid, the status becomes green and the button is enabled to create a team
+           -if it's invalid, the status becomes red and the button is disabled
+       */
+       function valid_check()
+       {
+           //check based on the applied rule
+           gen7_ou_check();
+       }
+       /*
+           team validator for gen7ou rule
+       */
+       function gen7_ou_check()
+       {
+           var array = []; //array for pokemon dex_id
+           var mega_count = 0; //mega_count
+           for(let key in team_dict)
+           {
+               if(team_dict[key]["id"] != "")
+                   array.push(team_dict[key]["id"]);
+               if(team_dict[key]["name"].includes("-mega"))
+               {
+                   mega_count++;
+               }
+           }
+           //check number of megas in the team
+           let checker = document.getElementById("rule1");
+           if(mega_count > 1)
+           {
+               checker.style.color = invalid;
+           }
+           else{
+               checker.style.color = valid;
+           }
+           //check for pokemons with same national dex id
+           checker = document.getElementById("rule2");
+           if(hasDuplicates(array) == true)
+           {
+               checker.style.color = invalid;
+           }
+           else{
+               checker.style.color = valid;
+           }
+       }
+       /*
+           function to check if an array has a duplicate
+       */
+       function hasDuplicates(array)
+       {
+           return (new Set(array)).size !== array.length;
+       }
+       /*
+           function that makes an ajax call to obtain pokemon details from backend
+       */
+       function get_pokeinfo(pokemon, select)
+       {
+           $.ajax({
+               type:'POST',
+               url: '/ajax/get_pokeinfo',
+               data: {
+                   'pokemon': pokemon,
+                   csrfmiddlewaretoken: '{{ csrf_token }}'
+               },
+               dataType: 'json',
+               success: function (data) {
+                   //append options to select
+                   let i;
+                   let l = data["ability"].length;
+                   let k = data["move"].length;
+                   for(i = 0; i<l; i++)
+                   {
+                       optionText = data["ability"][i]["a_name"];
+                       optionValue = data["ability"][i]["a_name"];
+                       $('#as'+select).append(`<option value="${optionValue}"> ${optionText} </option>`);
+                   }
+                   for(i = 0; i<k; i++)
+                   {
+                       optionText = data["move"][i]["m_name"];
+                       optionValue = data["move"][i]["m_name"];
+                       $('#ms'+select).append(`<option value="${optionValue}"> ${optionText} </option>`);
+                   }
+                   $('#ms'+select).val(team_dict["p"+select]["move"]);
+                   $('#ms'+select).selectpicker('refresh');
+                   
+               },
+               error: function(xhr){
+                   alert("Error: " + xhr.statusText);
+                   return false;
+               }
+           });
+       }
+       /*
+           function that handles ability select
+       */
+       function select_abi(value, id)
+       {
+           team_dict["p"+id]["ability"] = value;
+           //generate json data for the team
+           document.getElementById("id_team_comp").innerHTML = JSON.stringify(team_dict);
+       }
+       /*
+           function that handles nature select
+       */
+       function select_nat(value, id)
+       {
+           team_dict["p"+id]["nature"] = value;
+           //generate json data for the team
+           document.getElementById("id_team_comp").innerHTML = JSON.stringify(team_dict);
+       }
+       /*
+           function that handles move select
+       */
+        $('#ms1').change(function () {
+            var moves = $(this).find("option:selected").text().split(" ");
+            var temp = [];
+            var i = 0;
+            for(i = 0; i < moves.length; i++)
             {
-                if(team_dict[key]["id"] != "")
-                    array.push(team_dict[key]["id"]);
-                if(team_dict[key]["name"].includes("-mega"))
-                {
-                    mega_count++;
-                }
+                if(moves[i] != "")
+                        temp.push(moves[i]);
             }
-            //check number of megas in the team
-            let checker = document.getElementById("rule1");
-            if(mega_count > 1)
-            {
-                checker.style.color = invalid;
-            }
-            else{
-                checker.style.color = valid;
-            }
-            //check for pokemons with same national dex id
-            checker = document.getElementById("rule2");
-            if(hasDuplicates(array) == true)
-            {
-                checker.style.color = invalid;
-            }
-            else{
-                checker.style.color = valid;
-            }
-        }
-        /*
-            function to check if an array has a duplicate
-        */
-        function hasDuplicates(array)
-        {
-            return (new Set(array)).size !== array.length;
-        }
-        /*
-            function that makes an ajax call to obtain pokemon details from backend
-        */
-        function get_pokeinfo(pokemon, select)
-        {
-            $.ajax({
-                type:'POST',
-                url: '/ajax/get_pokeinfo',
-                data: {
-                    'pokemon': pokemon,
-                    csrfmiddlewaretoken: '{{ csrf_token }}'
-                },
-                dataType: 'json',
-                success: function (data) {
-                    //append options to select
-                    let i;
-                    let l = data["ability"].length;
-                    let k = data["move"].length;
-                    for(i = 0; i<l; i++)
-                    {
-                        optionText = data["ability"][i]["a_name"];
-                        optionValue = data["ability"][i]["a_name"];
-                        $('#as'+select).append(`<option value="${optionValue}"> ${optionText} </option>`);
-                    }
-                    for(i = 0; i<k; i++)
-                    {
-                        optionText = data["move"][i]["m_name"];
-                        optionValue = data["move"][i]["m_name"];
-                        $('#ms'+select).append(`<option value="${optionValue}"> ${optionText} </option>`);
-                    }
-                },
-                error: function(xhr){
-                    alert("Error: " + xhr.statusText);
-                    return false;
-                }
-            });
-        }
-        /*
-            function that handles ability select
-        */
-        function select_abi(value, id)
-        {
-            team_dict["p"+id]["ability"] = value;
-            //generate json data for the team
+            team_dict["p1"]["move"] = temp;
             document.getElementById("id_team_comp").innerHTML = JSON.stringify(team_dict);
-        }
-        /*
-            function that handles nature select
-        */
-        function select_nat(value, id)
-        {
-            team_dict["p"+id]["nature"] = value;
-            //generate json data for the team
+        });
+        $('#ms2').change(function () {
+            var moves = $(this).find("option:selected").text().split(" ");
+            var temp = [];
+            var i = 0;
+            for(i = 0; i < moves.length; i++)
+            {
+                if(moves[i] != "")
+                        temp.push(moves[i]);
+            }
+            team_dict["p2"]["move"] = temp;
             document.getElementById("id_team_comp").innerHTML = JSON.stringify(team_dict);
-        }
-        /*
-            function that handles move select
-        */
-        function select_mov(value, id)
-        {
-            team_dict["p"+id]["move"].push(value);
-            //generate json data for the team
+        });
+        $('#ms3').change(function () {
+            var moves = $(this).find("option:selected").text().split(" ");
+            var temp = [];
+            var i = 0;
+            for(i = 0; i < moves.length; i++)
+            {
+                if(moves[i] != "")
+                        temp.push(moves[i]);
+            }
+            team_dict["p3"]["move"] = temp;
             document.getElementById("id_team_comp").innerHTML = JSON.stringify(team_dict);
-        }
-        function select_it(value, id)
-        {
-            team_dict["p"+id]["item"] = value;
-            //generate json data for the team
+        });
+        $('#ms4').change(function () {
+            var moves = $(this).find("option:selected").text().split(" ");
+            var temp = [];
+            var i = 0;
+            for(i = 0; i < moves.length; i++)
+            {
+                if(moves[i] != "")
+                        temp.push(moves[i]);
+            }
+            team_dict["p4"]["move"] = temp;
             document.getElementById("id_team_comp").innerHTML = JSON.stringify(team_dict);
-        }
-        /*
-            function that reset selected values and options
-        */
-        function clear_select(index)
-        {
-            var idx = index.toString();
-            $('#as'+idx).find('option').not(':first').remove();
-            $('#as'+idx).val("");
-            $('#ms'+idx).find('option').not(':first').remove();
-            $('#ms'+idx).val("");
-            $('#ns'+idx).val("");
-            $('#is'+idx).val("");
-        }
-        /*
-            function that initializes natures options
-        */
-        function nature_init(select_id)
-        {
-            $('#ns'+select_id).append(`<option value="adamant"> Adamant Attack+ Sp.Atk- </option>`);
-            $('#ns'+select_id).append(`<option value="bashful">  bashful</option>`);
-            $('#ns'+select_id).append(`<option value="hardy"> hardy </option>`);
-            $('#ns'+select_id).append(`<option value="lonely">  lonely</option>`);
-            $('#ns'+select_id).append(`<option value="brave">  brave</option>`);
-            $('#ns'+select_id).append(`<option value="naughty"> naughty </option>`);
-            $('#ns'+select_id).append(`<option value="bold"> bold </option>`);
-            $('#ns'+select_id).append(`<option value="docile">  docile</option>`);
-            $('#ns'+select_id).append(`<option value="relaxed"> relaxed </option>`);
-            $('#ns'+select_id).append(`<option value="impish"> impish </option>`);
-            $('#ns'+select_id).append(`<option value="lax">  lax</option>`);
-            $('#ns'+select_id).append(`<option value="timid">  timid</option>`);
-            $('#ns'+select_id).append(`<option value="hasty"> hasty </option>`);
-            $('#ns'+select_id).append(`<option value="serious">  serious</option>`);
-            $('#ns'+select_id).append(`<option value="jolly"> jolly </option>`);
-            $('#ns'+select_id).append(`<option value="naive"> naive </option>`);
-            $('#ns'+select_id).append(`<option value="modest"> modest </option>`);
-            $('#ns'+select_id).append(`<option value="mild">  mild</option>`);
-            $('#ns'+select_id).append(`<option value="quiet">  quiet</option>`);
-            $('#ns'+select_id).append(`<option value="rash">  rash</option>`);
-            $('#ns'+select_id).append(`<option value="calm">  calm</option>`);
-            $('#ns'+select_id).append(`<option value="gentle"> gentle </option>`);
-            $('#ns'+select_id).append(`<option value="sassysassy</option>`);
-            $('#ns'+select_id).append(`<option value="careful">  careful</option>`);
-            $('#ns'+select_id).append(`<option value="quirky">  quirky</option>`);
-        }
-    </script>
-
-
-
-    <!-- script to handle autocomplete -->
-    <script async >
-
-    //push names, auto complete search select
-    var poker = [];
-    for(let p in poke_dict){
-        poker.push(poke_dict[p].pokemon);
-    }
-
-    ottocomplete(document.getElementById("mySearch"), poker);
-
-    function team_filter()
-    {
-            var input;
-            //reset graph
-            series.data = [];
-            // Get typed string
-            input = document.getElementById("mySearch").value.toLowerCase();
-            //add the pokemon to the graph
-            add_to_graph(input);
-    }
-    /*
-        function that appends pokemon to the graph
-    */
-    function add_to_graph(input)
-    {
-        var data = [];
-        if(poke_dict[input] === undefined)
-        {
-            return;
-        }
-        else
-        {
-            var teammates = [];
-            var moves = [];
-            var abilities = [];
-            var spreads = [];
-            var items = [];
-            for(let t in poke_dict[input].teammates)
+        });
+        $('#ms5').change(function () {
+            var moves = $(this).find("option:selected").text().split(" ");
+            var temp = [];
+            var i = 0;
+            for(i = 0; i < moves.length; i++)
             {
-                teammates.push({"image" : "../../static/pokewiki/pokemon-icon/"+t.toLowerCase()+".png", "value": parseInt(poke_dict[input].teammates[t].slice(1,2))});
+                if(moves[i] != "")
+                        temp.push(moves[i]);
             }
-            for(let m in poke_dict[input].moves)
+            team_dict["p5"]["move"] = temp;
+            document.getElementById("id_team_comp").innerHTML = JSON.stringify(team_dict);
+        });
+        $('#ms6').change(function () {
+            var moves = $(this).find("option:selected").text().split(" ");
+            var temp = [];
+            var i = 0;
+            for(i = 0; i < moves.length; i++)
             {
-                moves.push({"name": m, "value":parseInt(poke_dict[input].moves[m].slice(1,2))});
+                if(moves[i] != "")
+                        temp.push(moves[i]);
             }
-            for(let a in poke_dict[input].abilities)
-            {
-                abilities.push({"name": a, "value":parseInt(poke_dict[input].abilities[a].slice(1,2))});
-            }
-            for(let s in poke_dict[input].spreads)
-            {
-                spreads.push({"name": s, "value":poke_dict[input].spreads[s]});
-            }
-            for(let i in poke_dict[input].items)
-            {
-                items.push({"name": i, "value":parseInt(poke_dict[input].items[i].slice(1,2))});
-            }
-            data.push({
-                "image": "../../static/pokewiki/pokemon-icon/"+poke_dict[input].pokemon+".png",
-                fixed: true,
-                x: am4core.percent(50),
-                y: am4core.percent(50),
-                "value": 20,
-                "link": teammates,
-                "children":
-                [
-                    {
-                        "name": "moves",
-                        fixed: true,
-                        x: am4core.percent(50),
-                        y: am4core.percent(20), "value": 10,
-                        "children": moves
-                    },
-                    {
-                        "name": "abilities",
-                        fixed: true,
-                        x: am4core.percent(25),
-                        y: am4core.percent(35),"value": 10,
-                        "children": abilities
-                    },
-                    {
-                        "name": "spreads",
-                        fixed: true,
-                        x: am4core.percent(75),
-                        y: am4core.percent(35),"value": 10,
-                        "children": spreads
-                    },
-                    {
-                        "name": "items",
-                        fixed: true,
-                        x: am4core.percent(70),
-                        y: am4core.percent(70),
-                        "value": 10,
-                        "children": items
-                    },
-                    {
-                        "name": "teammates",
-                        fixed: true,
-                        x: am4core.percent(30),
-                        y: am4core.percent(70),"value": 10,
-                        "children": teammates
-                    },
-                ]
-            });
-        }
-        series.data = data;
-        series.nodes.template.propertyFields.x = "x";
-        series.nodes.template.propertyFields.y = "y";
-    }
-
-    /* Add searched pokemon to your team list */
-
-    function add_search_pokemon(){
-        var i, key;
-        for(i = 1; i < 7; i++){
-            key = "p" + i;
-            if(team_dict[key].id === 0 && poke_dict[document.getElementById("mySearch").value.toLowerCase()] != undefined){
-                pokemon_obj = poke_dict[document.getElementById("mySearch").value.toLowerCase()];
-                //append name to the list
-                document.getElementById("tm"+i).value = pokemon_obj.pokemon;
-                //append the pokemon to dict
-                team_dict[key]["name"] = pokemon_obj.pokemon;
-                team_dict[key]["id"] = pokemon_obj.dex_id;
-                //get pokemon detail
-                get_pokeinfo(pokemon_obj.pokemon, i);
-                //check if the team is valid
-                valid_check();
-                //generate json data for the team
-                document.getElementById("id_team_comp").innerHTML = JSON.stringify(team_dict);
-                //recommend pokemon
-                recommend();
-                break;
-            }
-        }
-    }
-
-    /* Remove pokemon from your team list */
-
-    function remove_pokemon(index){
-        team_dict[index] = {"id" : 0, "name" : "", "nature" : "", "ability" : "", "move": [], "IV" : "", "EV" : "", "item" : ""};
-        document.getElementById("tm"+index[1]).value = "";
-        clear_select(index[1]);
-        valid_check();
-        document.getElementById("id_team_comp").innerHTML = JSON.stringify(team_dict);
-        //recommend pokemon
-        recommend();
-
-    }
-
-    var recommend_list = [];
-
-    /* Recommendation */
-
-    function recommend(){
-        var i;
-        var cur_team = [];
-
-        // Check if user team is full
-        for(i = 1; i < 7; i++){
-            var key = 'p'+i;
-            if(team_dict[key]["id"] != 0) cur_team.push(team_dict[key]["name"]);
-        }
-        var candidate_dict = {};
-        // console.log(recommend_list);
-        // If all spaces are full, do not recommend any pokemon
-        // if(cur_team.length == 6) recommend_list = [];
-        // if the team is empty, recommend top 6 used pokemons
-        if (cur_team.length == 0)
-        {
-            let i = 0;
-            //reset recommend list
-            recommend_list = [];
-            for(let k in poke_dict)
-            {
-                recommend_list.push([k, parseFloat(poke_dict[k].usage.slice(1,-2))]);
-                i++;
-                if(i == 6)
-                    break;
-            }
-        }
-        // else find other compatible pokemons
-        else
-        {
-            // push all the teammates
-            for(let p in cur_team) // for every pokemon in the current team
-            {
-                for(let t in poke_dict[cur_team[p]].teammates) // for each recommended teammate of pokemon in the current team
-                {
-                    if(cur_team.includes(t.toLowerCase()) == true)
-                    {
-                        continue;
-                    }
-                    if(t in candidate_dict)
-                        candidate_dict[t] += parseFloat(poke_dict[cur_team[p]].teammates[t].slice(1,-2));
-                    else if(cur_team.includes(t.toLowerCase()) == false)
-                        candidate_dict[t] = parseFloat(poke_dict[cur_team[p]].teammates[t].slice(1,-2));
-                }
-            }
-            //sort
-            recommend_list = Object.keys(candidate_dict).map(function(key) {
-                return [key, candidate_dict[key]];
-            });
-            // Sort the array based on the second element
-            recommend_list.sort(function(first, second) {
-                return second[1] - first[1];
-            });
-        }
-        update_recommend();
-    }
-
-    /*OTTO COMPLETE =============================================================*/
-
-    function ottocomplete(inp, arr) {
-     /* text field input element and an array of possible pokemon*/
-      var currentFocus;
-
-      inp.addEventListener("input", function(e) {
-          var a, b, i, val = this.value;
-          closeAllLists();
-          if (!val) { return false;}
-          currentFocus = -1;
-
-          a = document.createElement("DIV");
-          a.setAttribute("id", this.id + "autocomplete-list");
-          a.setAttribute("class", "autocomplete-items");
-          this.parentNode.appendChild(a);
-
-          for (i = 0; i < arr.length; i++) {
-            if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
-              b = document.createElement("DIV");
-              b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
-              b.innerHTML += arr[i].substr(val.length);
-              b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
-              b.addEventListener("click", function(e) {
-                  inp.value = this.getElementsByTagName("input")[0].value;
-                  closeAllLists();
-                  //filter the table and append
-                  team_filter();
-              });
-              a.appendChild(b);
-            }
-          }
-      });
-
-      inp.addEventListener("keydown", function(e) {
-          var x = document.getElementById(this.id + "autocomplete-list");
-          if (x) x = x.getElementsByTagName("div");
-          if (e.keyCode == 40) {
-            /*DOWN*/
-            currentFocus++;
-            addActive(x);
-          } else if (e.keyCode == 38) { //up
-            /*UP*/
-            currentFocus--;
-            addActive(x);
-          } else if (e.keyCode == 13) {
-            e.preventDefault();
-            if (currentFocus > -1) {
-              if (x) x[currentFocus].click();
-            }
-          }
-      });
-
-      function addActive(x) {
-        if (!x) return false;
-        removeActive(x);
-        if (currentFocus >= x.length) currentFocus = 0;
-        if (currentFocus < 0) currentFocus = (x.length - 1);
-        x[currentFocus].classList.add("autocomplete-active");
-      }
-
-      function removeActive(x) {
-        for (var i = 0; i < x.length; i++) {
-          x[i].classList.remove("autocomplete-active");
-        }
-      }
-
-      function closeAllLists(elmnt) {
-        var x = document.getElementsByClassName("autocomplete-items");
-        for (var i = 0; i < x.length; i++) {
-          if (elmnt != x[i] && elmnt != inp) {
-            x[i].parentNode.removeChild(x[i]);
-          }
-        }
-      }
-      document.addEventListener("click", function (e) {
-          closeAllLists(e.target);
-      });
-    }
-
-
-    /* RECOMMENDATION BAR ====================================================*/
-
-    function add_recommend_pokemon(id)
-    {
-        pokename = document.getElementById("sp"+id).innerText.toLowerCase();
-        // console.log(candidate_dict);
-        for(i = 1; i < 7; i++){
-            key = "p" + i;
-            if(team_dict[key].id === 0 && poke_dict[pokename] != undefined)
-            {
-                //append name to the list
-                document.getElementById("tm"+i).value = pokename;
-                //append the pokemon to dict
-                team_dict[key]["name"] = pokename;
-                team_dict[key]["id"] = poke_dict[pokename].dex_id;
-                //get pokemon detail
-                get_pokeinfo(pokename, i);
-                //check if the team is valid
-                valid_check();
-                //generate json data for the team
-                document.getElementById("id_team_comp").innerHTML = JSON.stringify(team_dict);
-                //recommend pokemon
-                recommend();
-                //display the recently added pokemon
-                add_to_graph(pokename);
-                break;
-            }
-        }
-    }
-    function update_recommend()
-    {
-        if(recommend_list.length === 0)
-        {
-            for(i = 1; i <= 6; i++)
-            {
-                document.getElementById("sp" + i).innerText = "";
-                document.getElementById("img" + i).innerText = "";
-            }
-        }
-        else
-        {
-            var i;
-            for(i = 1; i <= 6; i++)
-            {
-                var img = document.createElement("img");
-                document.getElementById("sp" + i).innerText = recommend_list[i-1][0];
-                img.src =  "../../static/pokewiki/pokemon-icon/"+recommend_list[i-1][0]+".png";
-                document.getElementById("img" + i).innerHTML = "";
-                document.getElementById("img" + i).appendChild(img);
-            }
-        }
-    }
-    </script>
-
+            team_dict["p6"]["move"] = temp;
+            document.getElementById("id_team_comp").innerHTML = JSON.stringify(team_dict);
+        });
+       // function select_mov(value, id)
+       // {
+       //     // for(let i = 0; i < v.length(); i++)
+       //     //     team_dict["p"+id]["move"].push(v[i]);
+       //     //generate json data for the team
+       //     document.getElementById("id_team_comp").innerHTML = JSON.stringify(team_dict);
+       // }
+       function select_it(value, id)
+       {
+           team_dict["p"+id]["item"] = value;
+           //generate json data for the team
+           document.getElementById("id_team_comp").innerHTML = JSON.stringify(team_dict);
+       }
+       /*
+           function that reset selected values and options
+       */
+       function clear_select(index)
+       {
+           var idx = index.toString();
+           $('#as'+idx).find('option').not(':first').remove();
+           $('#as'+idx).val("");
+           $('#ms'+idx).find('option').not(':first').remove();
+           $('#ms'+idx).val("");
+           $('#ms'+idx).selectpicker('refresh');
+           $('#ns'+idx).val("");
+           $('#is'+idx).val("");
+       }
+       /*
+           function that initializes natures options
+       */
+       function nature_init(select_id)
+       {
+           $('#ns'+select_id).append(`<option value="adamant"> Adamant Attack+ Sp.Atk- </option>`);
+           $('#ns'+select_id).append(`<option value="bashful">  bashful</option>`);
+           $('#ns'+select_id).append(`<option value="hardy"> hardy </option>`);
+           $('#ns'+select_id).append(`<option value="lonely">  lonely</option>`);
+           $('#ns'+select_id).append(`<option value="brave">  brave</option>`);
+           $('#ns'+select_id).append(`<option value="naughty"> naughty </option>`);
+           $('#ns'+select_id).append(`<option value="bold"> bold </option>`);
+           $('#ns'+select_id).append(`<option value="docile">  docile</option>`);
+           $('#ns'+select_id).append(`<option value="relaxed"> relaxed </option>`);
+           $('#ns'+select_id).append(`<option value="impish"> impish </option>`);
+           $('#ns'+select_id).append(`<option value="lax">  lax</option>`);
+           $('#ns'+select_id).append(`<option value="timid">  timid</option>`);
+           $('#ns'+select_id).append(`<option value="hasty"> hasty </option>`);
+           $('#ns'+select_id).append(`<option value="serious">  serious</option>`);
+           $('#ns'+select_id).append(`<option value="jolly"> jolly </option>`);
+           $('#ns'+select_id).append(`<option value="naive"> naive </option>`);
+           $('#ns'+select_id).append(`<option value="modest"> modest </option>`);
+           $('#ns'+select_id).append(`<option value="mild">  mild</option>`);
+           $('#ns'+select_id).append(`<option value="quiet">  quiet</option>`);
+           $('#ns'+select_id).append(`<option value="rash">  rash</option>`);
+           $('#ns'+select_id).append(`<option value="calm">  calm</option>`);
+           $('#ns'+select_id).append(`<option value="gentle"> gentle </option>`);
+           $('#ns'+select_id).append(`<option value="sassysassy</option>`);
+           $('#ns'+select_id).append(`<option value="careful">  careful</option>`);
+           $('#ns'+select_id).append(`<option value="quirky">  quirky</option>`);
+       }
+   </script>
+   <!-- script to handle autocomplete -->
+   <script >
+ 
+   //push names, auto complete search select
+   var poker = [];
+   for(let p in poke_dict){
+       poker.push(poke_dict[p].pokemon);
+   }
+ 
+   ottocomplete(document.getElementById("mySearch"), poker);
+ 
+   function team_filter()
+   {
+           var input;
+           //reset graph
+           series.data = [];
+           // Get typed string
+           input = document.getElementById("mySearch").value.toLowerCase();
+           //add the pokemon to the graph
+           add_to_graph(input);
+   }
+   /*
+       function that appends pokemon to the graph
+   */
+   function add_to_graph(input)
+   {
+       var data = [];
+       if(poke_dict[input] === undefined)
+       {
+           return;
+       }
+       else
+       {
+           var teammates = [];
+           var moves = [];
+           var abilities = [];
+           var spreads = [];
+           var items = [];
+           for(let t in poke_dict[input].teammates)
+           {
+               teammates.push({"image" : "../../static/pokewiki/pokemon-icon/"+t.toLowerCase()+".png", "value": parseInt(poke_dict[input].teammates[t].slice(1,2))});
+           }
+           for(let m in poke_dict[input].moves)
+           {
+               moves.push({"name": m, "value":parseInt(poke_dict[input].moves[m].slice(1,2))});
+           }
+           for(let a in poke_dict[input].abilities)
+           {
+               abilities.push({"name": a, "value":parseInt(poke_dict[input].abilities[a].slice(1,2))});
+           }
+           for(let s in poke_dict[input].spreads)
+           {
+               spreads.push({"name": s, "value":poke_dict[input].spreads[s]});
+           }
+           for(let i in poke_dict[input].items)
+           {
+               items.push({"name": i, "value":parseInt(poke_dict[input].items[i].slice(1,2))});
+           }
+           data.push({
+               "image": "../../static/pokewiki/pokemon-icon/"+poke_dict[input].pokemon+".png",
+               fixed: true,
+               x: am4core.percent(50),
+               y: am4core.percent(50),
+               "value": 20,
+               "link": teammates,
+               "children":
+               [
+                   {
+                       "name": "moves",
+                       fixed: true,
+                       x: am4core.percent(50),
+                       y: am4core.percent(20), "value": 10,
+                       "children": moves
+                   },
+                   {
+                       "name": "abilities",
+                       fixed: true,
+                       x: am4core.percent(25),
+                       y: am4core.percent(35),"value": 10,
+                       "children": abilities
+                   },
+                   {
+                       "name": "spreads",
+                       fixed: true,
+                       x: am4core.percent(75),
+                       y: am4core.percent(35),"value": 10,
+                       "children": spreads
+                   },
+                   {
+                       "name": "items",
+                       fixed: true,
+                       x: am4core.percent(70),
+                       y: am4core.percent(70),
+                       "value": 10,
+                       "children": items
+                   },
+                   {
+                       "name": "teammates",
+                       fixed: true,
+                       x: am4core.percent(30),
+                       y: am4core.percent(70),"value": 10,
+                       "children": teammates
+                   },
+               ]
+           });
+       }
+       series.data = data;
+       series.nodes.template.propertyFields.x = "x";
+       series.nodes.template.propertyFields.y = "y";
+   }
+ 
+   /* Add searched pokemon to your team list */
+ 
+   function add_search_pokemon(){
+       var i, key;
+       for(i = 1; i < 7; i++){
+           key = "p" + i;
+           if(team_dict[key].id === 0 && poke_dict[document.getElementById("mySearch").value.toLowerCase()] != undefined){
+               pokemon_obj = poke_dict[document.getElementById("mySearch").value.toLowerCase()];
+               //append name to the list
+               document.getElementById("tm"+i).value = pokemon_obj.pokemon;
+               document.getElementById("tmi"+i).src = "../../static/pokewiki/pokemon-icon/"+pokemon_obj.pokemon+".png";
+               //append the pokemon to dict
+               team_dict[key]["name"] = pokemon_obj.pokemon;
+               team_dict[key]["id"] = pokemon_obj.dex_id;
+               //get pokemon detail
+               get_pokeinfo(pokemon_obj.pokemon, i);
+               //check if the team is valid
+               valid_check();
+               //generate json data for the team
+               document.getElementById("id_team_comp").innerHTML = JSON.stringify(team_dict);
+               //recommend pokemon
+               recommend();
+               break;
+           }
+       }
+   }
+ 
+   /* Remove pokemon from your team list */
+ 
+   function remove_pokemon(index){
+       team_dict[index] = {"id" : 0, "name" : "", "nature" : "", "ability" : "", "move": [],  "item" : ""};
+       document.getElementById("tm"+index[1]).value = ""; //reset name
+       document.getElementById("tmi"+index[1]).src  = ""; //reset img
+       clear_select(index[1]); //reset all other attributes
+       valid_check();
+       document.getElementById("id_team_comp").innerHTML = JSON.stringify(team_dict);
+       //recommend pokemon
+       recommend();
+ 
+   }
+ 
+   var recommend_list = [];
+ 
+   /* Recommendation */
+ 
+   function recommend(){
+       var i;
+       var cur_team = [];
+ 
+       // Check if user team is full
+       for(i = 1; i < 7; i++){
+           var key = 'p'+i;
+           if(team_dict[key]["id"] != 0) cur_team.push(team_dict[key]["name"]);
+       }
+       var candidate_dict = {};
+       // If all spaces are full, do not recommend any pokemon
+       // if(cur_team.length == 6) recommend_list = [];
+       // if the team is empty, recommend top 6 used pokemons
+       if (cur_team.length == 0)
+       {
+           let i = 0;
+           //reset recommend list
+           recommend_list = [];
+           for(let k in poke_dict)
+           {
+               recommend_list.push([k, parseFloat(poke_dict[k].usage.slice(1,-2))]);
+               i++;
+               if(i == 6)
+                   break;
+           }
+       }
+       // else find other compatible pokemons
+       else
+       {
+           // push all the teammates
+           for(let p in cur_team) // for every pokemon in the current team
+           {
+               for(let t in poke_dict[cur_team[p]].teammates) // for each recommended teammate of pokemon in the current team
+               {
+                   if(cur_team.includes(t.toLowerCase()) == true)
+                   {
+                       continue;
+                   }
+                   if(t in candidate_dict)
+                       candidate_dict[t] += parseFloat(poke_dict[cur_team[p]].teammates[t].slice(1,-2));
+                   else if(cur_team.includes(t.toLowerCase()) == false)
+                       candidate_dict[t] = parseFloat(poke_dict[cur_team[p]].teammates[t].slice(1,-2));
+               }
+           }
+           //sort
+           recommend_list = Object.keys(candidate_dict).map(function(key) {
+               return [key, candidate_dict[key]];
+           });
+           // Sort the array based on the second element
+           recommend_list.sort(function(first, second) {
+               return second[1] - first[1];
+           });    
+       }
+       update_recommend();
+   }
+ 
+   /*OTTO COMPLETE =============================================================*/
+ 
+   function ottocomplete(inp, arr) {
+    /* text field input element and an array of possible pokemon*/
+     var currentFocus;
+ 
+     inp.addEventListener("input", function(e) {
+         var a, b, i, val = this.value;
+         closeAllLists();
+         if (!val) { return false;}
+         currentFocus = -1;
+ 
+         a = document.createElement("DIV");
+         a.setAttribute("id", this.id + "autocomplete-list");
+         a.setAttribute("class", "autocomplete-items");
+         this.parentNode.appendChild(a);
+ 
+         for (i = 0; i < arr.length; i++) {
+           if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
+             b = document.createElement("DIV");
+             b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
+             b.innerHTML += arr[i].substr(val.length);
+             b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
+             b.addEventListener("click", function(e) {
+                 inp.value = this.getElementsByTagName("input")[0].value;
+                 closeAllLists();
+                 //filter the table and append
+                 team_filter();
+             });
+             a.appendChild(b);
+           }
+         }
+     });
+ 
+     inp.addEventListener("keydown", function(e) {
+         var x = document.getElementById(this.id + "autocomplete-list");
+         if (x) x = x.getElementsByTagName("div");
+         if (e.keyCode == 40) {
+           /*DOWN*/
+           currentFocus++;
+           addActive(x);
+         } else if (e.keyCode == 38) { //up
+           /*UP*/
+           currentFocus--;
+           addActive(x);
+         } else if (e.keyCode == 13) {
+           e.preventDefault();
+           if (currentFocus > -1) {
+             if (x) x[currentFocus].click();
+           }
+         }
+     });
+ 
+     function addActive(x) {
+       if (!x) return false;
+       removeActive(x);
+       if (currentFocus >= x.length) currentFocus = 0;
+       if (currentFocus < 0) currentFocus = (x.length - 1);
+       x[currentFocus].classList.add("autocomplete-active");
+     }
+ 
+     function removeActive(x) {
+       for (var i = 0; i < x.length; i++) {
+         x[i].classList.remove("autocomplete-active");
+       }
+     }
+ 
+     function closeAllLists(elmnt) {
+       var x = document.getElementsByClassName("autocomplete-items");
+       for (var i = 0; i < x.length; i++) {
+         if (elmnt != x[i] && elmnt != inp) {
+           x[i].parentNode.removeChild(x[i]);
+         }
+       }
+     }
+     document.addEventListener("click", function (e) {
+         closeAllLists(e.target);
+     });
+   }
+ 
+ 
+   /* RECOMMENDATION BAR ====================================================*/
+ 
+   function add_recommend_pokemon(id)
+   {
+       pokename = document.getElementById("sp"+id).innerText.toLowerCase();
+       for(i = 1; i < 7; i++){
+           key = "p" + i;
+           if(team_dict[key].id === 0 && poke_dict[pokename] != undefined)
+           {
+               //append name to the list
+               document.getElementById("tm"+i).value = pokename;
+               document.getElementById("tmi"+i).src = "../../static/pokewiki/pokemon-icon/"+pokename+".png";
+               //append the pokemon to dict
+               team_dict[key]["name"] = pokename;
+               team_dict[key]["id"] = poke_dict[pokename].dex_id;
+               //get pokemon detail
+               get_pokeinfo(pokename, i);
+               //check if the team is valid
+               valid_check();
+               //generate json data for the team
+               document.getElementById("id_team_comp").innerHTML = JSON.stringify(team_dict);
+               //recommend pokemon
+               recommend();
+               //display the recently added pokemon
+               add_to_graph(pokename);
+               break;
+           }
+       }
+   }
+   function update_recommend()
+   {
+       if(recommend_list.length === 0)
+       {
+           for(i = 1; i <= 6; i++)
+           {
+               document.getElementById("sp" + i).innerText = "";
+               document.getElementById("img" + i).innerText = "";
+           }
+       }
+       else
+       {
+           var i;
+           for(i = 1; i <= 6; i++)
+           {
+               var img = document.createElement("img");
+               document.getElementById("sp" + i).innerText = recommend_list[i-1][0];
+               img.src =  "../../static/pokewiki/pokemon-icon/"+recommend_list[i-1][0]+".png";
+               document.getElementById("img" + i).innerHTML = "";
+               document.getElementById("img" + i).appendChild(img);
+           }
+       }
+   }
+   </script>
+ 
 {% endblock extra_js %}
+ 
+

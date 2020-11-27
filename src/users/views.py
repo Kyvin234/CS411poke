@@ -121,19 +121,24 @@ class team_uview(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     fields = ['team_name', 'team_comp', 'description']  
     success_url = reverse_lazy('team')
     def get_context_data(self, **kwargs):
-        mycol = mydb['gen7ou']
-        x = list(mycol.find().sort("usage"))
-        # user's team info
         context = super().get_context_data(**kwargs)
-        # cursor = connection.cursor()
-        # cursor.execute('''
-        #                  SELECT distinct s_name, f_name, dex_id, gen, type1, type2
-        #                     FROM pokewiki_s_table, pokewiki_f_table
-        #                     WHERE s_name = s_name_id 
-        #                     ORDER BY dex_id
-        #                    ''') 
-        # context['pokemon_detail'] = dictfetchall(cursor)
-        context['pokemon_team_detail'] = {'pokemon_team_detail' : x}
+        # item detail
+        cursor = connection.cursor()
+        cursor.execute('''
+                            SELECT i_name
+                            FROM pokewiki_i_table
+                            ORDER BY category
+                           ''') 
+        context['item_info'] = dictfetchall(cursor)
+        # pokemon detail(mongodb team data)
+        mycol = mydb['gen7ou']
+        # x = json.dumps([doc for doc in ])
+        c = mycol.find().sort("usage", -1)
+        json_docs = []
+        for doc in c:
+            json_doc = json.dumps(doc, default=json_util.default)
+            json_docs.append(json_doc)
+        context['pokemon_team_detail'] = {'pokemon_team_detail' : json_docs}
         return context
         
     def post(self, request, *args, **kwargs):

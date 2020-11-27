@@ -33,7 +33,7 @@
 <body id = 'pokedex_pg'>
     <h1 id = "pokedex"><img src={%static 'pokewiki/icons/pokedex-nonshadow-logo.png'%}></h1>
     <div class = "searchbar mt-sm-2 mr-2">
-        <input type = "text" class = "form-control" onkeyup = log_filter() id="myInput" placeholder = "Search for a Pokémon..."/>
+        <input type = "text" class = "form-control" onkeyup = log_filter() id="myInput" style = "font-family:Verdana;" placeholder = "Search for a Pokémon..."/>
     </div>
     <!-- The side bar section for types -->
     <div class="icon-bar">
@@ -61,20 +61,20 @@
       <table class="table table-striped mb-0" id="myTable" cellspacing="0" width="100%">
         <thead>
             <tr class = "header">
-                <th scope="col">#</th>
-                <th scope="col">Icon</th>
-                <th scope="col">Name</th>
-                <th scope="col">Types</th>
-                <th scope="col">Generation</th>
+                <th scope="col" style = "font-family:Verdana">Dex #</th>
+                <th scope="col" style = "font-family:Verdana">Icon</th>
+                <th scope="col" style = "font-family:Verdana">Name</th>
+                <th scope="col" style = "font-family:Verdana">Types</th>
+                <th scope="col" style = "font-family:Verdana">Generation</th>
             </tr>
         </thead>
         <tbody>
             {% for entry in poke_entry %}
             <tr>
-                <td class = 'poke_font'>{{entry.dex_id}}</td>
+                <td style = "font-family:Trebuchet MS">{{entry.dex_id}}</td>
                 <td><img src="../static/pokewiki/pokemon-icon/{{entry.f_name}}.png" loading=lazy></td>
                 <td class = 'poke_font'>
-                  <a href="{% url 'pokemon-detail' entry.s_name %}">{{entry.f_name}}</a>
+                  <a href="{% url 'pokemon-detail' entry.s_name %}" style = "font-family:Trebuchet MS">{{entry.f_name}}</a>
                   {% if 'mega' in entry.f_name %}
                     <img src="../static/pokewiki/icons/megastone.png"　height=24px width=24px>
                   {% elif 'alola' in entry.f_name and "cap" not in entry.f_name%}
@@ -89,7 +89,7 @@
                     <img src="../static/pokewiki/type-icon/{{entry.type2}}.png" alt={{entry.type2}} height=24px width=24px loading=lazy>
                   {% endif %}
                 </td>
-                <td class = "poke_font">{{entry.gen}}</td>
+                <td style = "font-family:Trebuchet MS">{{entry.gen}}</td>
                 <!-- <td class = "poke_font" colspan="2"> {{entry.hp}}  {{entry.atk}}  {{entry.spatk}}  {{entry.df}}  {{entry.spdf}}  {{entry.spd}}</td> -->
             </tr>
             {% endfor %}

@@ -62,7 +62,7 @@
     height: 60vh;
   }
   #poke_font{
-      font-family: "Fira Sans","Trebuchet MS",Ubuntu,Helvetica,Arial,sans-serif
+      font-family: "Verdana";
       color : black;
   }
   #homepg_txt{
@@ -79,6 +79,9 @@
   }
   #movedex{
       margin-top:80px;
+  }
+  #myteampage{
+      background-image: url("icons/pokeballgray-infscroll.png"); background-repeat: no-repeat;background-position: top center;margin-left:auto;margin-right:auto;background-position: 0px 66px;background-size: cover;
   }
   #homepage {
     background-image: url("icons/kantoquad1.png"); background-repeat: no-repeat;background-position: top center;margin-left:auto;margin-right:auto;background-position: 0px 66px;background-size: cover;

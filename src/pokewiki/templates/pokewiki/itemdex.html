@@ -9,23 +9,23 @@
 <body id = "itemdex_pg">
     <h1 id = "abidex"><img src="../static/pokewiki/icons/itemdex-logo.png"></h1>
     <div class = "searchbar mt-sm-2 mr-2">
-            <input type = "text" class = "form-control" onkeyup = filter() id="myInput" placeholder = "Search for an Item..."/>
+            <input style = "font-family: Verdana"type = "text" class = "form-control" onkeyup = filter() id="myInput" placeholder = "Search for an Item..."/>
     </div>
     <div class="table-wrapper-scroll-y my-custom-scrollbar">
       <table class="table table-striped mb-0" id="myTable">
           <thead>
               <tr class = "header">
-                  <th scope="col">Icon</th>
-                  <th scope="col">Name</th>
-                  <th scope="col">category</th>
+                  <th scope="col" style = "font-family: Verdana">Icon</th>
+                  <th scope="col" style = "font-family: Verdana">Name</th>
+                  <th scope="col" style = "font-family: Verdana">Category</th>
               </tr>
           </thead>
           <tbody>
               {% for entry in item_entry%}
                 <tr>
                     <td> <img src="../static/pokewiki/item-icon/{{entry.i_name}}.png" height=24px width=24px loading=lazy></td>
-                    <td id = 'poke_font'><a href="{% url 'item-detail' entry.i_id%}">{{entry.i_name}}</a></td>
-                    <td id = 'poke_font'>{{entry.category}}</td>
+                    <td id = 'poke_font' style = "font-family: Trebuchet MS"><a href="{% url 'item-detail' entry.i_id%}">{{entry.i_name}}</a></td>
+                    <td id = 'poke_font' style = "font-family: Trebuchet MS">{{entry.category}}</td>
                 </tr>
               {% endfor %}
           </tbody>

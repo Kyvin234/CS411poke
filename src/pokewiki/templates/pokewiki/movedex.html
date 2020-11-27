@@ -9,27 +9,27 @@
 <body id = "movedex_pg">
     <h1 id = "movedex"><img src="../static/pokewiki/icons/movedex-nonshadow-logo.png"></h1>
     <div class = "searchbar mt-sm-2 mr-2">
-            <input type = "text" class = "form-control" onkeyup = filter() id="myInput" placeholder = "Search for a move..."/>
+            <input style = "font-family:Verdana" type = "text" class = "form-control" onkeyup = filter() id="myInput" placeholder = "Search for a move..."/>
     </div>
     <div class="table-wrapper-scroll-y my-custom-scrollbar">
       <table class="table table-striped mb-0" id="myTable">
           <thead>
               <tr class = "header">
-                  <th scope="col">id</th>
-                  <th scope="col">Name</th>
-                  <th scope="col">Types</th>
-                  <th scope="col">damage class</th>
-                  <th scope="col">Generation</th>
+                  <th scope="col" style = "font-family:Verdana">Move ID</th>
+                  <th scope="col" style = "font-family:Verdana">Name</th>
+                  <th scope="col" style = "font-family:Verdana">Types</th>
+                  <th scope="col" style = "font-family:Verdana">damage class</th>
+                  <th scope="col" style = "font-family:Verdana">Generation</th>
               </tr>
           </thead>
           <tbody>
               {% for entry in move_entry%}
                 <tr>
-                    <td class = 'poke_font'>{{entry.m_id}}</td>
-                    <td class = 'poke_font'><a href="{% url 'move-detail' entry.m_name %}">{{entry.m_name}}</a></td>
+                    <td class = 'poke_font' style = "font-family: Trebuchet MS">{{entry.m_id}}</td>
+                    <td class = 'poke_font' style = "font-family: Trebuchet MS"><a href="{% url 'move-detail' entry.m_name %}">{{entry.m_name}}</a></td>
                     <td> <img src="../static/pokewiki/type-icon/{{entry.types}}.png" alt={{entry.types}} height=24px width=24px loading=lazy> </td>
-                    <td class = 'poke_font'> <img src="../static/pokewiki/move-icon/{{entry.dmg_class}}.png" alt={{entry.dmg_class}} loading=lazy> {{entry.dmg_class}}</td>
-                    <td class = 'poke_font'>{{entry.gen}}</td>
+                    <td class = 'poke_font' style = "font-family: Trebuchet MS"> <img src="../static/pokewiki/move-icon/{{entry.dmg_class}}.png" alt={{entry.dmg_class}} loading=lazy> {{entry.dmg_class}}</td>
+                    <td class = 'poke_font' style = "font-family: Trebuchet MS">{{entry.gen}}</td>
                 </tr>
               {% endfor %}
           </tbody>

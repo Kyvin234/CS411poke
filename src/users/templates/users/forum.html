@@ -1,8 +1,14 @@
 {% extends "pokewiki/base.html" %}
 {% block content %}
-    <div class="content-section">
+    <!-- <div class="content-section"> -->
+    <div style="margin-top:70px;">
         <h1> Forum </h1>
+        <hr>
+    <!-- </div> -->
     </div>
+    {% for users in username %}
+        <p>{{user.username}}</p>
+    {% endfor %}
     {% for row in team_lists %}
         <!-- <h3> {{row.}} </h3> -->
         <div class="content-section">
@@ -69,14 +75,14 @@
     {% endfor %}
 {% endblock content %}
 {% block extra_js %}
-    <script> 
-        var main = function() 
+    <script>
+        var main = function()
         {
-            $("thead").on("click", function() 
+            $("thead").on("click", function()
             {
                 $(this).parents("table").find("tbody").toggle();
             });
         }
         $(document).ready(main);
-    </script>  
+    </script>
 {% endblock extra_js %}

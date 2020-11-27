@@ -49,6 +49,8 @@
                         {% for key,value in row.team_comp.items %}
                             {% if value.item %}
                                 <td><img src="../static/pokewiki/item-icon/{{value.item}}.png" alt="N/A"></td>
+                            {% else %}
+                                <td></td>
                             {% endif %}
                         {% endfor %}
                     </tr>

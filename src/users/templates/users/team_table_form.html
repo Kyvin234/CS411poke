@@ -248,7 +248,8 @@
                    document.getElementById("as"+i).value = team_dict["p"+i]["ability"];
                    document.getElementById("ns"+i).value = team_dict["p"+i]["nature"];
                    document.getElementById("is"+i).value = team_dict["p"+i]["item"];
-                   document.getElementById("tmi"+i).src = "../../static/pokewiki/pokemon-icon/"+team_dict["p"+i]["name"]+".png";
+                   if(team_dict["p"+i]["name"] != "")
+                    document.getElementById("tmi"+i).src = "../../static/pokewiki/pokemon-icon/"+team_dict["p"+i]["name"]+".png";
                }
 
  

@@ -5,10 +5,10 @@
     <div class="content-section" style = "background:#EAEAEA; border-radius:10px; border-width: 10px;border-color:#black;">
         <h1 style="font-family:Verdana; color:black; font-size:30px;">Teambuilder</h1>
         <form action="{% url 'team-create'%}">
-        <input style= "position:absolute; color:#971B00; background: #EAEAEA; left:400px; margin-top :-37px; font-family: Verdana; text-shadow: 0.5px 0.5px #d6593e;" type="submit" value="New Team">
+        <input style= "position:absolute; color:#971B00; background: #EAEAEA; left:70%; margin-top :-37px; font-family: Verdana; text-shadow: 0.5px 0.5px #d6593e;" type="submit" value="New Team">
     </form>
     </div>
-    <h1 style="font-size: 30px; font-family:Verdana;"> Your Teams </h1>
+    <h1 style="font-size: 30px; font-family:Verdana;"> {{user.username}}'s Teams </h1>
     <hr style="height:2px;border-width:0;color:black;background-color:gray"></hr>
     {% for row in team_entry %}
         <div class="content-section">
@@ -19,6 +19,8 @@
                         {% for key,value in row.team_comp.items %}
                             {% if value.name %}
                                 <td><img src="../static/pokewiki/pokemon-icon/{{value.name}}.png" alt="N/A"></td>
+                            {% else %}
+                                <td></td>
                             {% endif %}
                         {% endfor %}
                     </tr>
@@ -50,15 +52,30 @@
                             {% endif %}
                         {% endfor %}
                     </tr>
-                    
+                    <tr>
+                        <td>Move1</td>
                         {% for key,value in row.team_comp.items %}
-                            {% for m in value.move %}
-                            <tr>
-                                <td>move{{forloop.counter}}</td>
-                                <td style="font-family:Trebuchet MS;">{{m|format_text}}</td>
-                            </tr>
-                            {% endfor %}
+                            <td style="font-family:Trebuchet MS;">{{value.move.0|format_text}}</td>
                         {% endfor %}
+                    </tr>
+                    <tr>
+                        <td>Move2</td>
+                        {% for key,value in row.team_comp.items %}
+                            <td style="font-family:Trebuchet MS;">{{value.move.1|format_text}}</td>
+                        {% endfor %}
+                    </tr>
+                    <tr>
+                        <td>Move3</td>
+                        {% for key,value in row.team_comp.items %}
+                            <td style="font-family:Trebuchet MS;">{{value.move.2|format_text}}</td>
+                        {% endfor %}
+                    </tr>
+                    <tr>
+                        <td>Move4</td>
+                        {% for key,value in row.team_comp.items %}
+                            <td style="font-family:Trebuchet MS;">{{value.move.3|format_text}}</td>
+                        {% endfor %}
+                    </tr>
                     <!-- <tr>
                         <td style="font-family:Verdana;">EVs</td>
                         {% for key,value in row.team_comp.items %}
@@ -73,7 +90,7 @@
                     </tr> -->
                     <tr>
                         <td style="font-family:Verdana;">Description</td>
-                        <td colspan="4"><p style="font-family:Trebuchet MS;">{{row.description}}</p></td>
+                        <td colspan="6"><p style="font-family:Trebuchet MS;">{{row.description}}</p></td>
                     </tr>
                     <tr>
                         <td colspan="5"></td>

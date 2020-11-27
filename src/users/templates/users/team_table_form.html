@@ -248,6 +248,7 @@
                    document.getElementById("as"+i).value = team_dict["p"+i]["ability"];
                    document.getElementById("ns"+i).value = team_dict["p"+i]["nature"];
                    document.getElementById("is"+i).value = team_dict["p"+i]["item"];
+                   document.getElementById("tmi"+i).src = "../../static/pokewiki/pokemon-icon/"+team_dict["p"+i]["name"]+".png";
                }
 
  
@@ -830,7 +831,7 @@
    }
    function update_recommend()
    {
-       if(recommend_list.length === 0 || team_dict["p6"].id != 0)
+       if(recommend_list.length === 0)
        {
            for(i = 1; i <= 6; i++)
            {

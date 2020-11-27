@@ -1,4 +1,5 @@
 {% extends "pokewiki/base.html" %}
+{% load format_text %}
 {% load static %}
 
 {% block title %}
@@ -74,7 +75,7 @@
                 <td style = "font-family:Trebuchet MS">{{entry.dex_id}}</td>
                 <td><img src="../static/pokewiki/pokemon-icon/{{entry.f_name}}.png" loading=lazy></td>
                 <td class = 'poke_font'>
-                  <a href="{% url 'pokemon-detail' entry.s_name %}" style = "font-family:Trebuchet MS">{{entry.f_name}}</a>
+                  <a href="{% url 'pokemon-detail' entry.s_name %}" style = "font-family:Trebuchet MS">{{entry.f_name|format_text}}</a>
                   {% if 'mega' in entry.f_name %}
                     <img src="../static/pokewiki/icons/megastone.png"　height=24px width=24px>
                   {% elif 'alola' in entry.f_name and "cap" not in entry.f_name%}

@@ -1,4 +1,5 @@
 {% extends "pokewiki/base.html" %}
+{% load format_text %}
 {% load static %}
 
 {% block title %}
@@ -26,7 +27,7 @@
               {% for entry in move_entry%}
                 <tr>
                     <td class = 'poke_font' style = "font-family: Trebuchet MS">{{entry.m_id}}</td>
-                    <td class = 'poke_font' style = "font-family: Trebuchet MS"><a href="{% url 'move-detail' entry.m_name %}">{{entry.m_name}}</a></td>
+                    <td class = 'poke_font' style = "font-family: Trebuchet MS"><a href="{% url 'move-detail' entry.m_name %}">{{entry.m_name|format_text}}</a></td>
                     <td> <img src="../static/pokewiki/type-icon/{{entry.types}}.png" alt={{entry.types}} height=24px width=24px loading=lazy> </td>
                     <td class = 'poke_font' style = "font-family: Trebuchet MS"> <img src="../static/pokewiki/move-icon/{{entry.dmg_class}}.png" alt={{entry.dmg_class}} loading=lazy> {{entry.dmg_class}}</td>
                     <td class = 'poke_font' style = "font-family: Trebuchet MS">{{entry.gen}}</td>

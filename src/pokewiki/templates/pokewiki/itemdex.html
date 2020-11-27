@@ -1,4 +1,5 @@
 {% extends "pokewiki/base.html" %}
+{% load format_text %}
 {% load static %}
 
 {% block title %}
@@ -24,8 +25,8 @@
               {% for entry in item_entry%}
                 <tr>
                     <td> <img src="../static/pokewiki/item-icon/{{entry.i_name}}.png" height=24px width=24px loading=lazy></td>
-                    <td id = 'poke_font' style = "font-family: Trebuchet MS"><a href="{% url 'item-detail' entry.i_id%}">{{entry.i_name}}</a></td>
-                    <td id = 'poke_font' style = "font-family: Trebuchet MS">{{entry.category}}</td>
+                    <td id = 'poke_font' style = "font-family: Trebuchet MS"><a href="{% url 'item-detail' entry.i_id%}">{{entry.i_name|format_text}}</a></td>
+                    <td id = 'poke_font' style = "font-family: Trebuchet MS">{{entry.category|format_text}}</td>
                 </tr>
               {% endfor %}
           </tbody>

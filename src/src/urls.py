@@ -24,7 +24,6 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('register/', user_views.register, name = 'register'),
-    path('profile/', user_views.profile, name = 'profile'),
     path('team/', team_lview.as_view(), name = 'team'),
     path('team/create/', team_cview.as_view(), name = 'team-create'),
     path('team/delete/<int:pk>', team_delview.as_view(), name = 'team-delete'),

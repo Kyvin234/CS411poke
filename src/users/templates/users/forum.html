@@ -1,4 +1,5 @@
 {% extends "pokewiki/base.html" %}
+{% load format_text %}
 {% block content %}
     <!-- <div class="content-section"> -->
     <div style="margin-top:70px;">
@@ -27,19 +28,19 @@
                     <tr>
                         <td>name</td>
                         {% for key,value in row.team_comp.items %}
-                            <td>{{value.name}}</td>
+                            <td>{{value.name|format_text}}</td>
                         {% endfor %}
                     </tr>
                     <tr>
                         <td>nature</td>
                         {% for key,value in row.team_comp.items %}
-                            <td>{{value.nature}}</td>
+                            <td>{{value.nature|format_text}}</td>
                         {% endfor %}
                     </tr>
                     <tr>
                         <td>ability</td>
                         {% for key,value in row.team_comp.items %}
-                            <td>{{value.ability}}</td>
+                            <td>{{value.ability|format_text}}</td>
                         {% endfor %}
                     </tr>
                     <tr>
@@ -52,18 +53,6 @@
                     </tr>
                     <tr>
                         <td>move</td>
-                    </tr>
-                    <tr>
-                        <td>EVs</td>
-                        {% for key,value in row.team_comp.items %}
-                            <td>{{value.EV}}</td>
-                        {% endfor %}
-                    </tr>
-                    <tr>
-                        <td>IVs</td>
-                        {% for key,value in row.team_comp.items %}
-                            <td>{{value.IV}}</td>
-                        {% endfor %}
                     </tr>
                     <tr>
                         <td>description</td>

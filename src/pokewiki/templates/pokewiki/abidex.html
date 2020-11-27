@@ -1,4 +1,5 @@
 {% extends "pokewiki/base.html" %}
+{% load format_text %}
 
 {% block title %}
     <title>AbilityDex</title>
@@ -22,7 +23,7 @@
               {% for entry in ability_entry%}
               <tr>
                   <td id ='poke_font'>{{entry.a_id}}</td>
-                  <td id ='poke_font'><a href="{% url 'ability-detail' entry.a_id %}">{{entry.a_name}}</a></td>
+                  <td id ='poke_font'><a href="{% url 'ability-detail' entry.a_id %}">{{entry.a_name|format_text}}</a></td>
               </tr>
               {% endfor %}
           </tbody>

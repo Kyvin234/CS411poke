@@ -1,12 +1,13 @@
 {% extends "pokewiki/base.html" %}
+{% load format_text %}
 
 {% block title %}
-    <title style = "font-family:Trebuchet MS">{{object.m_name|title}}</title>
+    <title style = "font-family:Trebuchet MS">{{object.m_name|format_text}}</title>
 {% endblock title %}
 
 {% block content %}
     <body id="movedex_pg">
-        <h1 style = "font-family: Trebuchet MS"> {{object.m_name|title}} </h1>
+        <h1 style = "font-family: Trebuchet MS"> {{object.m_name|format_text}} </h1>
         <hr>
         <div class="box">
             <div class="column"><p style= "font-family: Comic Sans MS">
@@ -32,30 +33,6 @@
                 {{object.effect}}
             </p></div>
         </div>
-        <!-- <div>
-            <p style= "font-family: Comic Sans MS" class="description">
-                Type : <img src="../../static/pokewiki/type-icon/{{object.types}}.png" height=24px width=24px> {{object.types}}
-                <br>
-                Damage Class: <img src="../static/pokewiki/move-icon/{{object.dmg_class}}.png"> {{object.types}}
-                <br>
-                Priority: {{object.priority}}
-                <br>
-                PP : {{object.pp}}
-                <br>
-                Power : {{object.power}}
-                <br>
-                {% if object.accuracy %}
-                    Accuracy : {{object.accuracy}}
-                {% else %}
-                    Accuracy : N/A
-                {% endif %}
-            </p>
-            <p style= "font-family: Comic Sans MS" class="description">
-                Effect :
-                <br>
-                {{object.effect}}
-            </p>
-        </div> -->
         <br>
         {% for count in p_with_m|slice:":1" %}
             <h2>  There are {{count.count}} Pokémon that can learn this move. </h2>
@@ -76,7 +53,7 @@
                         <td style="font-family: Comic Sans MS">{{entry.dex_id}}</td>
                         <td><img src="../static/pokewiki/pokemon-icon/{{entry.f_name}}.png"></td>
                         <td>
-                            <a href="{% url 'pokemon-detail' entry.s_name %}" style= "font-family: Comic Sans MS">{{entry.f_name}}</a>
+                            <a href="{% url 'pokemon-detail' entry.s_name %}" style= "font-family: Comic Sans MS">{{entry.f_name|format_text}}</a>
                             {% if 'mega' in entry.f_name %}
                                 <img src="../static/pokewiki/icons/megastone.png" height=24px width=24px>
                             {% endif %}

@@ -1,4 +1,5 @@
 {% extends "pokewiki/base.html" %}
+{% load format_text %}
 {% block content %}
 <body id = "myteampage">
     <div class="content-section" style = "background:#EAEAEA; border-radius:10px; border-width: 10px;border-color:#black;">
@@ -10,7 +11,6 @@
     <h1 style="font-size: 30px; font-family:Verdana;"> Your Teams </h1>
     <hr style="height:2px;border-width:0;color:black;background-color:gray"></hr>
     {% for row in team_entry %}
-    {{row.team_comp}}
         <div class="content-section">
             <table class="table table-hover" id="myTable">
                 <thead>
@@ -27,19 +27,19 @@
                     <tr>
                         <td style="font-family:Verdana;">Name</td>
                         {% for key,value in row.team_comp.items %}
-                            <td style="font-family:Trebuchet MS;">{{value.name}}</td>
+                            <td style="font-family:Trebuchet MS;">{{value.name|format_text}}</td>
                         {% endfor %}
                     </tr>
                     <tr>
                         <td style="font-family:Verdana;">Nature</td>
                         {% for key,value in row.team_comp.items %}
-                            <td style="font-family:Trebuchet MS;">{{value.nature}}</td>
+                            <td style="font-family:Trebuchet MS;">{{value.nature|format_text}}</td>
                         {% endfor %}
                     </tr>
                     <tr>
                         <td style="font-family:Verdana;">Ability</td>
                         {% for key,value in row.team_comp.items %}
-                            <td style="font-family:Trebuchet MS;">{{value.ability}}</td>
+                            <td style="font-family:Trebuchet MS;">{{value.ability|format_text}}</td>
                         {% endfor %}
                     </tr>
                     <tr>
@@ -55,7 +55,7 @@
                             {% for m in value.move %}
                             <tr>
                                 <td>move{{forloop.counter}}</td>
-                                <td style="font-family:Trebuchet MS;">{{m}}</td>
+                                <td style="font-family:Trebuchet MS;">{{m|format_text}}</td>
                             </tr>
                             {% endfor %}
                         {% endfor %}

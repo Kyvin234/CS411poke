@@ -1,12 +1,13 @@
 {% extends "pokewiki/base.html" %}
+{% load format_text %}
 
 {% block title %}
-    <title>{{object.a_name|title}}</title>
+    <title>{{object.a_name|format_text}}</title>
 {% endblock title %}
 
 {% block content %}
     <body id="abidex_pg">
-        <h1> {{object.a_name|title}} </h1>
+        <h1> {{object.a_name|format_text}} </h1>
         <hr>
         <p class="description" style = "font-family: Comic Sans MS"> {{object.description}} </p>
         <br>
@@ -25,7 +26,7 @@
             <tbody>
                 {% for row in p_with_a %}
                     <tr>
-                        <td> <a href="{% url 'pokemon-detail' row.s_name_id %}" style = "font-family: Comic Sans MS">{{row.s_name_id}}</a> </td>
+                        <td> <a href="{% url 'pokemon-detail' row.s_name_id %}" style = "font-family: Comic Sans MS">{{row.s_name_id|format_text}}</a> </td>
                         <td> <img src="../../static/pokewiki/pokemon-icon/{{row.f_name_id}}.png" loading=lazy></td>
                         {% if row.is_hidden == 1 %}
                             <td class = 'poke_font'> Yes </td>  

@@ -42,11 +42,6 @@ class forum_lview(ListView):
         return qs.raw("""   SELECT *
                             FROM users_team_table
                         """)
-    
-# user profile form
-@login_required
-def profile(request):
-    return render(request, 'users/profile.html')
 # user's team view
 class team_lview(LoginRequiredMixin, ListView):
     model = team_table

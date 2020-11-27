@@ -1,7 +1,8 @@
 {% extends "pokewiki/base.html" %}
+{% load format_text %}
 
 {% block title %}
-    <title>{{object.s_name}}</title>
+    <title>{{object.s_name|format_text}}</title>
 {% endblock title %}
 
 {% block content %}
@@ -12,7 +13,7 @@
         <div class = "box" id = "{{row.f_name}}2">
             <div class = "box-row" id = "{{row.f_name}}3">
                 <div class="box-cell box1" id = "{{row.f_name}}4">
-                    <h1 style ="font-family:Trebuchet MS">{{row.f_name}}</h1>
+                    <h1 style ="font-family:Trebuchet MS">{{row.f_name|format_text}}</h1>
                     {% for a in pokemon_ability %}
                         {% if a.f_name == row.f_name %}
                             {% if a.is_hidden == 0 %}
@@ -86,7 +87,6 @@
                                     {{row.gender_rate}}
                                 </td>
                             </tr>
-
                     <!-- STAT TABLE-->
                     <table style = "background: #6FFEF6; border-radius: 10px; -moz-border-radius:10px;
                     -webkit-border-radius:10; -khtml-border-radius:10px; -icab-border-radius:10px;

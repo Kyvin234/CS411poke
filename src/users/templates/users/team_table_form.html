@@ -173,7 +173,7 @@
                poke_dict[poke_detail.pokemon] = poke_detail;
            {%endfor%}
        {%endfor%}
- 
+        console.log(poke_dict);
        // Set up data fields
        series.dataFields.value = "value";
        series.dataFields.name = "name";
@@ -830,7 +830,7 @@
    }
    function update_recommend()
    {
-       if(recommend_list.length === 0)
+       if(recommend_list.length === 0 || team_dict["p6"].id != 0)
        {
            for(i = 1; i <= 6; i++)
            {

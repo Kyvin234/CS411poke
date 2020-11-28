@@ -13,13 +13,13 @@
         <div class = "box" id = "{{row.f_name}}2">
             <div class = "box-row" id = "{{row.f_name}}3">
                 <div class="box-cell box1" id = "{{row.f_name}}4">
-                    <h1 style ="font-family:Trebuchet MS">{{row.f_name|format_text}}</h1>
+                    <h1 style ="font-family: Verdana; font-size:30px;">{{row.f_name|format_text}}</h1>
                     {% for a in pokemon_ability %}
                         {% if a.f_name == row.f_name %}
                             {% if a.is_hidden == 0 %}
-                                <a href="{% url 'ability-detail' a.a_id %}" style ="font-family:Comic Sans MS">{{a.a_name}}<br></a>
+                                <a href="{% url 'ability-detail' a.a_id %}" style ="font-family:Trebuchet MS">{{a.a_name}}<br></a>
                             {% else %}
-                                <a href="{% url 'ability-detail' a.a_id %}" style ="font-family:Comic Sans MS">{{a.a_name}}(hidden)</a>
+                                <a href="{% url 'ability-detail' a.a_id %}" style ="font-family:Trebuchet MS">{{a.a_name}}(hidden)</a>
                             {% endif %}
                         {% endif %}
                     {% endfor %}
@@ -27,14 +27,14 @@
                     <p><img src="../../static/pokewiki/pokedetailimg/{{row.f_name}}.jpg"></p>
                 </div>
                 <div class = " box-cell box2" id = "{{row.f_name}}5">
-                    <h3 style = "font-family: Trebuchet MS"> Pokémon Data </h3>
+                    <h3 style = "font-family: Verdana; font-size:30px;"> Pokémon Data </h3>
                     <hr style ="width:50%, text-align:left; margin-left:0">
                     <table class = "info-table" id="info-table">
                         <tbody>
                             <!-- DEX ID -->
                             <tr>
-                                <th>National Dex No.</th>
-                                <td>
+                                <th style="font-family:Trebuchet MS; font-size:18px;">National Dex No.</th>
+                                <td style="font-family:Trebuchet MS; font-size:18px;">
                                     <strong>
                                         {{row.dex_id}}
                                     </strong>
@@ -42,7 +42,7 @@
                             </tr>
                             <!-- TYPE -->
                             <tr>
-                                <th>Type</th>
+                                <th style="font-family:Trebuchet MS; font-size:18px;">Type</th>
                                 <td>
                                     <a>
                                         <img src="../../static/pokewiki/type-icon/{{row.type1}}.png" height=32px width=32px>
@@ -54,48 +54,48 @@
                             </tr>
                             <!-- GENERATION -->
                             <tr>
-                                <th>Generation</th>
-                                <td>
+                                <th style="font-family:Trebuchet MS; font-size:18px;">Generation</th>
+                                <td style="font-family:Trebuchet MS; font-size:18px;">
                                     {{row.gen}}
                                 </td>
                             </tr>
                             <!-- HEIGHT -->
                             <tr>
-                                <th>Height</th>
-                                <td>
+                                <th style="font-family:Trebuchet MS; font-size:18px;">Height</th>
+                                <td style="font-family:Trebuchet MS; font-size:18px;">
                                     {{row.height}} decimeters(dm)
                                 </td>
                             </tr>
                             <!-- WEIGHT -->
                             <tr>
-                                <th>Weight</th>
-                                <td>
+                                <th style="font-family:Trebuchet MS; font-size:18px;">Weight</th>
+                                <td style="font-family:Trebuchet MS; font-size:18px;">
                                     {{row.weight}} hectograms(hg)
                                 </td>
                             </tr>
                             <!-- CAPTURE RATE -->
                             <tr>
-                                <th>Capture Rate</th>
-                                <td>
+                                <th style="font-family:Trebuchet MS; font-size:18px;">Capture Rate</th>
+                                <td style="font-family:Trebuchet MS; font-size:18px;">
                                     {{row.capture_rate}}
                                 </td>
                             </tr>
                             <!-- GENDER RATE -->
                             <tr>
-                                <th>Gender</th>
-                                <td>
+                                <th style="font-family:Trebuchet MS; font-size:18px;">Gender</th>
+                                <td style="font-family:Trebuchet MS; font-size:18px;">
                                     {{row.gender_rate}}
                                 </td>
                             </tr>
                     <!-- STAT TABLE-->
                     <table style = "background: #6FFEF6; border-radius: 10px; -moz-border-radius:10px;
                     -webkit-border-radius:10; -khtml-border-radius:10px; -icab-border-radius:10px;
-                    -o-border-radius:10px; border:3px solid #05A89F; white-space:nowrap" id="stattable">
+                    -o-border-radius:10px; border:3px solid #05A89F; white-space:nowrap margin-top:10px;" id="stattable">
                     <!--/////////////////////////////////////////////////////// CAPTION-->
                         <caption style ="color:black; caption-side:top; text-align:center;
                         background:#40ece2; border-radius: 10px; -moz-border-radius:10px;
                         -webkit-border-radius:10; -khtml-border-radius:10px; -icab-border-radius:10px;
-                        -o-border-radius:10px; border:3px solid #05A89F; white-space:nowrap; font-family: Trebuchet MS">
+                        -o-border-radius:10px; border:3px solid #05A89F; white-space:nowrap; font-family:Trebuchet MS; text-transform:capitalize;">
                         Base Stats for {{row.f_name}}</caption>
                         <tbody>
                             <!--
@@ -107,9 +107,9 @@
                             <tr style = "background: #E57474; text-align:center">
                                 <th style="width:150px">
                                     <div style="float:left">
-                                        <span style="color:#000;font-family: Comic Sans MS;">HP:</span>
+                                        <span style="color:#000;font-family: Trebuchet MS;">HP:</span>
                                     </div>
-                                    <div style="float:right; color:black; font-family: Comic Sans MS;">
+                                    <div style="float:right; color:black; font-family: Trebuchet MS;">
                                         {{row.hp}}
                                     </div>
                                 </th>
@@ -121,9 +121,9 @@
                                 <tr style = "background: #FFB380; text-align:center">
                                     <th style="width:150px">
                                         <div style="float:left">
-                                            <span style="color:#000;font-family: Comic Sans MS;">Attack:</span>
+                                            <span style="color:#000;font-family: Trebuchet MS;">Attack:</span>
                                         </div>
-                                        <div style="float:right; color:black; font-family: Comic Sans MS;">
+                                        <div style="float:right; color:black; font-family: Trebuchet MS;">
                                             {{row.atk}}
                                         </div>
                                     </th>
@@ -135,9 +135,9 @@
                                     <tr style = "background: #FAE078; text-align:center">
                                         <th style="width:150px">
                                             <div style="float:left">
-                                                <span style="color:#000;font-family: Comic Sans MS;">Defense:</span>
+                                                <span style="color:#000;font-family: Trebuchet MS;">Defense:</span>
                                             </div>
-                                            <div style="float:right; color:black;font-family: Comic Sans MS;">
+                                            <div style="float:right; color:black;font-family: Trebuchet MS;">
                                                 {{row.df}}
                                             </div>
                                         </th>
@@ -149,9 +149,9 @@
                                     <tr style = "background: #62C5DA; text-align:center">
                                         <th style="width:150px">
                                             <div style="float:left">
-                                                <span style="color:#000;font-family: Comic Sans MS;">Sp.Attack:</span>
+                                                <span style="color:#000;font-family: Trebuchet MS;">Sp.Attack:</span>
                                             </div>
-                                            <div style="float:right; color:black; font-family: Comic Sans MS;">
+                                            <div style="float:right; color:black; font-family: Trebuchet MS;">
                                                 {{row.spatk}}
                                             </div>
                                         </th>
@@ -163,9 +163,9 @@
                                         <tr style = "background: #A7DB8D; text-align:center">
                                             <th style="width:150px">
                                                 <div style="float:left">
-                                                    <span style="color:#000; font-family: Comic Sans MS;">Sp.Defense:</span>
+                                                    <span style="color:#000; font-family: Trebuchet MS;">Sp.Defense:</span>
                                                 </div>
-                                                <div style="float:right; color:black; font-family: Comic Sans MS;">
+                                                <div style="float:right; color:black; font-family: Trebuchet MS;">
                                                     {{row.spdf}}
                                                 </div>
                                             </th>
@@ -177,9 +177,9 @@
                                             <tr style = "background: #F4C2C2; text-align:center">
                                                 <th style="width:150px">
                                                     <div style="float:left">
-                                                        <span style="color:#000;font-family: Comic Sans MS;">Speed:</span>
+                                                        <span style="color:#000;font-family: Trebuchet MS;">Speed:</span>
                                                     </div>
-                                                    <div style="float:right; color:black; font-family: Comic Sans MS;">
+                                                    <div style="float:right; color:black; font-family: Trebuchet MS;">
                                                         {{row.spd}}
                                                     </div>
                                                 </th>
@@ -199,9 +199,9 @@
                                                 <tr style = "background: #BD93D3; text-align:center">
                                                     <th style="width:150px">
                                                         <div style="float:left">
-                                                            <span style="color:#000; font-family: Comic Sans MS;">Total:</span>
+                                                            <span style="color:#000; font-family: Trebuchet MS;">Total:</span>
                                                         </div>
-                                                        <div style="float:right; font-family: Comic Sans MS; color:black;">
+                                                        <div style="float:right; font-family: Trebuchet MS; color:black;">
                                                             {{row.hp|add:row.atk|add:row.df|add:row.spatk|add:row.spdf|add:row.spd}}
                                                         </div>
                                                     </th>
@@ -214,19 +214,19 @@
                                         </table>
                                     </div>
             <div class = "box-cell box3" id = "{{row.f_name}}6">
-            <h2 style = "font-family: Trebuchet MS"> Learnable Moves </h2>
+            <h2 style = "font-family: Verdana; font-size:30px;"> Learnable Moves </h2>
             <div class="table-wrapper-scroll-y my-custom-scrollbar" >
             <table class="table table-hover" id="myTable">
             <thead>
                 <tr class = "header">
-                    <th scope="col">moves</th>
+                    <th scope="col" style="font-family:Trebuchet MS; font-size:18px;">Moves</th>
                 </tr>
             </thead>
             <tbody>
                 {% for m in pokemon_move%}
                     {% if m.f_name_id == row.f_name%}
                         <tr>
-                            <td><a href="{% url 'move-detail' m.m_name_id %}" style = "font-family: Comic Sans MS">{{m.m_name_id}}</a></td>
+                            <td><a href="{% url 'move-detail' m.m_name_id %}" style = "font-family: Trebuchet MS; text-transform:capitalize;">{{m.m_name_id}}</a></td>
                             <td> <img src="../../static/pokewiki/type-icon/{{m.types}}.png" height=24px width=24px loading=lazy> </td>
                             <td> <img src="../../static/pokewiki/move-icon/{{m.dmg_class}}.png"loading=lazy> </td>
                         </tr>

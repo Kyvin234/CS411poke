@@ -7,31 +7,31 @@
 
 {% block content %}
     <body id="abidex_pg">
-        <h1> {{object.a_name|format_text}} </h1>
+        <h1 style="font-family:Verdana; font-size:30px;"> {{object.a_name|format_text}} </h1>
         <hr>
-        <p class="description" style = "font-family: Comic Sans MS"> {{object.description}} </p>
+        <p class="description" style = "font-family: Trebuchet MS"> {{object.description}} </p>
         <br>
         {% for count in p_with_a|slice:":1" %}
-            <h2>  There are {{count.count}} Pokemon with this ability: </h2>
+            <h2 style="font-family:Verdana; font-size:26px;">  There are {{count.count}} Pokemon with this ability: </h2>
         {% endfor %}
         <hr>
         <table class="table table-hover" id="myTable">
             <thead>
                 <tr class = "header">
-                    <th scope="col">Name</th>
-                    <th scope="col">Icon</th>
-                    <th scope="col">Hidden</th>
+                    <th scope="col" style="font-family:Trebuchet MS">Name</th>
+                    <th scope="col" style="font-family:Trebuchet MS">Icon</th>
+                    <th scope="col" style="font-family:Trebuchet MS">Hidden</th>
                 </tr>
             </thead>
             <tbody>
                 {% for row in p_with_a %}
                     <tr>
-                        <td> <a href="{% url 'pokemon-detail' row.s_name_id %}" style = "font-family: Comic Sans MS">{{row.s_name_id|format_text}}</a> </td>
+                        <td> <a href="{% url 'pokemon-detail' row.s_name_id %}" style="font-family:Trebuchet MS">{{row.s_name_id|format_text}}</a> </td>
                         <td> <img src="../../static/pokewiki/pokemon-icon/{{row.f_name_id}}.png" loading=lazy></td>
                         {% if row.is_hidden == 1 %}
-                            <td class = 'poke_font'> Yes </td>  
+                            <td class = 'poke_font' style="font-family:Trebuchet MS"> Yes </td>
                         {% else %}
-                            <td class = 'poke_font'> No </td>
+                            <td class = 'poke_font' style="font-family:Trebuchet MS"> No </td>
                         {% endif %}
                     </tr>
                 {% endfor %}

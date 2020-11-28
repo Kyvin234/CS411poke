@@ -1,20 +1,20 @@
 {% extends "pokewiki/base.html" %}
 {% load format_text %}
 {% block content %}
+<body id = "teambld">
     <!-- <div class="content-section"> -->
-    <div style="margin-top:70px;">
-        <h1> Forum </h1>
-        <hr>
+    <div class="content-section" style = " text-align:center; margin-top: 90px;background:#EAEAEA; border-color:#b4b4b4; border-radius:10px; border-width: 10px; text-shadow: 0.5px 0.5px #a0a0a0;">
+        <h1 style = "font-family:Verdana; font-size:30px; text-align:center;"> Forum of Pokémon Teams </h1>
     <!-- </div> -->
     </div>
 
     {% for row in team_lists %}
         <!-- <h3> {{row.}} </h3> -->
-        <div class="content-section">
+        <div class="content-section" style="background-color:#ececec">
             <table class="table table-hover" id="myTable">
                 <thead>
                     <tr class = "header">
-                        <td>{{row.team_name}}</td>
+                        <td style="font-family:Verdana; font-size:16px;">{{row.team_name}}</td>
                         {% for key,value in row.team_comp.items %}
                             {% if value.name %}
                                 <td><img src="../static/pokewiki/pokemon-icon/{{value.name}}.png" alt="N/A"></td>
@@ -24,25 +24,25 @@
                 </thead>
                 <tbody class='team-body'>
                     <tr>
-                        <td>name</td>
+                        <td style="font-family:Verdana; font-size:14px;">Name</td>
                         {% for key,value in row.team_comp.items %}
-                            <td>{{value.name|format_text}}</td>
+                            <td style="font-family:Trebuchet MS; font-size:14px;">{{value.name|format_text}}</td>
                         {% endfor %}
                     </tr>
                     <tr>
-                        <td>nature</td>
+                        <td style="font-family:Verdana; font-size:14px;">Nature</td>
                         {% for key,value in row.team_comp.items %}
-                            <td>{{value.nature|format_text}}</td>
+                            <td style="font-family:Trebuchet MS; font-size:14px;">{{value.nature|format_text}}</td>
                         {% endfor %}
                     </tr>
                     <tr>
-                        <td>ability</td>
+                        <td style="font-family:Verdana; font-size:14px;">Ability</td>
                         {% for key,value in row.team_comp.items %}
-                            <td>{{value.ability|format_text}}</td>
+                            <td style="font-family:Trebuchet MS; font-size:14px;">{{value.ability|format_text}}</td>
                         {% endfor %}
                     </tr>
                     <tr>
-                        <td>item</td>
+                        <td style="font-family:Verdana; font-size:14px;">Item</td>
                         {% for key,value in row.team_comp.items %}
                             {% if value.item %}
                                 <td><img src="../static/pokewiki/item-icon/{{value.item}}.png" alt="N/A"></td>
@@ -50,16 +50,17 @@
                         {% endfor %}
                     </tr>
                     <tr>
-                        <td>move</td>
+                        <td style="font-family:Verdana; font-size:14px;">Move</td>
                     </tr>
                     <tr>
-                        <td>description</td>
-                        <td colspan="4"><p>{{row.description}}</p></td>
+                        <td style="font-family:Verdana; font-size:14px;">Description</td>
+                        <td colspan="4"><p style="font-family:Trebuchet MS; font-size:14px;">{{row.description}}</p></td>
                     </tr>
                 </tbody>
             </table>
         </div>
     {% endfor %}
+</body>
 {% endblock content %}
 {% block extra_js %}
     <script>

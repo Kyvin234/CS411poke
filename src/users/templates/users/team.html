@@ -8,10 +8,10 @@
         <input style= "position:absolute; color:#971B00; background: #EAEAEA; left:70%; margin-top :-37px; font-family: Verdana; text-shadow: 0.5px 0.5px #d6593e;" type="submit" value="New Team">
     </form>
     </div>
-    <h1 style="font-size: 30px; font-family:Verdana;"> {{user.username}}'s Teams </h1>
+    <h1 style="font-size: 30px; font-family:Verdana; margin-top:40px; text-align:center"> {{user.username}}'s Teams </h1>
     <hr style="height:2px;border-width:0;color:black;background-color:gray"></hr>
     {% for row in team_entry %}
-        <div class="content-section">
+        <div class="content-section" style="margin-top:-5px; background-color:#d8d8d8">
             <table class="table table-hover" id="myTable">
                 <thead>
                     <tr class = "header">

@@ -2,15 +2,15 @@
 {% load format_text %}
 
 {% block title %}
-    <title style = "font-family:Trebuchet MS">{{object.m_name|format_text}}</title>
+    <title style = "font-family:Verdana">{{object.m_name|format_text}}</title>
 {% endblock title %}
 
 {% block content %}
     <body id="movedex_pg">
-        <h1 style = "font-family: Trebuchet MS"> {{object.m_name|format_text}} </h1>
+        <h1 style = "font-family: Verdana; font-size:34px;"> {{object.m_name|format_text}} </h1>
         <hr>
         <div class="box">
-            <div class="column"><p style= "font-family: Comic Sans MS">
+            <div class="column"><p style= "font-family: Trebuchet MS; text-transform:capitalize;">
                 Type : <img src="../../static/pokewiki/type-icon/{{object.types}}.png" height=24px width=24px> {{object.types}}
                 <br>
                 Damage Class: <img src="../static/pokewiki/move-icon/{{object.dmg_class}}.png"> {{object.types}}
@@ -27,7 +27,7 @@
                     Accuracy : N/A
                 {% endif %}
             </p></div>
-            <div class="column"><p style= "font-family: Comic Sans MS">
+            <div class="column"><p style= "font-family: Trebuchet MS">
                 Effect :
                 <br>
                 {{object.effect}}
@@ -35,25 +35,25 @@
         </div>
         <br>
         {% for count in p_with_m|slice:":1" %}
-            <h2>  There are {{count.count}} Pokémon that can learn this move. </h2>
+            <h2 style="font-family:Verdana; font-size:30px;">  There are {{count.count}} Pokémon that can learn this move. </h2>
         {% endfor %}
         <hr>
         <table class="table table-hover" id="myTable">
             <thead>
                 <tr class = "header">
-                    <th scope="col">#</th>
-                    <th scope="col">Icon</th>
-                    <th scope="col">Name</th>
-                    <th scope="col">Types</th>
+                    <th scope="col" style="font-family:Trebuchet MS">#</th>
+                    <th scope="col" style="font-family:Trebuchet MS">Icon</th>
+                    <th scope="col" style="font-family:Trebuchet MS">Name</th>
+                    <th scope="col" style="font-family:Trebuchet MS">Types</th>
                 </tr>
             </thead>
             <tbody>
                 {% for entry in p_with_m%}
                     <tr>
-                        <td style="font-family: Comic Sans MS">{{entry.dex_id}}</td>
+                        <td style="font-family:Trebuchet MS">{{entry.dex_id}}</td>
                         <td><img src="../static/pokewiki/pokemon-icon/{{entry.f_name}}.png"></td>
                         <td>
-                            <a href="{% url 'pokemon-detail' entry.s_name %}" style= "font-family: Comic Sans MS">{{entry.f_name|format_text}}</a>
+                            <a href="{% url 'pokemon-detail' entry.s_name %}" style="font-family:Trebuchet MS">{{entry.f_name|format_text}}</a>
                             {% if 'mega' in entry.f_name %}
                                 <img src="../static/pokewiki/icons/megastone.png" height=24px width=24px>
                             {% endif %}

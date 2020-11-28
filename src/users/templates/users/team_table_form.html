@@ -10,20 +10,21 @@
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
- 
+
 {% endblock %}
 {% block content %}
+<body id = 'teambld'>
    <div class="content-section">
        <form method="POST" id="team_form">
            {% csrf_token %}
            <fieldset class="form-group">
-               <legend class="border-bottom mb-4">Team</legend>
+               <legend class="border-bottom mb-4" style="font-family:Verdana; font-size:30px; text-shadow: 0.5px 0.5px #bfbfbf;">Teambuilder <img src = "../../static/pokewiki/icons/teambuilder-icon.png" height=28px; width=30px; style="margin-top:-8px; margin-left:2px;"></legend>
                    <div class="form-row">
-                       <div class="form-group col-md-6 mb-0">
+                       <div class="form-group col-md-6 mb-0" style="font-family:Verdana; font-size:18px;">
                            {{ form.team_name|as_crispy_field }}
                        </div>
                    </div>
-                   <div class="form-row">
+                   <div class="form-row" style="font-family:Verdana; font-size:18px;">
                        <div class="form-group col-md-11 mb-0">
                            {{ form.description|as_crispy_field }}
                        </div>
@@ -35,26 +36,29 @@
                    </div>
                </fieldset>
        </form>
- 
- 
+
+
        <!-- pokemon selecting field -->
        <!-- search bar -->
        <div class="input-group mb-3" >
            <div class="autocomplete" style="width:104.5vh">
-               <input id="mySearch" type="text" name="myPokemon" placeholder="Search for Pokémon..." class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" onkeyup="team_filter()">
+               <input id="mySearch" type="text" name="myPokemon" placeholder="Search for Pokémon..." class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" style="font-family:Verdana; font-size:18px;" sonkeyup="team_filter()">
            </div>
            <div class="input-group-append">
                <button class="btn btn-outline-secondary" type="button" onclick="add_search_pokemon()">Add</button>
            </div>
        </div>
- 
+       <hr style="height:2px;border-width:0;color:black;background-color:gray"></hr>
        <!-- add pokemon graph-->
-       <div id="chartdiv">
+       <p style="font-family:Verdana; font-size:18px;">Battle Data of Selected Pokémon</p>
+       <div id="chartdiv" style="background-color:#c3c3c3;">
        </div>
- 
+       <hr style="height:2px;border-width:0;color:black;background-color:gray"></hr>
+
+       <!-- <hr style="height:2px;border-width:0;color:black;background-color:gray"></hr> -->
        <!-- dropdown bar for suggestions -->
        <div class = "suggest" id = "poke0">
-           <div style = "font-size: 18px; text-transform:capitalize; margin-bottom:10px;">
+           <div style = "font-size: 18px; font-family:Verdana; text-transform:capitalize; margin-bottom:10px;">
                Recommended Pokémon
            </div>
        <!-- LIST -->
@@ -63,9 +67,9 @@
                    <div class = "pokemon_entry" style="display:inline-block; margin-bottom:20px;" id = "rec1">
                        <div id = "img{{ forloop.counter }}" class = "pokeimg" style="display:inline-block; width:50px; text-align:center">
                        </div>
-                       <div class = "pokename" id = "sp{{ forloop.counter }}" style = "font-size:14px; padding-left:10px; display:inline-block;">
+                       <div class = "pokename" id = "sp{{ forloop.counter }}" style = "font-size:10px; font-family:Verdana; text-transform:capitalize; padding-left:10px; display:inline-block;">
                        </div>
-                       <div class = "pokename" style = "font-size:14px; padding-left:10px; display:inline-block;">
+                       <div class = "pokename" style = "font-size:12px; font-family:Verdana; padding-left:10px; display:inline-block;">
                            <span class = "btn btn-outline-secondary" type="button" onclick="add_recommend_pokemon({{ forloop.counter }})">Add</span>
                        </div>
                    </div>
@@ -73,8 +77,8 @@
            </ul>
        </div>
        <!-- recommended pokemons -->
-      
-       <hr style="height:2px;border-width:0;color:black;background-color:gray"></hr>
+       <hr>
+       <!-- <hr style="height:2px;border-width:0;color:gray;background-color:gray"></hr> -->
        <!-- teammember form picker -->
        <div class="team" style="overflow:hidden;">
            {% for i in '123456'|make_list %}
@@ -84,29 +88,29 @@
                        <!-- pokemon name & icon-->
                        <div class="input-group mb-3">
                            <form method="POST">
-                               <img id = "tmi{{ forloop.counter }}" src = "" style="margin-left: 80%;">
+                               <img id = "tmi{{ forloop.counter }}" src = "" style="margin-left:220px; margin-top:-20px;">
                                <div class="input-group mb-3">
-                                   <input readonly id="tm{{ forloop.counter }}" type="text" class="form-control" placeholder="Pokemon" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+                                   <input readonly id="tm{{ forloop.counter }}" type="text" class="form-control" style = "font-family:Verdana; text-transform:capitalize;" placeholder="Pokémon" aria-label="Default" aria-describedby="inputGroup-sizing-default">
                                </div>
                            </form>
                        </div>
                        <!-- pokemon moves -->
                        <div class="input-group mb-3">
-                           <select class="selectpicker" multiple data-live-search="true" id="ms{{ forloop.counter }}" title="Choose Four Moves..." data-width="256px" data-max-options="4" data-container='#{{ forloop.counter }}' virtualScroll="50">
+                           <select class="selectpicker" multiple data-live-search="true" id="ms{{ forloop.counter }}" title="Choose Four Moves..." data-width="256px" data-max-options="4" data-container='#{{ forloop.counter }}'  style = "font-family:Verdana; text-transform:capitalize;" virtualScroll="50">
                            </select>
                        </div>
                        <!-- pokemon ability & Nature -->
                        <div class="input-group mb-3">
-                           <select class="custom-select" id="as{{ forloop.counter }}" onchange="select_abi(this.value, {{forloop.counter}})">
-                               <option value="" disabled selected>Ability</option>
+                           <select class="custom-select" style = "font-family:Verdana; text-transform:capitalize;" id="as{{ forloop.counter }}" onchange="select_abi(this.value, {{forloop.counter}})">
+                               <option value="" disabled selected >Ability</option>
                            </select>
-                           <select class="custom-select" id="ns{{ forloop.counter }}" onchange="select_nat(this.value, {{ forloop.counter}})">
+                           <select class="custom-select" style = "font-family:Verdana; text-transform:capitalize;" id="ns{{ forloop.counter }}" onchange="select_nat(this.value, {{ forloop.counter}})">
                                <option value="" disabled selected>Nature</option>
                            </select>
                        </div>
                        <!-- pokemon item -->
                        <div class="input-group mb-3">
-                           <select class="custom-select" id="is{{ forloop.counter }}" onchange="select_it(this.value, {{ forloop.counter}})">
+                           <select class="custom-select" style = "font-family:Verdana; text-transform:capitalize;" id="is{{ forloop.counter }}" onchange="select_it(this.value, {{ forloop.counter}})">
                                <option value="" disabled selected>Item</option>
                                {% for row in item_info%}
                                    {% for l,k in row.items%}
@@ -126,7 +130,7 @@
                        <!-- remove -->
                        <div class="input-group mb-3">
                            <div class="input-group-append">
-                               <button class="btn btn-outline-secondary" type="button" onclick="remove_pokemon('p{{ forloop.counter }}')">Remove</button>
+                               <button class="btn btn-outline-secondary" style = "margin-left: 100px; font-family:Verdana; text-transform:capitalize;" type="button" onclick="remove_pokemon('p{{ forloop.counter }}')">Remove</button>
                            </div>
                        </div>
                    </div>
@@ -136,19 +140,20 @@
        </div>
        <!-- rule constraints -->
        <div>
-           <small style="display: inline;"> RULEs: </small>
+           <small style="display: inline;"> Restrictions: </small>
            <br>
-           <small style="display: inline;" id="rule1"> No more than ONE megas in the team</small>
+           <small style="display: inline;" id="rule1"> - No more than 1 Mega Pokémon on a team</small>
            <br>
-           <small style="display: inline;" id="rule2"> No two pokemons have two the same national dex number</small>
+           <small style="display: inline;" id="rule2"> - No 2 Pokémon should have the same national dex number</small>
        </div>
        <!-- create button -->
        <div class="form-group">
            <center><input type="submit" form="team_form"/></center>
        </div>
    </div>
+ </body>
 {% endblock content %}
- 
+
 {% block extra_js %}
    <!-- graph representation  -->
    <script src="//cdn.amcharts.com/lib/4/core.js"></script>
@@ -157,14 +162,14 @@
    <script src="//cdn.amcharts.com/lib/4/plugins/forceDirected.js"></script>
    <script>
        am4core.useTheme(am4themes_animated);
- 
+
        // Create chart
        var chart = am4core.create("chartdiv", am4plugins_forceDirected.ForceDirectedTree);
- 
+
        // Create series
        var series = chart.series.push(new am4plugins_forceDirected.ForceDirectedSeries());
        series.data = []
- 
+
        // Initialize pokemon dictionary
        poke_dict = {}
        {%for l, k in pokemon_team_detail.items%}
@@ -186,14 +191,14 @@
        series.dataFields.fixed = "fixed";
        series.nodes.template.propertyFields.x = "x";
        series.nodes.template.propertyFields.y = "y";
- 
+
        // Add labels
        series.nodes.template.label.text = "{name}";
        series.fontSize = 8;
        series.minRadius = 15;
        series.maxRadius = 40;
        series.centerStrength = 0.5;
- 
+
        //icons
        // series.nodes.template.circle.disabled = true;
        // series.nodes.template.outerCircle.disabled = true;
@@ -252,7 +257,7 @@
                     document.getElementById("tmi"+i).src = "../../static/pokewiki/pokemon-icon/"+team_dict["p"+i]["name"]+".png";
                }
 
- 
+
            {% else %}
                for(i = 1; i <= 6; i++)
                    nature_init(i);
@@ -348,7 +353,7 @@
                    }
                    $('#ms'+select).val(team_dict["p"+select]["move"]);
                    $('#ms'+select).selectpicker('refresh');
-                   
+
                },
                error: function(xhr){
                    alert("Error: " + xhr.statusText);
@@ -481,7 +486,7 @@
        */
        function nature_init(select_id)
        {
-           $('#ns'+select_id).append(`<option value="adamant"> Adamant Attack+ Sp.Atk- </option>`);
+           $('#ns'+select_id).append(`<option value="adamant"> Adamant</option>`);
            $('#ns'+select_id).append(`<option value="bashful">  bashful</option>`);
            $('#ns'+select_id).append(`<option value="hardy"> hardy </option>`);
            $('#ns'+select_id).append(`<option value="lonely">  lonely</option>`);
@@ -510,15 +515,15 @@
    </script>
    <!-- script to handle autocomplete -->
    <script >
- 
+
    //push names, auto complete search select
    var poker = [];
    for(let p in poke_dict){
        poker.push(poke_dict[p].pokemon);
    }
- 
+
    ottocomplete(document.getElementById("mySearch"), poker);
- 
+
    function team_filter()
    {
            var input;
@@ -618,9 +623,9 @@
        series.nodes.template.propertyFields.x = "x";
        series.nodes.template.propertyFields.y = "y";
    }
- 
+
    /* Add searched pokemon to your team list */
- 
+
    function add_search_pokemon(){
        var i, key;
        for(i = 1; i < 7; i++){
@@ -645,9 +650,9 @@
            }
        }
    }
- 
+
    /* Remove pokemon from your team list */
- 
+
    function remove_pokemon(index){
        team_dict[index] = {"id" : 0, "name" : "", "nature" : "", "ability" : "", "move": [],  "item" : ""};
        document.getElementById("tm"+index[1]).value = ""; //reset name
@@ -657,17 +662,17 @@
        document.getElementById("id_team_comp").innerHTML = JSON.stringify(team_dict);
        //recommend pokemon
        recommend();
- 
+
    }
- 
+
    var recommend_list = [];
- 
+
    /* Recommendation */
- 
+
    function recommend(){
        var i;
        var cur_team = [];
- 
+
        // Check if user team is full
        for(i = 1; i < 7; i++){
            var key = 'p'+i;
@@ -715,28 +720,28 @@
            // Sort the array based on the second element
            recommend_list.sort(function(first, second) {
                return second[1] - first[1];
-           });    
+           });
        }
        update_recommend();
    }
- 
+
    /*OTTO COMPLETE =============================================================*/
- 
+
    function ottocomplete(inp, arr) {
     /* text field input element and an array of possible pokemon*/
      var currentFocus;
- 
+
      inp.addEventListener("input", function(e) {
          var a, b, i, val = this.value;
          closeAllLists();
          if (!val) { return false;}
          currentFocus = -1;
- 
+
          a = document.createElement("DIV");
          a.setAttribute("id", this.id + "autocomplete-list");
          a.setAttribute("class", "autocomplete-items");
          this.parentNode.appendChild(a);
- 
+
          for (i = 0; i < arr.length; i++) {
            if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
              b = document.createElement("DIV");
@@ -753,7 +758,7 @@
            }
          }
      });
- 
+
      inp.addEventListener("keydown", function(e) {
          var x = document.getElementById(this.id + "autocomplete-list");
          if (x) x = x.getElementsByTagName("div");
@@ -772,7 +777,7 @@
            }
          }
      });
- 
+
      function addActive(x) {
        if (!x) return false;
        removeActive(x);
@@ -780,13 +785,13 @@
        if (currentFocus < 0) currentFocus = (x.length - 1);
        x[currentFocus].classList.add("autocomplete-active");
      }
- 
+
      function removeActive(x) {
        for (var i = 0; i < x.length; i++) {
          x[i].classList.remove("autocomplete-active");
        }
      }
- 
+
      function closeAllLists(elmnt) {
        var x = document.getElementsByClassName("autocomplete-items");
        for (var i = 0; i < x.length; i++) {
@@ -799,10 +804,10 @@
          closeAllLists(e.target);
      });
    }
- 
- 
+
+
    /* RECOMMENDATION BAR ====================================================*/
- 
+
    function add_recommend_pokemon(id)
    {
        pokename = document.getElementById("sp"+id).innerText.toLowerCase();
@@ -854,7 +859,5 @@
        }
    }
    </script>
- 
-{% endblock extra_js %}
- 
 
+{% endblock extra_js %}

@@ -55,25 +55,25 @@
                         {% endfor %}
                     </tr>
                     <tr>
-                        <td>Move1</td>
+                        <td style="font-family:Verdana;">Move1</td>
                         {% for key,value in row.team_comp.items %}
                             <td style="font-family:Trebuchet MS;">{{value.move.0|format_text}}</td>
                         {% endfor %}
                     </tr>
                     <tr>
-                        <td>Move2</td>
+                        <td style="font-family:Verdana;">Move2</td>
                         {% for key,value in row.team_comp.items %}
                             <td style="font-family:Trebuchet MS;">{{value.move.1|format_text}}</td>
                         {% endfor %}
                     </tr>
                     <tr>
-                        <td>Move3</td>
+                        <td style="font-family:Verdana;">Move3</td>
                         {% for key,value in row.team_comp.items %}
                             <td style="font-family:Trebuchet MS;">{{value.move.2|format_text}}</td>
                         {% endfor %}
                     </tr>
                     <tr>
-                        <td>Move4</td>
+                        <td style="font-family:Verdana;">Move4</td>
                         {% for key,value in row.team_comp.items %}
                             <td style="font-family:Trebuchet MS;">{{value.move.3|format_text}}</td>
                         {% endfor %}
@@ -98,12 +98,12 @@
                         <td colspan="5"></td>
                         <td>
                             <form action="{% url 'team-update' pk=row.id %}">
-                                <input type="submit" value="update">
+                                <input type="submit" style="text-transform:capitalize;font-family:Verdana;" value="update">
                             </form>
                         </td>
                         <td>
                             <form action="{% url 'team-delete' pk=row.id %}">
-                                <input type="submit" value="delete">
+                                <input type="submit"  style="text-transform:capitalize;font-family:Verdana;" value="delete">
                             </form>
                         </td>
                     </tr>

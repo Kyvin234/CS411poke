@@ -16,21 +16,21 @@
       <table class="table table-striped mb-0" id="myTable">
           <thead>
               <tr class = "header">
-                  <th scope="col" style = "font-family:Verdana">Move ID</th>
-                  <th scope="col" style = "font-family:Verdana">Name</th>
-                  <th scope="col" style = "font-family:Verdana">Types</th>
-                  <th scope="col" style = "font-family:Verdana">damage class</th>
-                  <th scope="col" style = "font-family:Verdana">Generation</th>
+                  <th scope="col" class = "dex_header">Move ID</th>
+                  <th scope="col" class = "dex_header">Name</th>
+                  <th scope="col" class = "dex_header">Types</th>
+                  <th scope="col" class = "dex_header">damage class</th>
+                  <th scope="col" class = "dex_header">Generation</th>
               </tr>
           </thead>
           <tbody>
               {% for entry in move_entry%}
                 <tr>
-                    <td class = 'poke_font' style = "font-family: Trebuchet MS">{{entry.m_id}}</td>
-                    <td class = 'poke_font' style = "font-family: Trebuchet MS"><a href="{% url 'move-detail' entry.m_name %}">{{entry.m_name|format_text}}</a></td>
+                    <td class = 'poke_font'>{{entry.m_id}}</td>
+                    <td class = 'poke_font'><a href="{% url 'move-detail' entry.m_name %}">{{entry.m_name|format_text}}</a></td>
                     <td> <img src="../static/pokewiki/type-icon/{{entry.types}}.png" alt={{entry.types}} height=24px width=24px loading=lazy> </td>
-                    <td class = 'poke_font' style = "font-family: Trebuchet MS"> <img src="../static/pokewiki/move-icon/{{entry.dmg_class}}.png" alt={{entry.dmg_class}} loading=lazy> {{entry.dmg_class}}</td>
-                    <td class = 'poke_font' style = "font-family: Trebuchet MS">{{entry.gen}}</td>
+                    <td class = 'poke_font'> <img src="../static/pokewiki/move-icon/{{entry.dmg_class}}.png" alt={{entry.dmg_class}} loading=lazy> {{entry.dmg_class}}</td>
+                    <td class = 'gen_font'>{{entry.gen|to_roman}}</td>
                 </tr>
               {% endfor %}
           </tbody>

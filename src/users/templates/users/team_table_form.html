@@ -62,14 +62,14 @@
                Recommended Pokémon
            </div>
        <!-- LIST -->
-           <ul class = "sugList" style = "margin-bottom:0px; padding-left:0!important;">
+           <ul class = "sugList">
                {% for i in '123456'|make_list %}
                    <div class = "pokemon_entry" style="display:inline-block; margin-bottom:20px;" id = "rec1">
-                       <div id = "img{{ forloop.counter }}" class = "pokeimg" style="display:inline-block; width:50px; text-align:center">
+                       <div id = "img{{ forloop.counter }}" class = "pokeimg">
                        </div>
-                       <div class = "pokename" id = "sp{{ forloop.counter }}" style = "font-size:10px; font-family:Verdana; text-transform:capitalize; padding-left:10px; display:inline-block;">
+                       <div class = "pokename" id = "sp{{ forloop.counter }}">
                        </div>
-                       <div class = "pokename" style = "font-size:12px; font-family:Verdana; padding-left:10px; display:inline-block;">
+                       <div class = "pokename">
                            <span class = "btn btn-outline-secondary" type="button" onclick="add_recommend_pokemon({{ forloop.counter }})">Add</span>
                        </div>
                    </div>
@@ -96,7 +96,7 @@
                        </div>
                        <!-- pokemon moves -->
                        <div class="input-group mb-3">
-                           <select class="selectpicker" multiple data-live-search="true" id="ms{{ forloop.counter }}" title="Choose Four Moves..." data-width="256px" data-max-options="4" data-container='#{{ forloop.counter }}'  style = "font-family:Verdana; text-transform:capitalize;" virtualScroll="50">
+                           <select class="selectpicker" multiple data-live-search="true" id="ms{{ forloop.counter }}" title="Choose Four Moves..." data-width="256px" data-max-options="4" data-container='#{{ forloop.counter }}'  virtualScroll="50">
                            </select>
                        </div>
                        <!-- pokemon ability & Nature -->
@@ -178,7 +178,6 @@
                poke_dict[poke_detail.pokemon] = poke_detail;
            {%endfor%}
        {%endfor%}
-        console.log(poke_dict);
        // Set up data fields
        series.dataFields.value = "value";
        series.dataFields.name = "name";
@@ -208,15 +207,6 @@
        icon.verticalCenter = "middle";
        icon.width = 40;
        icon.height = 40;
-       // chart.zoomable = true;
-       // series.nodes.template.events.on("hit", function(event) {
-       //     if (event.target.isActive) {
-       //     chart.zoomToDataItem(event.target.dataItem, 3, true)
-       //     }
-       //     else {
-       //     chart.zoomOut();
-       //     }
-       // });
    </script>
    <!-- User Interface in javascript -->
    <script>

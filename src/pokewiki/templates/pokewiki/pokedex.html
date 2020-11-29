@@ -62,20 +62,20 @@
       <table class="table table-striped mb-0" id="myTable" cellspacing="0" width="100%">
         <thead>
             <tr class = "header">
-                <th scope="col" style = "font-family:Verdana">Dex #</th>
-                <th scope="col" style = "font-family:Verdana">Icon</th>
-                <th scope="col" style = "font-family:Verdana">Name</th>
-                <th scope="col" style = "font-family:Verdana">Types</th>
-                <th scope="col" style = "font-family:Verdana">Generation</th>
+                <th scope="col" class = "dex_header">Dex #</th>
+                <th scope="col" class = "dex_header">Icon</th>
+                <th scope="col" class = "dex_header">Name</th>
+                <th scope="col" class = "dex_header">Types</th>
+                <th scope="col" class = "dex_header">Generation</th>
             </tr>
         </thead>
         <tbody>
             {% for entry in poke_entry %}
             <tr>
-                <td style = "font-family:Trebuchet MS">{{entry.dex_id}}</td>
+                <td class='poke_font'>{{entry.dex_id}}</td>
                 <td><img src="../static/pokewiki/pokemon-icon/{{entry.f_name}}.png" loading=lazy></td>
                 <td class = 'poke_font'>
-                  <a href="{% url 'pokemon-detail' entry.s_name %}" style = "font-family:Trebuchet MS">{{entry.f_name|format_text}}</a>
+                  <a href="{% url 'pokemon-detail' entry.s_name %}" class='poke_font'>{{entry.f_name|format_text}}</a>
                   {% if 'mega' in entry.f_name %}
                     <img src="../static/pokewiki/icons/megastone.png"　height=24px width=24px>
                   {% elif 'alola' in entry.f_name and "cap" not in entry.f_name%}
@@ -90,7 +90,7 @@
                     <img src="../static/pokewiki/type-icon/{{entry.type2}}.png" alt={{entry.type2}} height=24px width=24px loading=lazy>
                   {% endif %}
                 </td>
-                <td style = "font-family:Trebuchet MS">{{entry.gen}}</td>
+                <td class = 'gen_font'>{{entry.gen|to_roman}}</td>
                 <!-- <td class = "poke_font" colspan="2"> {{entry.hp}}  {{entry.atk}}  {{entry.spatk}}  {{entry.df}}  {{entry.spdf}}  {{entry.spd}}</td> -->
             </tr>
             {% endfor %}

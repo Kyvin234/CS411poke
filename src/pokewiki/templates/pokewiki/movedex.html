@@ -26,11 +26,11 @@
           <tbody>
               {% for entry in move_entry%}
                 <tr>
-                    <td class = 'poke_font'>{{entry.m_id}}</td>
-                    <td class = 'poke_font'><a href="{% url 'move-detail' entry.m_name %}">{{entry.m_name|format_text}}</a></td>
+                    <td class = 'poke_font'  style="font-family:Trebuchet MS">{{entry.m_id}}</td>
+                    <td class = 'poke_font'  style="font-family:Trebuchet MS"><a href="{% url 'move-detail' entry.m_name %}">{{entry.m_name|format_text}}</a></td>
                     <td> <img src="../static/pokewiki/type-icon/{{entry.types}}.png" alt={{entry.types}} height=24px width=24px loading=lazy> </td>
-                    <td class = 'poke_font'> <img src="../static/pokewiki/move-icon/{{entry.dmg_class}}.png" alt={{entry.dmg_class}} loading=lazy> {{entry.dmg_class}}</td>
-                    <td class = 'gen_font'>{{entry.gen|to_roman}}</td>
+                    <td class = 'poke_font'  style="font-family:Trebuchet MS; text-transform:capitalize;"> <img src="../static/pokewiki/move-icon/{{entry.dmg_class}}.png" alt={{entry.dmg_class}} loading=lazy> {{entry.dmg_class}}</td>
+                    <td class = 'gen_font'  style="font-family:Trebuchet MS">{{entry.gen|to_roman}}</td>
                 </tr>
               {% endfor %}
           </tbody>

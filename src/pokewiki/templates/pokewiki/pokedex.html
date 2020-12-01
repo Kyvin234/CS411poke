@@ -72,10 +72,10 @@
         <tbody>
             {% for entry in poke_entry %}
             <tr>
-                <td class='poke_font'>{{entry.dex_id}}</td>
+                <td class='poke_font' style="font-family:Trebuchet MS">{{entry.dex_id}}</td>
                 <td><img src="../static/pokewiki/pokemon-icon/{{entry.f_name}}.png" loading=lazy></td>
                 <td class = 'poke_font'>
-                  <a href="{% url 'pokemon-detail' entry.s_name %}" class='poke_font'>{{entry.f_name|format_text}}</a>
+                  <a href="{% url 'pokemon-detail' entry.s_name %}" class='poke_font'  style="font-family:Trebuchet MS">{{entry.f_name|format_text}}</a>
                   {% if 'mega' in entry.f_name %}
                     <img src="../static/pokewiki/icons/megastone.png"　height=24px width=24px>
                   {% elif 'alola' in entry.f_name and "cap" not in entry.f_name%}
@@ -90,7 +90,7 @@
                     <img src="../static/pokewiki/type-icon/{{entry.type2}}.png" alt={{entry.type2}} height=24px width=24px loading=lazy>
                   {% endif %}
                 </td>
-                <td class = 'gen_font'>{{entry.gen|to_roman}}</td>
+                <td class = 'gen_font'  style="font-family:Trebuchet MS">{{entry.gen|to_roman}}</td>
                 <!-- <td class = "poke_font" colspan="2"> {{entry.hp}}  {{entry.atk}}  {{entry.spatk}}  {{entry.df}}  {{entry.spdf}}  {{entry.spd}}</td> -->
             </tr>
             {% endfor %}

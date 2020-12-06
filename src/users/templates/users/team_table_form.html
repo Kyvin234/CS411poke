@@ -338,7 +338,7 @@
                    for(i = 0; i<k; i++)
                    {
                        optionText = data["move"][i]["m_name"];
-                       optionValue = data["move"][i]["m_name"];
+                       optionValue = data["move"][i]["m_name"]
                        $('#ms'+select).append(`<option value="${optionValue}"> ${optionText} </option>`);
                    }
                    $('#ms'+select).val(team_dict["p"+select]["move"]);
@@ -444,13 +444,6 @@
             team_dict["p6"]["move"] = temp;
             document.getElementById("id_team_comp").innerHTML = JSON.stringify(team_dict);
         });
-       // function select_mov(value, id)
-       // {
-       //     // for(let i = 0; i < v.length(); i++)
-       //     //     team_dict["p"+id]["move"].push(v[i]);
-       //     //generate json data for the team
-       //     document.getElementById("id_team_comp").innerHTML = JSON.stringify(team_dict);
-       // }
        function select_it(value, id)
        {
            team_dict["p"+id]["item"] = value;
